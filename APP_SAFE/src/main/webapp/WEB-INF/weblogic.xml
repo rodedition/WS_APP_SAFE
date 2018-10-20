@@ -9,7 +9,7 @@ http://xmlns.oracle.com/weblogic/weblogic-web-app
 http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
 
      <wls:weblogic-version>12.2.1</wls:weblogic-version>
-     <wls:context-root>APP_SAFE</wls:context-root>
+     <wls:context-root>app_safe</wls:context-root>
      
      <wls:container-descriptor>
          <wls:prefer-web-inf-classes>true</wls:prefer-web-inf-classes>
