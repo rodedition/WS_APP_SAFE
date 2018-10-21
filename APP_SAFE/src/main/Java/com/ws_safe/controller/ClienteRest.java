@@ -14,10 +14,13 @@ import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -60,5 +63,16 @@ public class ClienteRest {
             e.printStackTrace();
         }
         return jsonCliente;
+    }
+    
+    @RequestMapping(value="/deleteCliente/{id}",method=RequestMethod.DELETE,produces="application/json")
+    public ResponseEntity<Void> deleteCliente(@PathVariable("id") String id){
+        clienteServiceImpl.deleteCliente(new Long (id));
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    } 
+    
+    @RequestMapping(value="/getOneCliente/{id}", method=RequestMethod.GET,produces="application/json")
+    public @ResponseBody Cliente getOneCliente (@PathVariable("id") String id){
+        return clienteServiceImpl.getByIdCliente(new Long (id));
     }
 }

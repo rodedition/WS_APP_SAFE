@@ -15,5 +15,7 @@ import java.util.List;
 public interface ClienteDAO {
     public List<Cliente> getListCliente();
     public boolean addCliente(Cliente cliente);
+    public Cliente getByIdCliente (Long id);
+    public void deleteCliente (Long id);
     
 }

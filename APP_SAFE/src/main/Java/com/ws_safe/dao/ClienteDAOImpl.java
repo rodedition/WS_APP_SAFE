@@ -8,6 +8,7 @@ package com.ws_safe.dao;
 import com.ws_safe.entity.Cliente;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,6 +38,23 @@ public class ClienteDAOImpl implements ClienteDAO{
         flagsave=true;
         
         return flagsave;
+    }
+
+    public Cliente getByIdCliente(Long id) {
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Cliente as c WHERE c.idcliente=:id");
+        query.setParameter("id", id);
+        List queryList = query.list();
+        if (queryList.size()>0) {
+            return (Cliente)queryList.get(0);
+        }else{
+            return null;
+        }
+    }
+
+    public void deleteCliente(Long id) {
+        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Cliente as c WHERE c.idcliente=:id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
     
 }

@@ -37,5 +37,13 @@ public class ClienteServiceImpl implements ClienteService{
     public boolean addCliente(Cliente cliente) {
         return clienteDAOImpl.addCliente(cliente);
     }
+
+    public Cliente getByIdCliente(Long id) {
+        return clienteDAOImpl.getByIdCliente(id);
+    }
+
+    public void deleteCliente(Long id) {
+        clienteDAOImpl.deleteCliente(id);
+    }
     
 }
