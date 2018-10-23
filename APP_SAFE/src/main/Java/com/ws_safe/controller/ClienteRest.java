@@ -75,4 +75,17 @@ public class ClienteRest {
     public @ResponseBody Cliente getOneCliente (@PathVariable("id") String id){
         return clienteServiceImpl.getByIdCliente(new Long (id));
     }
+    
+    @RequestMapping(value="/updateCliente",method=RequestMethod.PUT,produces="application/json")
+    public String updateCliente(@RequestBody Cliente cliente){
+        String jsonCliente = "";
+        boolean getresponse = false;
+        try {
+            getresponse = clienteServiceImpl.updateCliente(cliente);
+            jsonCliente = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonCliente;
+    }
 }

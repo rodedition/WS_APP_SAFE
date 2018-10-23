@@ -17,4 +17,5 @@ public interface ClienteService {
     public boolean addCliente(Cliente cliente);
     public Cliente getByIdCliente (Long id);
     public void deleteCliente (Long id);
+    public boolean updateCliente (Cliente cliente);
 }

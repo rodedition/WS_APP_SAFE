@@ -45,5 +45,9 @@ public class ClienteServiceImpl implements ClienteService{
     public void deleteCliente(Long id) {
         clienteDAOImpl.deleteCliente(id);
     }
+
+    public boolean updateCliente(Cliente cliente) {
+        return clienteDAOImpl.updateCliente(cliente);
+    }
     
 }

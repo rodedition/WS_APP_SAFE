@@ -56,5 +56,15 @@ public class ClienteDAOImpl implements ClienteDAO{
         query.setParameter("id", id);
         query.executeUpdate();
     }
+
+    public boolean updateCliente(Cliente cliente) {
+        boolean flagsave = false;
+        sessionFactory.getCurrentSession().update(cliente);
+        flagsave=true;
+        
+        return flagsave;
+    }
+
+   
     
 }
