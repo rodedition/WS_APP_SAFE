@@ -8,6 +8,7 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Cliente;
 import com.ws_safe.service.ClienteService;
+import com.ws_safe.service.ClienteServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -88,4 +89,25 @@ public class ClienteRest {
         }
         return jsonCliente;
     }
+
+    /*
+    @RequestMapping(value="/getOneClienteSP/{id}/{rut}", method=RequestMethod.GET,produces="application/json")
+    public @ResponseBody Cliente getOneClienteSP (@PathVariable("id") Long id, @PathVariable("rut") String rut){
+        return clienteServiceImpl.cliente_consultar(new Long (id), new String (rut));
+    }
+    
+    @Autowired
+    private ClienteServiceImpl daoService;
+    
+    
+    @RequestMapping(value="/getOneClienteSP/{rut}", method=RequestMethod.GET,produces="application/json")
+    public @ResponseBody List<Cliente> getOneClienteSP(@PathVariable("rut") String rut){
+        return clienteServiceImpl.cliente_consultar(rut);
+    }
+    
+    
+    @RequestMapping(value="/getOneClienteSP/{id}/{rut}", method=RequestMethod.GET,produces="application/json")
+    public @ResponseBody Cliente getOneClienteSP (@PathVariable("id") Long id, @PathVariable("rut") String rut){
+        return clienteServiceImpl.cliente_consultar(new Long (id), new String (rut));
+    }*/
 }

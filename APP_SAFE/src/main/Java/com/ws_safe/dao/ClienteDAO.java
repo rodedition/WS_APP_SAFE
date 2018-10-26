@@ -19,4 +19,9 @@ public interface ClienteDAO {
     public void deleteCliente (Long id);
     public boolean updateCliente (Cliente cliente);
     
+    /*
+    public Cliente cap_consultar(Long id);
+    public Cliente cliente_consultar(Long id, String rut);    
+    public List<Cliente> cliente_consultar(String rut);*/
+    
 }

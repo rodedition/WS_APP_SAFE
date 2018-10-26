@@ -49,5 +49,17 @@ public class ClienteServiceImpl implements ClienteService{
     public boolean updateCliente(Cliente cliente) {
         return clienteDAOImpl.updateCliente(cliente);
     }
+
+    /*public Cliente cap_consultar(Long id) {
+        return clienteDAOImpl.getByIdCliente(id);
+    }
+
+    public Cliente cliente_consultar(Long id, String rut) {
+        return clienteDAOImpl.cliente_consultar(id, rut);
+    }
+        
+    public List<Cliente> cliente_consultar(String rut){
+        return clienteDAOImpl.cliente_consultar(rut);
+    }*/
     
 }
