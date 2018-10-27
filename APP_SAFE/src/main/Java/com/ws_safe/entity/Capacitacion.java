@@ -19,10 +19,10 @@ public class Capacitacion implements Serializable{
     private long idcap;
     
     @Column(name="NOMBRE_CAPACITACION")
-    private String nombre_capacitacion;
+    private String nombrecapacitacion;
     
-    @Column(name="NOMBRE_CAPACITACION")
-    private long nombrecapacitacion;
+    @Column(name="ESTADO_CAPACITACION")
+    private long estadocapacitacion;
     
     @Column(name="PLAN_CAP_ID_PLAN_CAP")
     private long plancapidplancap;
@@ -38,20 +38,20 @@ public class Capacitacion implements Serializable{
         this.idcap = idcap;
     }
 
-    public String getNombre_capacitacion() {
-        return nombre_capacitacion;
-    }
-
-    public void setNombre_capacitacion(String nombre_capacitacion) {
-        this.nombre_capacitacion = nombre_capacitacion;
-    }
-
-    public long getNombrecapacitacion() {
+    public String getNombrecapacitacion() {
         return nombrecapacitacion;
     }
 
-    public void setNombrecapacitacion(long nombrecapacitacion) {
+    public void setNombrecapacitacion(String nombrecapacitacion) {
         this.nombrecapacitacion = nombrecapacitacion;
+    }
+
+    public long getEstadocapacitacion() {
+        return estadocapacitacion;
+    }
+
+    public void setEstadocapacitacion(long estadocapacitacion) {
+        this.estadocapacitacion = estadocapacitacion;
     }
 
     public long getPlancapidplancap() {
@@ -72,8 +72,9 @@ public class Capacitacion implements Serializable{
 
     @Override
     public String toString() {
-        return "Capacitacion{" + "idcap=" + idcap + ", nombre_capacitacion=" + nombre_capacitacion + ", nombrecapacitacion=" + nombrecapacitacion + ", plancapidplancap=" + plancapidplancap + ", tipocapidtipocap=" + tipocapidtipocap + '}';
+        return "Capacitacion{" + "idcap=" + idcap + ", nombrecapacitacion=" + nombrecapacitacion + ", estadocapacitacion=" + estadocapacitacion + ", plancapidplancap=" + plancapidplancap + ", tipocapidtipocap=" + tipocapidtipocap + '}';
     }
+
     
            
 }
