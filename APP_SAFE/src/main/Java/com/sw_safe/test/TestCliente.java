@@ -31,9 +31,9 @@ public class TestCliente {
     public void testWSRest(){
         try {
             
-            final String endPoint = "http://localhost:7101/ClienteRest/Proxys/PipelineRestCliente-proxy";
+            final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetCliente = restTemplate.getForObject(endPoint+"/cliente/wssoa", String.class);
+            String resultGetCliente = restTemplate.getForObject(endPoint+"/cliente/sw", String.class);
             Gson gson = new Gson();
             
             Cliente[] data = gson.fromJson(resultGetCliente, Cliente[].class);
@@ -45,8 +45,8 @@ public class TestCliente {
             //Agregar cliente
             
             Cliente cliente = new Cliente();
-            cliente.setIdcliente(30);
-            cliente.setRazonsocial("Alercex");
+            cliente.setIdcliente(1);
+            cliente.setRazonsocial("Omar");
             cliente.setRutcliente("99.999.999-9");
             cliente.setGirocliente("Mineria");
             cliente.setDireccioncliente("Las Condes 1111");
@@ -67,7 +67,7 @@ public class TestCliente {
             
             if(clienteResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddCliente = clienteResponse.getBody();
-                logger.info("1 : se agrego cliente, 0 resultado con error"+ resultadoAddCliente);
+                logger.info("1 : se agrego cliente, 0 : resultado con error = "+ resultadoAddCliente);
             }
             
         } catch (Exception e) {

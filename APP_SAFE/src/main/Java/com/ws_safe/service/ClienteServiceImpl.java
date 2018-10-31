@@ -52,12 +52,12 @@ public class ClienteServiceImpl implements ClienteService{
 
     /*public Cliente cap_consultar(Long id) {
         return clienteDAOImpl.getByIdCliente(id);
-    }
+    }*/
 
-    public Cliente cliente_consultar(Long id, String rut) {
-        return clienteDAOImpl.cliente_consultar(id, rut);
-    }
-        
+    /*public void getOneClienteSP(Long id) {
+        clienteDAOImpl.getOneClienteSP(id);
+    }*/
+    /*    
     public List<Cliente> cliente_consultar(String rut){
         return clienteDAOImpl.cliente_consultar(rut);
     }*/

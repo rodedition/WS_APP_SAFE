@@ -43,13 +43,13 @@ public class Sesion_Salud implements Serializable{
     private String descripcionsesionsalud;
     
     @Column(name="MEDICO_ID_MEDICO")
-    private Long medicoidmedico;
+    private long medicoidmedico;
     
     @Column(name="EXAMENES_ID_EXAMEN")
-    private Long examenesidexamenes;
+    private long examenesidexamenes;
     
     @Column(name="ESTADO")
-    private Long estadosesionsalud;
+    private long estadosesionsalud;
 
     public long getIdsesionsalud() {
         return idsesionsalud;
@@ -115,27 +115,27 @@ public class Sesion_Salud implements Serializable{
         this.descripcionsesionsalud = descripcionsesionsalud;
     }
 
-    public Long getMedicoidmedico() {
+    public long getMedicoidmedico() {
         return medicoidmedico;
     }
 
-    public void setMedicoidmedico(Long medicoidmedico) {
+    public void setMedicoidmedico(long medicoidmedico) {
         this.medicoidmedico = medicoidmedico;
     }
 
-    public Long getExamenesidexamenes() {
+    public long getExamenesidexamenes() {
         return examenesidexamenes;
     }
 
-    public void setExamenesidexamenes(Long examenesidexamenes) {
+    public void setExamenesidexamenes(long examenesidexamenes) {
         this.examenesidexamenes = examenesidexamenes;
     }
 
-    public Long getEstadosesionsalud() {
+    public long getEstadosesionsalud() {
         return estadosesionsalud;
     }
 
-    public void setEstadosesionsalud(Long estadosesionsalud) {
+    public void setEstadosesionsalud(long estadosesionsalud) {
         this.estadosesionsalud = estadosesionsalud;
     }
 
@@ -143,6 +143,8 @@ public class Sesion_Salud implements Serializable{
     public String toString() {
         return "Sesion_Salud{" + "idsesionsalud=" + idsesionsalud + ", numsesionsalud=" + numsesionsalud + ", nombresesionsalud=" + nombresesionsalud + ", cupossesion=" + cupossesion + ", fechasesion=" + fechasesion + ", horainiciosalud=" + horainiciosalud + ", horaterminosalud=" + horaterminosalud + ", descripcionsesionsalud=" + descripcionsesionsalud + ", medicoidmedico=" + medicoidmedico + ", examenesidexamenes=" + examenesidexamenes + ", estadosesionsalud=" + estadosesionsalud + '}';
     }
+
+    
     
     
 }

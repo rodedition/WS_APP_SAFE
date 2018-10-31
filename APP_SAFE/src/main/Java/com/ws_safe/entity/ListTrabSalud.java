@@ -28,7 +28,7 @@ public class ListTrabSalud implements Serializable{
     private long usuarioidusuario;
     
     @Column(name="LISTASISSALUD_ID_LIST_SALUD")
-    private long lisasiscapidlistasalud;
+    private long lisasissaludidlistasalud;
     
     @Column(name="CERTIFICADO_ID_CERTIFICADO")
     private long certificadoidcertificado;
@@ -66,11 +66,11 @@ public class ListTrabSalud implements Serializable{
     }
 
     public long getLisasiscapidlistasalud() {
-        return lisasiscapidlistasalud;
+        return lisasissaludidlistasalud;
     }
 
     public void setLisasiscapidlistasalud(long lisasiscapidlistasalud) {
-        this.lisasiscapidlistasalud = lisasiscapidlistasalud;
+        this.lisasissaludidlistasalud = lisasiscapidlistasalud;
     }
 
     public long getCertificadoidcertificado() {
@@ -83,7 +83,7 @@ public class ListTrabSalud implements Serializable{
 
     @Override
     public String toString() {
-        return "ListTrabSalud{" + "idlistrabsalud=" + idlistrabsalud + ", presenteSalud=" + presenteSalud + ", estadoSalud=" + estadoSalud + ", usuarioidusuario=" + usuarioidusuario + ", lisasiscapidlistasalud=" + lisasiscapidlistasalud + ", certificadoidcertificado=" + certificadoidcertificado + '}';
+        return "ListTrabSalud{" + "idlistrabsalud=" + idlistrabsalud + ", presenteSalud=" + presenteSalud + ", estadoSalud=" + estadoSalud + ", usuarioidusuario=" + usuarioidusuario + ", lisasissaludidlistasalud=" + lisasissaludidlistasalud + ", certificadoidcertificado=" + certificadoidcertificado + '}';
     }
 
        

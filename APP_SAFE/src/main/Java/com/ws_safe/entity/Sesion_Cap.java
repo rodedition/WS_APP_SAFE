@@ -43,13 +43,13 @@ public class Sesion_Cap implements Serializable{
     private String descripcionsesion;
     
     @Column(name="ESTADO")
-    private Long estadosesioncap;
+    private long estadosesioncap;
     
     @Column(name="CAPACITACION_ID_CAP")
-    private Long capacitacionidcap;
+    private long capacitacionidcap;
     
     @Column(name="EXPOSITOR_ID_EXPOSITOR")
-    private Long expositoridexpositor;
+    private long expositoridexpositor;
 
     public long getIdsesioncap() {
         return idsesioncap;
@@ -115,27 +115,27 @@ public class Sesion_Cap implements Serializable{
         this.descripcionsesion = descripcionsesion;
     }
 
-    public Long getEstadosesioncap() {
+    public long getEstadosesioncap() {
         return estadosesioncap;
     }
 
-    public void setEstadosesioncap(Long estadosesioncap) {
+    public void setEstadosesioncap(long estadosesioncap) {
         this.estadosesioncap = estadosesioncap;
     }
 
-    public Long getCapacitacionidcap() {
+    public long getCapacitacionidcap() {
         return capacitacionidcap;
     }
 
-    public void setCapacitacionidcap(Long capacitacionidcap) {
+    public void setCapacitacionidcap(long capacitacionidcap) {
         this.capacitacionidcap = capacitacionidcap;
     }
 
-    public Long getExpositoridexpositor() {
+    public long getExpositoridexpositor() {
         return expositoridexpositor;
     }
 
-    public void setExpositoridexpositor(Long expositoridexpositor) {
+    public void setExpositoridexpositor(long expositoridexpositor) {
         this.expositoridexpositor = expositoridexpositor;
     }
 
@@ -143,6 +143,8 @@ public class Sesion_Cap implements Serializable{
     public String toString() {
         return "Sesion_Cap{" + "idsesioncap=" + idsesioncap + ", numsesioncap=" + numsesioncap + ", nombresesion=" + nombresesion + ", cupossesion=" + cupossesion + ", fechasesion=" + fechasesion + ", horainiciocap=" + horainiciocap + ", horaterminocap=" + horaterminocap + ", descripcionsesion=" + descripcionsesion + ", estadosesioncap=" + estadosesioncap + ", capacitacionidcap=" + capacitacionidcap + ", expositoridexpositor=" + expositoridexpositor + '}';
     }
+
+    
     
     
 

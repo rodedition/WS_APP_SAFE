@@ -89,6 +89,11 @@ public class ClienteRest {
         }
         return jsonCliente;
     }
+    
+    /*@RequestMapping(value="/readOneCliente/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody void readOneCliente (@PathVariable("id") Long id){
+        clienteServiceImpl.getOneClienteSP(new Long (id));
+    }*/
 
     /*
     @RequestMapping(value="/getOneClienteSP/{id}/{rut}", method=RequestMethod.GET,produces="application/json")

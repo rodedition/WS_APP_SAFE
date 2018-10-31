@@ -18,10 +18,10 @@ public interface ClienteDAO {
     public Cliente getByIdCliente (Long id);
     public void deleteCliente (Long id);
     public boolean updateCliente (Cliente cliente);
+    //public void getOneClienteSP(Long id);
     
-    /*
-    public Cliente cap_consultar(Long id);
-    public Cliente cliente_consultar(Long id, String rut);    
-    public List<Cliente> cliente_consultar(String rut);*/
+    //public Cliente cap_consultar(Long id);
+    //public Cliente cliente_consultar(Long id);    
+    //public List<Cliente> cliente_consultar(String rut);*/
     
 }

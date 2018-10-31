@@ -31,13 +31,13 @@ public class SoliEvalTer implements Serializable{
     private String descripcionvisita;
     
     @Column(name="CLIENTE_ID_CLIENTE")
-    private Long clienteidcliente;
+    private long clienteidcliente;
     
     @Column(name="TIPOVISITTER_ID_TIPO_VISTER")
-    private Long tipovisitteridtipovister;
+    private long tipovisitteridtipovister;
     
     @Column(name="ESTADO")
-    private Long estadosolievalter;
+    private long estadosolievalter;
 
     public long getIdsolicitud() {
         return idsolicitud;
@@ -71,35 +71,33 @@ public class SoliEvalTer implements Serializable{
         this.descripcionvisita = descripcionvisita;
     }
 
-    public Long getClienteidcliente() {
+    public long getClienteidcliente() {
         return clienteidcliente;
     }
 
-    public void setClienteidcliente(Long clienteidcliente) {
+    public void setClienteidcliente(long clienteidcliente) {
         this.clienteidcliente = clienteidcliente;
     }
 
-    public Long getTipovisitteridtipovister() {
+    public long getTipovisitteridtipovister() {
         return tipovisitteridtipovister;
     }
 
-    public void setTipovisitteridtipovister(Long tipovisitteridtipovister) {
+    public void setTipovisitteridtipovister(long tipovisitteridtipovister) {
         this.tipovisitteridtipovister = tipovisitteridtipovister;
     }
 
-    public Long getEstadosolievalter() {
+    public long getEstadosolievalter() {
         return estadosolievalter;
     }
 
-    public void setEstadosolievalter(Long estadosolievalter) {
+    public void setEstadosolievalter(long estadosolievalter) {
         this.estadosolievalter = estadosolievalter;
     }
 
     @Override
     public String toString() {
         return "SoliEvalTer{" + "idsolicitud=" + idsolicitud + ", fechacreacion=" + fechacreacion + ", direccionvisita=" + direccionvisita + ", descripcionvisita=" + descripcionvisita + ", clienteidcliente=" + clienteidcliente + ", tipovisitteridtipovister=" + tipovisitteridtipovister + ", estadosolievalter=" + estadosolievalter + '}';
-    }
-    
-    
+    }    
     
 }

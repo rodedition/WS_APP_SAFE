@@ -65,6 +65,8 @@ public class CertificadoRest {
         return jsonCer;
     }
     
+    
+    
     @RequestMapping(value="/deleteCertificado/{id}",method=RequestMethod.DELETE,produces="application/json")
     public ResponseEntity<Void> deleteCertificado(@PathVariable("id") String id){
         certificadoServiceImpl.deleteCertificado(new Long (id));

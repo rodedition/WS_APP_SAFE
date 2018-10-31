@@ -11,22 +11,22 @@ import javax.persistence.*;
 /*@NamedNativeQueries({
     @NamedNativeQuery(
             name = "Cliente_Consultar",
-            query = "CALL ClientePKG.Cliente_Eliminar(:id_cliente, :rut_cliente)",
+            query = "CALL ClientePKG.Cliente_Consultar(:id_cli)",
             resultClass = Cliente.class
     )
 })*/
 
 @Entity
 @Table(name="CLIENTE",schema="SAFE")
-/*
+
 @NamedStoredProcedureQueries({
    @NamedStoredProcedureQuery(name = "Cliente_Consultar", 
                               procedureName = "ClientePKG.Cliente_Consultar",
-                              parameters = {*/
-                                 /*@StoredProcedureParameter(mode = ParameterMode.IN, name = "id_cliente", type = Long.class),*/
-                                 /*@StoredProcedureParameter(mode = ParameterMode.IN, name = "rut_cliente", type = String.class)
+                              parameters = {
+                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "id_cli", type = Long.class)
+                                 /*@StoredProcedureParameter(mode = ParameterMode.IN, name = "rut_cliente", type = String.class)*/
                               })
-})*/
+})
 
 /*
 @NamedStoredProcedureQuery( 

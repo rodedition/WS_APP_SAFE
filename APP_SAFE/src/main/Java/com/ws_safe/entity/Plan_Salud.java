@@ -25,10 +25,10 @@ public class Plan_Salud implements Serializable{
     private Date fechacreacion;
     
     @Column(name="ESTADO_PLAN_SALUD")
-    private Long estadoplansalud;
+    private long estadoplansalud;
     
     @Column(name="CLIENTE_ID_CLIENTE")
-    private Long clienteidcliente;
+    private long clienteidcliente;
 
     public long getIdplansalud() {
         return idplansalud;
@@ -46,19 +46,19 @@ public class Plan_Salud implements Serializable{
         this.fechacreacion = fechacreacion;
     }
 
-    public Long getEstadoplansalud() {
+    public long getEstadoplansalud() {
         return estadoplansalud;
     }
 
-    public void setEstadoplansalud(Long estadoplansalud) {
+    public void setEstadoplansalud(long estadoplansalud) {
         this.estadoplansalud = estadoplansalud;
     }
 
-    public Long getClienteidcliente() {
+    public long getClienteidcliente() {
         return clienteidcliente;
     }
 
-    public void setClienteidcliente(Long clienteidcliente) {
+    public void setClienteidcliente(long clienteidcliente) {
         this.clienteidcliente = clienteidcliente;
     }
 
@@ -66,4 +66,8 @@ public class Plan_Salud implements Serializable{
     public String toString() {
         return "Plan_Salud{" + "idplansalud=" + idplansalud + ", fechacreacion=" + fechacreacion + ", estadoplansalud=" + estadoplansalud + ", clienteidcliente=" + clienteidcliente + '}';
     }
+
+    
+
+    
 }
