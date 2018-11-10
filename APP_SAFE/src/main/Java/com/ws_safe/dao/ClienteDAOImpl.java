@@ -6,21 +6,27 @@
 package com.ws_safe.dao;
 
 import com.cedarsoftware.util.UrlUtilities;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import com.ws_safe.entity.Cliente;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import oracle.jdbc.OracleTypes;
 import oracle.jdbc.driver.DatabaseError;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.engine.jdbc.spi.JdbcConnectionAccess;
+import org.hibernate.jdbc.ReturningWork;
+import org.hibernate.jpa.internal.StoredProcedureQueryImpl;
 import org.hibernate.procedure.ProcedureCall;
 import org.hibernate.procedure.internal.ProcedureCallImpl;
 
@@ -31,6 +37,17 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Types;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.object.StoredProcedure;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author Rodrigo
@@ -38,13 +55,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("clienteDAO")
 @Transactional
 public class ClienteDAOImpl implements ClienteDAO{
+    
+    /*public static final String callCliente = "CLIENTEPKG.CLIENTE_CONSULTAR";
+    
+    @Autowired
+    public ClienteDAOImpl(DataSource ds){
+        super(ds, callCliente);
+        declareParameter(new SqlParameter("id_cli", Types.INTEGER));
+        declareParameter(new SqlOutParameter("clientes", OracleTypes.CURSOR, new RowMapper<Cliente>(){
+            @Override
+            public Cliente mapRow(ResultSet rs, int rowNumber) throws SQLException{
+                Cliente cli = new Cliente();
+                cli.setIdcliente(rs.getInt("id_cliente"));
+                cli.setRazonsocial(rs.getString("razon_social"));
+                
+                return cli;
+            }
+        }));
+        compile();
+    }*/
+    
+    
     Logger logger = Logger.getLogger(ClienteDAOImpl.class);
     
     @Autowired
     private SessionFactory sessionFactory;
     
     
-    //private EntityManager em;
+    
     
     @Override
     public List<Cliente> getListCliente() {
@@ -85,6 +123,12 @@ public class ClienteDAOImpl implements ClienteDAO{
         return flagsave;
     }
     
+    public void eliminarCliente(Long id, Long estado) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_ELIMINAR(:id_cli, :est_cli)").addEntity(Cliente.class).
+        setParameter("id_cli", id).setParameter("est_cli", estado);        
+        query.executeUpdate();
+    }
+    
     
     
 	/*public void getOneClienteSP(Long id) {
@@ -119,6 +163,88 @@ public class ClienteDAOImpl implements ClienteDAO{
                 return null;
             }*/
 	/*}*/
+
+    public List<Cliente>cap_consultar(Long id) {
+        
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Cliente>>() {
+            @Override
+            public List<Cliente> execute(Connection connection) throws SQLException {
+                String query = "{CALL CLIENTEPKG.Cliente_Consultar(?, ?)}";
+                CallableStatement callableStatement = connection.prepareCall(query);
+                callableStatement.setLong(1, id);
+                callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
+                callableStatement.executeUpdate();
+                ResultSet rs = (ResultSet) callableStatement.getObject(2);
+                List<Cliente> clients;
+                clients = new ArrayList<Cliente>();
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setRazonsocial(rs.getString("RAZON_SOCIAL"));
+                    clients.add(cliente);
+                }
+                return clients;
+            }
+        });
+    }   
+    
+    
+    
+    
+    
+    
+    
+        
+        /*List<Cliente> clientes = new ArrayList<Cliente>();
+        Map<String, Object>result;
+        Map<String, Object> params = new HashMap<String, Object>();
+        
+        params.put("id_cli", id);
+        result = execute(params);
+        
+        clientes = (List<Cliente>) result.get("clientes");
+        
+        return clientes;*/
+        
+        
+        
+        /*Query query =  sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_CONSULTAR(:id_cli)").addEntity(Cliente.class)
+                .setParameter("id_cli", id);
+        
+        List result = query.list();
+           
+       
+        return (List<Cliente>)(Cliente)result.get(0);*/
+        
+        
+        /*Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_CONSULTAR(:id_cli)").addEntity(Cliente.class).
+        setParameter("id_cli", id);*/
+        //System.out.println("listasize["+query.list().size()+"]");
+        
+        
+        
+        
+        
+        /*Session session = sessionFactory.getCurrentSession();
+        List<Cliente> clientes = session.doReturningWork(new ReturningWork<List<Cliente>>() {
+			@Override
+			public List<Cliente> execute(Connection connection) throws SQLException {
+				String query = "{CALL CLIENTEPKG.CLIENTE_CONSULTAR(?, ?)}";
+                                CallableStatement callableStatement = connection.prepareCall(query);
+                                callableStatement.setLong(1, 1);
+                                callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
+                                callableStatement.executeUpdate();
+                                ResultSet rs = (ResultSet) callableStatement.getObject(1);
+                                List<Cliente> list = new ArrayList<Cliente>();
+  		                while (rs.next()) {
+  		        	   list.add
+			        }
+                                return list;
+			}
+		});*/
+    
+
+    
 }
     /*public Cliente cliente_consultar(Long id) {
     

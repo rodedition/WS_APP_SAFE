@@ -73,7 +73,7 @@ public class ClienteRest {
     } 
     
     @RequestMapping(value="/getOneCliente/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Cliente getOneCliente (@PathVariable("id") String id){
+    public @ResponseBody Cliente getOneCliente (@PathVariable("id") Long id){
         return clienteServiceImpl.getByIdCliente(new Long (id));
     }
     
@@ -90,11 +90,16 @@ public class ClienteRest {
         return jsonCliente;
     }
     
-    /*@RequestMapping(value="/readOneCliente/{id}", method = RequestMethod.GET,produces = "application/json")
-    public @ResponseBody void readOneCliente (@PathVariable("id") Long id){
-        clienteServiceImpl.getOneClienteSP(new Long (id));
-    }*/
+    @RequestMapping(value="/readOneCliente/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Cliente> readOneCliente (@PathVariable("id") String id){
+        return clienteServiceImpl.cap_consultar(new Long (id));
+    }
 
+    @RequestMapping(value="/eliminarCliente/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> eliminarCliente(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        clienteServiceImpl.eliminarCliente(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    } 
     /*
     @RequestMapping(value="/getOneClienteSP/{id}/{rut}", method=RequestMethod.GET,produces="application/json")
     public @ResponseBody Cliente getOneClienteSP (@PathVariable("id") Long id, @PathVariable("rut") String rut){

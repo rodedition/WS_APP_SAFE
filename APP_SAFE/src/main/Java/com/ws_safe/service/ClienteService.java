@@ -21,7 +21,8 @@ public interface ClienteService {
     //public void getOneClienteSP(Long id);
     
     
-    //public Cliente cap_consultar(Long id);
+    public List<Cliente> cap_consultar(Long id);
     //public Cliente cliente_consultar(Long id);
     //public List<Cliente> cliente_consultar(String rut);*/
+    public void eliminarCliente(Long id, Long estado);
 }

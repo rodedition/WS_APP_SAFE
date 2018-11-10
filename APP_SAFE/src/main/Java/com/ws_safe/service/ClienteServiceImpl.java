@@ -61,5 +61,13 @@ public class ClienteServiceImpl implements ClienteService{
     public List<Cliente> cliente_consultar(String rut){
         return clienteDAOImpl.cliente_consultar(rut);
     }*/
+
+    public List<Cliente> cap_consultar(Long id) {
+        return clienteDAOImpl.cap_consultar(id);
+    }
+
+    public void eliminarCliente(Long id, Long estado) {
+        clienteDAOImpl.eliminarCliente(id, estado);
+    }
     
 }

@@ -8,36 +8,38 @@ import javax.persistence.*;
  *
  * @author Rodrigo
  */
-/*@NamedNativeQueries({
-    @NamedNativeQuery(
-            name = "Cliente_Consultar",
-            query = "CALL ClientePKG.Cliente_Consultar(:id_cli)",
-            resultClass = Cliente.class
-    )
-})*/
+
 
 @Entity
 @Table(name="CLIENTE",schema="SAFE")
 
-@NamedStoredProcedureQueries({
+/*@NamedNativeQueries({
+    @NamedNativeQuery(
+            name = "c",
+            query = "CALL CLIENTEPKG.CLIENTE_CONSULTAR(:id_cli)",
+            resultClass = Cliente.class
+    )
+})*/
+
+/*@NamedStoredProcedureQueries({
    @NamedStoredProcedureQuery(name = "Cliente_Consultar", 
                               procedureName = "ClientePKG.Cliente_Consultar",
                               parameters = {
-                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "id_cli", type = Long.class)
-                                 /*@StoredProcedureParameter(mode = ParameterMode.IN, name = "rut_cliente", type = String.class)*/
+                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "id_cli", type = Long.class),
+                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "rut_cliente", type = String.class)
                               })
-})
+})*/
 
-/*
-@NamedStoredProcedureQuery( 
+
+/*@NamedStoredProcedureQuery( 
                             name = "Cliente_Consultar",
                             procedureName = "ClientePKG.Cliente_Consultar",
                             resultClasses ={Cliente.class},
                             parameters = {
-                                    @StoredProcedureParameter(name = "id", type = Long.class, mode = ParameterMode.IN),
-                                    @StoredProcedureParameter(name = "rut", type = String.class, mode = ParameterMode.IN)
+                                    @StoredProcedureParameter(name = "id", type = Long.class, mode = ParameterMode.IN)
 
-*/
+                            })*/
+       
 
 
 
