@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Cliente;
 import com.ws_safe.service.ClienteService;
-import com.ws_safe.service.ClienteServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -28,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Rodrigo
  */
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteRest {
@@ -36,6 +36,7 @@ public class ClienteRest {
     @Qualifier("clienteService")
     ClienteService clienteServiceImpl;
     
+    //Creación de URIS para llamadas a base de dtos de directa
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getClienteJSON(@PathVariable String name){
         Gson gson = new Gson();
@@ -52,7 +53,6 @@ public class ClienteRest {
         return jsonCliente;
     }
     
-    //agregar cliente
     @RequestMapping(value="/createCliente",method=RequestMethod.POST,produces="application/json")
     public String saveCliente(@RequestBody Cliente cliente){
         String jsonCliente = "";
@@ -90,34 +90,35 @@ public class ClienteRest {
         return jsonCliente;
     }
     
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createClienteSP",method=RequestMethod.POST,produces="application/json")
+    public String saveClienteSP(@RequestBody Cliente cliente){
+        String jsonCliente = "";
+        boolean getresponse = false;
+        try {
+            getresponse = clienteServiceImpl.addClienteSP(cliente);
+            jsonCliente = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonCliente;
+    }
+    
     @RequestMapping(value="/readOneCliente/{id}", method = RequestMethod.GET,produces = "application/json")
     public @ResponseBody List<Cliente> readOneCliente (@PathVariable("id") String id){
-        return clienteServiceImpl.cap_consultar(new Long (id));
+        return clienteServiceImpl.getByIdClienteSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllCliente/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Cliente> getAllClienteSP (){
+        return clienteServiceImpl.getAllClienteSP();
     }
 
-    @RequestMapping(value="/eliminarCliente/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
-    public ResponseEntity<Void> eliminarCliente(@PathVariable("id") String id, @PathVariable("estado") String estado){
-        clienteServiceImpl.eliminarCliente(new Long (id), new Long (estado));
+    @RequestMapping(value="/deleteCliente/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteClienteSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        clienteServiceImpl.deleteClienteSP(new Long (id), new Long (estado));
         return new ResponseEntity<Void>(HttpStatus.OK);
     } 
-    /*
-    @RequestMapping(value="/getOneClienteSP/{id}/{rut}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Cliente getOneClienteSP (@PathVariable("id") Long id, @PathVariable("rut") String rut){
-        return clienteServiceImpl.cliente_consultar(new Long (id), new String (rut));
-    }
     
-    @Autowired
-    private ClienteServiceImpl daoService;
-    
-    
-    @RequestMapping(value="/getOneClienteSP/{rut}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody List<Cliente> getOneClienteSP(@PathVariable("rut") String rut){
-        return clienteServiceImpl.cliente_consultar(rut);
-    }
-    
-    
-    @RequestMapping(value="/getOneClienteSP/{id}/{rut}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Cliente getOneClienteSP (@PathVariable("id") Long id, @PathVariable("rut") String rut){
-        return clienteServiceImpl.cliente_consultar(new Long (id), new String (rut));
-    }*/
 }

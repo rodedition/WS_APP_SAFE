@@ -28,7 +28,8 @@ public class ClienteServiceImpl implements ClienteService{
     
     ClienteDAO clienteDAOImpl;
 
-   
+   //Servicios para llamadas a base de datos directa
+    
     public List<Cliente> getListCliente() {
         return clienteDAOImpl.getListCliente();
     }
@@ -50,24 +51,26 @@ public class ClienteServiceImpl implements ClienteService{
         return clienteDAOImpl.updateCliente(cliente);
     }
 
-    /*public Cliente cap_consultar(Long id) {
-        return clienteDAOImpl.getByIdCliente(id);
-    }*/
-
-    /*public void getOneClienteSP(Long id) {
-        clienteDAOImpl.getOneClienteSP(id);
-    }*/
-    /*    
-    public List<Cliente> cliente_consultar(String rut){
-        return clienteDAOImpl.cliente_consultar(rut);
-    }*/
-
-    public List<Cliente> cap_consultar(Long id) {
-        return clienteDAOImpl.cap_consultar(id);
+    //Servicios para llamadas a PROCEDURE
+    
+    @Override
+    public boolean addClienteSP(Cliente cliente) {
+        return clienteDAOImpl.addClienteSP(cliente);
+    }
+    
+    public List<Cliente> getByIdClienteSP(Long id) {
+        return clienteDAOImpl.getByIdClienteSP(id);
     }
 
-    public void eliminarCliente(Long id, Long estado) {
-        clienteDAOImpl.eliminarCliente(id, estado);
+    public void deleteClienteSP(Long id, Long estado) {
+        clienteDAOImpl.deleteClienteSP(id, estado);
     }
+
+    @Override
+    public List<Cliente> getAllClienteSP() {
+        return clienteDAOImpl.getAllClienteSP();
+    }
+
+    
     
 }

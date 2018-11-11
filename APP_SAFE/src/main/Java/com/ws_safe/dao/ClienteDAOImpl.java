@@ -5,48 +5,25 @@
  */
 package com.ws_safe.dao;
 
-import com.cedarsoftware.util.UrlUtilities;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import com.ws_safe.entity.Cliente;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import oracle.jdbc.OracleTypes;
-import oracle.jdbc.driver.DatabaseError;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.engine.jdbc.spi.JdbcConnectionAccess;
 import org.hibernate.jdbc.ReturningWork;
-import org.hibernate.jpa.internal.StoredProcedureQueryImpl;
-import org.hibernate.procedure.ProcedureCall;
-import org.hibernate.procedure.internal.ProcedureCallImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.PreparedStatementCallback;
-import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Types;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.sql.DataSource;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlOutParameter;
-import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.object.StoredProcedure;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -56,34 +33,12 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class ClienteDAOImpl implements ClienteDAO{
     
-    /*public static final String callCliente = "CLIENTEPKG.CLIENTE_CONSULTAR";
-    
-    @Autowired
-    public ClienteDAOImpl(DataSource ds){
-        super(ds, callCliente);
-        declareParameter(new SqlParameter("id_cli", Types.INTEGER));
-        declareParameter(new SqlOutParameter("clientes", OracleTypes.CURSOR, new RowMapper<Cliente>(){
-            @Override
-            public Cliente mapRow(ResultSet rs, int rowNumber) throws SQLException{
-                Cliente cli = new Cliente();
-                cli.setIdcliente(rs.getInt("id_cliente"));
-                cli.setRazonsocial(rs.getString("razon_social"));
-                
-                return cli;
-            }
-        }));
-        compile();
-    }*/
-    
-    
     Logger logger = Logger.getLogger(ClienteDAOImpl.class);
     
     @Autowired
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;   
     
-    
-    
-    
+    //Llamadas directas a base de datos
     @Override
     public List<Cliente> getListCliente() {
         return (List<Cliente>)sessionFactory.getCurrentSession().createCriteria(Cliente.class).list();
@@ -123,48 +78,31 @@ public class ClienteDAOImpl implements ClienteDAO{
         return flagsave;
     }
     
-    public void eliminarCliente(Long id, Long estado) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_ELIMINAR(:id_cli, :est_cli)").addEntity(Cliente.class).
-        setParameter("id_cli", id).setParameter("est_cli", estado);        
-        query.executeUpdate();
+    //Llamadas a procedures
+    
+    public boolean addClienteSP(Cliente cliente) {
+        boolean flagsave = false;
+        
+            Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.Cliente_Agregar(:id_cli, :raz_soc, :rut_cli, :giro_cli, :dir_cli, :tel_of, :nom_contacto, :fn_contacto, :correo_Contacto, :cargo, :obs, :est_cli)").addEntity(Cliente.class)
+            .setParameter("id_cli", cliente.getIdcliente())
+            .setParameter("raz_soc", cliente.getRazonsocial())
+            .setParameter("rut_cli", cliente.getRutcliente())
+            .setParameter("giro_cli", cliente.getGirocliente())
+            .setParameter("dir_cli", cliente.getDireccioncliente())
+            .setParameter("tel_of", cliente.getTeloficina())
+            .setParameter("nom_contacto", cliente.getNombrecontacto())
+            .setParameter("fn_contacto", cliente.getFonocontacto())
+            .setParameter("correo_Contacto", cliente.getMailcontacto())
+            .setParameter("cargo", cliente.getCargocontacto())
+            .setParameter("obs", cliente.getObservacionescliente())
+            .setParameter("est_cli", cliente.getEstadocliente());
+            query.executeUpdate();
+        
+        flagsave=true;
+        return flagsave;
     }
     
-    
-    
-	/*public void getOneClienteSP(Long id) {
-        Connection cn = null;
-        
-            try {
-            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-            cn = DriverManager.getConnection("jdbc:oracle:thin:localhost:1521:orcl12c", "SAFE", "safe");
-            CallableStatement call = cn.prepareCall("{call ClientePKG.ClienteConsultar(?,?)}");
-            call.setLong(1, 1);
-            
-            call.registerOutParameter(2, java.sql.Types.VARCHAR);
-            
-            call.execute();
-            
-            String razon = call.getString(2);
-            
-                System.out.println("RAzon Social:"+razon); 
-            
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-            /*final ProcedureCall 
-             query = new ProcedureCallImpl()
-            query.setParameter("id_cli", id);
-            CallableStatement call = PreparedStatementCallback
-            List queryList = query.list();
-            if (queryList.size()>0) {
-                return (Cliente)queryList.get(0);
-            }else{
-                return null;
-            }*/
-	/*}*/
-
-    public List<Cliente>cap_consultar(Long id) {
+    public List<Cliente>getByIdClienteSP(Long id) {
         
         Session session = sessionFactory.getCurrentSession();
         return session.doReturningWork(new ReturningWork<List<Cliente>>() {
@@ -180,171 +118,64 @@ public class ClienteDAOImpl implements ClienteDAO{
                 clients = new ArrayList<Cliente>();
                 while (rs.next()) {
                     Cliente cliente = new Cliente();
+                    cliente.setIdcliente(rs.getLong("ID_CLIENTE"));
                     cliente.setRazonsocial(rs.getString("RAZON_SOCIAL"));
+                    cliente.setRutcliente(rs.getString("RUT_CLIENTE"));
+                    cliente.setGirocliente(rs.getString("GIRO_CLIENTE"));
+                    cliente.setDireccioncliente(rs.getString("DIRECCION_CLIENTE"));
+                    cliente.setTeloficina(rs.getString("TEL_OFICINA"));
+                    cliente.setNombrecontacto(rs.getString("NOMBRE_CONTACTO"));
+                    cliente.setFonocontacto(rs.getString("FONO_CONTACTO"));
+                    cliente.setMailcontacto(rs.getString("MAIL_CONTACTO"));
+                    cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
+                    cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
+                    cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
                     clients.add(cliente);
                 }
                 return clients;
             }
         });
-    }   
+    }  
     
+    public List<Cliente>getAllClienteSP() {
+        
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Cliente>>() {
+            @Override
+            public List<Cliente> execute(Connection connection) throws SQLException {
+                String query = "{CALL CLIENTEPKG.All_Cliente_Consultar(?, ?)}";
+                CallableStatement callableStatement = connection.prepareCall(query);
+                callableStatement.setLong(1, 1L);
+                callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
+                callableStatement.executeUpdate();
+                ResultSet rs = (ResultSet) callableStatement.getObject(2);
+                List<Cliente> clients;
+                clients = new ArrayList<Cliente>();
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setIdcliente(rs.getLong("ID_CLIENTE"));
+                    cliente.setRazonsocial(rs.getString("RAZON_SOCIAL"));
+                    cliente.setRutcliente(rs.getString("RUT_CLIENTE"));
+                    cliente.setGirocliente(rs.getString("GIRO_CLIENTE"));
+                    cliente.setDireccioncliente(rs.getString("DIRECCION_CLIENTE"));
+                    cliente.setTeloficina(rs.getString("TEL_OFICINA"));
+                    cliente.setNombrecontacto(rs.getString("NOMBRE_CONTACTO"));
+                    cliente.setFonocontacto(rs.getString("FONO_CONTACTO"));
+                    cliente.setMailcontacto(rs.getString("MAIL_CONTACTO"));
+                    cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
+                    cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
+                    cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
+                    clients.add(cliente);
+                }
+                return clients;
+            }
+        });
+    }  
     
-    
-    
-    
-    
-    
-        
-        /*List<Cliente> clientes = new ArrayList<Cliente>();
-        Map<String, Object>result;
-        Map<String, Object> params = new HashMap<String, Object>();
-        
-        params.put("id_cli", id);
-        result = execute(params);
-        
-        clientes = (List<Cliente>) result.get("clientes");
-        
-        return clientes;*/
-        
-        
-        
-        /*Query query =  sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_CONSULTAR(:id_cli)").addEntity(Cliente.class)
-                .setParameter("id_cli", id);
-        
-        List result = query.list();
-           
-       
-        return (List<Cliente>)(Cliente)result.get(0);*/
-        
-        
-        /*Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_CONSULTAR(:id_cli)").addEntity(Cliente.class).
-        setParameter("id_cli", id);*/
-        //System.out.println("listasize["+query.list().size()+"]");
-        
-        
-        
-        
-        
-        /*Session session = sessionFactory.getCurrentSession();
-        List<Cliente> clientes = session.doReturningWork(new ReturningWork<List<Cliente>>() {
-			@Override
-			public List<Cliente> execute(Connection connection) throws SQLException {
-				String query = "{CALL CLIENTEPKG.CLIENTE_CONSULTAR(?, ?)}";
-                                CallableStatement callableStatement = connection.prepareCall(query);
-                                callableStatement.setLong(1, 1);
-                                callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
-                                callableStatement.executeUpdate();
-                                ResultSet rs = (ResultSet) callableStatement.getObject(1);
-                                List<Cliente> list = new ArrayList<Cliente>();
-  		                while (rs.next()) {
-  		        	   list.add
-			        }
-                                return list;
-			}
-		});*/
-    
-
-    
-}
-    /*public Cliente cliente_consultar(Long id) {
-    
-        
-        
-      Query query = sessionFactory.getCurrentSession().getNamedQuery("Cliente_Consultar").setParameter("id_cli", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Cliente)queryList.get(0);
-            
-        }else{
-            return null;
-        }
+    public void deleteClienteSP(Long id, Long estado) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_ELIMINAR(:id_cli, :est_cli)").addEntity(Cliente.class).
+        setParameter("id_cli", id).setParameter("est_cli", estado);        
+        query.executeUpdate();
     }
-
-    @PersistenceContext
-    private EntityManager em
-    public Cliente cap_consultar(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("BEGIN cap_consulta(:id); END");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Cliente)queryList.get(0);
-        }else{
-            return null;
-        }
-        
-         
-        this.em.createNativeQuery("BEGIN cap_consulta(:id); END")
-                .setParameter("id", id)
-                .executeUpdate(); 
-        
-    }
-
-   private EntityManagerFactory emf;
-    public Cliente cliente_consultar(Long id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        StoredProcedureQuery spQuery = this.em.createNamedStoredProcedureQuery("Cliente_Consultar");
-                spQuery.setParameter("id", id)
-                .executeUpdate(); 
-        
-        
-        
-        
-        
-        Query query = sessionFactory.getCurrentSession().createQuery("BEGIN Cliente_Consultar(:id); END;");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Cliente)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-       
-    public Cliente cliente_consultar(Long id) {
-        
-        Query query = sessionFactory.getCurrentSession().getNamedQuery("Cliente_Consultar").setParameter("id_cli", id);
-        
-        //StoredProcedureQuery query = entityManager.createStoredProcedureQuery("")
-        //Query query = sessionFactory.getCurrentSession().getNamedQuery("Cliente_Consultar");
-        //query.setParameter("id", id);
-        //query.setParameter("rut", rut);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Cliente)queryList.get(0);
-            
-        }else{
-            return null;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Cliente> cliente_consultar(String rut) {
-        
-        return em.createNativeQuery("Cliente_Consultar").setParameter("id_cliente", rut).getResultList();
-    }
-
-    private static EntityManagerFactory factory = null;
-    private static EntityManager entityManager = null;
- 
-    @BeforeClass
-    public static void init() {
-        factory = Persistence.createEntityManagerFactory("jpa-db");
-        entityManager = factory.createEntityManager();
-    }
-    
-    @Test
-    public void cliente_consultar() {
-        StoredProcedureQuery findByIdCliente = 
-          entityManager.createNamedStoredProcedureQuery("Cliente_Consultar");
-         
-        StoredProcedureQuery storedProcedure = 
-          findByIdCliente.setParameter("id_cliente", 1);
-         
-        storedProcedure.getResultList().forEach(action);
-          .forEach(c -> Assert.assertEquals(new Long(1), ((Cliente) c).getRazonsocial())); 
-    }
-    
-    
-}*/
+}   
+   

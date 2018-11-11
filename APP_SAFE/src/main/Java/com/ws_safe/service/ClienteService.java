@@ -13,16 +13,17 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface ClienteService {
+    
+    //Interfaces Llamadas directas a base de datos
     public List<Cliente> getListCliente();
     public boolean addCliente(Cliente cliente);
     public Cliente getByIdCliente (Long id);
     public void deleteCliente (Long id);
     public boolean updateCliente (Cliente cliente);
-    //public void getOneClienteSP(Long id);
     
-    
-    public List<Cliente> cap_consultar(Long id);
-    //public Cliente cliente_consultar(Long id);
-    //public List<Cliente> cliente_consultar(String rut);*/
-    public void eliminarCliente(Long id, Long estado);
+    //Interfaces Llamadas a PROCEDURE
+    public boolean addClienteSP(Cliente cliente);
+    public List<Cliente> getByIdClienteSP(Long id);
+    public List<Cliente> getAllClienteSP();
+    public void deleteClienteSP(Long id, Long estado);
 }

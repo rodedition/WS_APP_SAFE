@@ -9,39 +9,8 @@ import javax.persistence.*;
  * @author Rodrigo
  */
 
-
 @Entity
 @Table(name="CLIENTE",schema="SAFE")
-
-/*@NamedNativeQueries({
-    @NamedNativeQuery(
-            name = "c",
-            query = "CALL CLIENTEPKG.CLIENTE_CONSULTAR(:id_cli)",
-            resultClass = Cliente.class
-    )
-})*/
-
-/*@NamedStoredProcedureQueries({
-   @NamedStoredProcedureQuery(name = "Cliente_Consultar", 
-                              procedureName = "ClientePKG.Cliente_Consultar",
-                              parameters = {
-                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "id_cli", type = Long.class),
-                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "rut_cliente", type = String.class)
-                              })
-})*/
-
-
-/*@NamedStoredProcedureQuery( 
-                            name = "Cliente_Consultar",
-                            procedureName = "ClientePKG.Cliente_Consultar",
-                            resultClasses ={Cliente.class},
-                            parameters = {
-                                    @StoredProcedureParameter(name = "id", type = Long.class, mode = ParameterMode.IN)
-
-                            })*/
-       
-
-
 
 public class Cliente implements Serializable{
     @Id
