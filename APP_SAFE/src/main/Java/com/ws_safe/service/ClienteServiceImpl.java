@@ -58,19 +58,20 @@ public class ClienteServiceImpl implements ClienteService{
         return clienteDAOImpl.addClienteSP(cliente);
     }
     
-    public List<Cliente> getByIdClienteSP(Long id) {
-        return clienteDAOImpl.getByIdClienteSP(id);
-    }
-
-    public void deleteClienteSP(Long id, Long estado) {
-        clienteDAOImpl.deleteClienteSP(id, estado);
-    }
-
     @Override
     public List<Cliente> getAllClienteSP() {
         return clienteDAOImpl.getAllClienteSP();
     }
+    
+    public List<Cliente> getByIdClienteSP(Long id) {
+        return clienteDAOImpl.getByIdClienteSP(id);
+    }
+    
+    public boolean updateClienteSP(Cliente cliente) {
+        return clienteDAOImpl.updateCliente(cliente);
+    }
 
-    
-    
+    public void deleteClienteSP(Long id, Long estado) {
+        clienteDAOImpl.deleteClienteSP(id, estado);
+    }    
 }

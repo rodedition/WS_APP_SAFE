@@ -114,6 +114,19 @@ public class ClienteRest {
     public @ResponseBody List<Cliente> getAllClienteSP (){
         return clienteServiceImpl.getAllClienteSP();
     }
+    
+    @RequestMapping(value="/upCliente",method=RequestMethod.PUT,produces="application/json")
+    public String updateClienteSP(@RequestBody Cliente cliente){
+        String jsonCliente = "";
+        boolean getresponse = false;
+        try {
+            getresponse = clienteServiceImpl.updateClienteSP(cliente);
+            jsonCliente = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonCliente;
+    }
 
     @RequestMapping(value="/deleteCliente/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
     public ResponseEntity<Void> deleteClienteSP(@PathVariable("id") String id, @PathVariable("estado") String estado){

@@ -25,5 +25,6 @@ public interface ClienteService {
     public boolean addClienteSP(Cliente cliente);
     public List<Cliente> getByIdClienteSP(Long id);
     public List<Cliente> getAllClienteSP();
+    public boolean updateClienteSP (Cliente cliente);
     public void deleteClienteSP(Long id, Long estado);
 }
