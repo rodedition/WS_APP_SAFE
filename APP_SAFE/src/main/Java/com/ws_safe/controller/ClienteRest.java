@@ -37,6 +37,7 @@ public class ClienteRest {
     ClienteService clienteServiceImpl;
     
     //Creación de URIS para llamadas a base de dtos de directa
+    
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getClienteJSON(@PathVariable String name){
         Gson gson = new Gson();

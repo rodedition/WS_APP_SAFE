@@ -3,7 +3,7 @@ package com.sw_safe.test;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Obs_Ingeniero;
 import java.time.Instant;
-import java.util.Date;
+import org.apache.tools.ant.types.resources.comparators.Date;
 import org.jboss.logging.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
+
 
 /**
  *
@@ -48,7 +49,7 @@ public class TestObs_Ingeniero {
             
             Obs_Ingeniero obs = new Obs_Ingeniero();
             obs.setIdobsingeniero(3);
-            obs.setFechahoraobsing(Date.from(Instant.MIN));
+            obs.setFechahoraobsing("15-08-2018");
             obs.setObsing("Se aprueba visita en terreno");
             obs.setEvalterridevalterr(1);
             obs.setEstadoObsIng(1);   

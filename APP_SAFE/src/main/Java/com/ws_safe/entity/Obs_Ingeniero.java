@@ -2,7 +2,7 @@
 package com.ws_safe.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import javax.persistence.*;
 //import org.apache.tools.ant.types.resources.comparators.Date;
 //import org.apache.tools.ant.types.resources.selectors.Date;
@@ -15,14 +15,14 @@ import javax.persistence.*;
 @Entity
 @Table(name="OBS_INGENIERO",schema="SAFE")
 
-
+//private java.sql.Time sqlTime;
 public class Obs_Ingeniero implements Serializable{
     @Id
     @Column(name="ID_OBS_INGENIERO")
     private long idobsingeniero;
     
     @Column(name="FECHA_HORA_OBS_ING")
-    private Date fechahoraobsing;
+    private String fechahoraobsing;
     
     @Column(name="OBS_ING")
     private String obsing;
@@ -41,11 +41,11 @@ public class Obs_Ingeniero implements Serializable{
         this.idobsingeniero = idobsingeniero;
     }
 
-    public Date getFechahoraobsing() {
+    public String getFechahoraobsing() {
         return fechahoraobsing;
     }
 
-    public void setFechahoraobsing(Date fechahoraobsing) {
+    public void setFechahoraobsing(String fechahoraobsing) {
         this.fechahoraobsing = fechahoraobsing;
     }
 
@@ -77,8 +77,6 @@ public class Obs_Ingeniero implements Serializable{
     public String toString() {
         return "Obs_Ingeniero{" + "idobsingeniero=" + idobsingeniero + ", fechahoraobsing=" + fechahoraobsing + ", obsing=" + obsing + ", evalterridevalterr=" + evalterridevalterr + ", estadoObsIng=" + estadoObsIng + '}';
     }
-
-    
 
     
 }

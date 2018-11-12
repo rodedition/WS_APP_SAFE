@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Certificado;
 import com.ws_safe.service.CertificadoService;
-import com.ws_safe.service.CertificadoServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,6 +34,8 @@ public class CertificadoRest {
     @Autowired
     @Qualifier("certificadoService")
     CertificadoService certificadoServiceImpl;
+    
+    //Creación de URIS para llamadas a base de dtos de directa
     
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getCertificadoJSON(@PathVariable String name){
@@ -90,5 +91,49 @@ public class CertificadoRest {
         }
         return jsonCer;
     }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createCertificadoSP",method=RequestMethod.POST,produces="application/json")
+    public String saveCertificadoSP(@RequestBody Certificado certificado){
+        String jsonCertificado = "";
+        boolean getresponse = false;
+        try {
+            getresponse = certificadoServiceImpl.addCertificadoSP(certificado);
+            jsonCertificado = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonCertificado;
+    }
+    
+    @RequestMapping(value="/readOneCertificado/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Certificado> readOneCertificado (@PathVariable("id") String id){
+        return certificadoServiceImpl.getByIdCertificadoSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllCertificado/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Certificado> getAllCertificadoSP (){
+        return certificadoServiceImpl.getAllCertificadoSP();
+    }
+    
+    @RequestMapping(value="/upCertificado",method=RequestMethod.PUT,produces="application/json")
+    public String updateCertificadoSP(@RequestBody Certificado certificado){
+        String jsonCertificado = "";
+        boolean getresponse = false;
+        try {
+            getresponse = certificadoServiceImpl.updateCertificadoSP(certificado);
+            jsonCertificado = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonCertificado;
+    }
+
+    @RequestMapping(value="/deleteCertificado/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteCertificadoSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        certificadoServiceImpl.deleteCertificadoSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    } 
 
 }

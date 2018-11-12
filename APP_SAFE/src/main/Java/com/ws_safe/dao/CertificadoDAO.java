@@ -13,9 +13,17 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface CertificadoDAO {
+    //Interfaces para llamadas directas a base de datos
     public List<Certificado> getListCertificado();
     public boolean addCertificado(Certificado certificado);
     public Certificado getByIdCertificado (Long id);
     public void deleteCertificado (Long id);
     public boolean updateCertificado (Certificado certificado);   
+    
+    //Interfaces para llamadas a PROCEDURE
+    public boolean addCertificadoSP(Certificado certificado);
+    public List<Certificado> getByIdCertificadoSP(Long id);
+    public List<Certificado> getAllCertificadoSP();
+    public boolean updateCertificadoSP (Certificado certificado);
+    public void deleteCertificadoSP(Long id, Long estado);
 }

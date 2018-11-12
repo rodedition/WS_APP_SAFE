@@ -28,7 +28,8 @@ public class CertificadoServiceImpl implements CertificadoService{
     
     CertificadoDAO certificadoDAOImpl;
 
-   
+    //Servicios para llamadas a base de datos directa
+    
     public List<Certificado> getListCertificado() {
         return certificadoDAOImpl.getListCertificado();
     }
@@ -49,5 +50,32 @@ public class CertificadoServiceImpl implements CertificadoService{
     public boolean updateCertificado(Certificado certificado) {
         return certificadoDAOImpl.updateCertificado(certificado);
     }    
+
+    //Servicios para llamadas a PROCEDURE
+    
+    @Override
+    public boolean addCertificadoSP(Certificado certificado) {
+        return certificadoDAOImpl.addCertificadoSP(certificado);
+    }
+
+    @Override
+    public List<Certificado> getByIdCertificadoSP(Long id) {
+        return certificadoDAOImpl.getByIdCertificadoSP(id);
+    }
+
+    @Override
+    public List<Certificado> getAllCertificadoSP() {
+        return certificadoDAOImpl.getAllCertificadoSP();
+    }
+
+    @Override
+    public boolean updateCertificadoSP(Certificado certificado) {
+        return certificadoDAOImpl.updateCertificadoSP(certificado);
+    }
+
+    @Override
+    public void deleteCertificadoSP(Long id, Long estado) {
+        certificadoDAOImpl.deleteCertificadoSP(id, estado);
+    }
     
 }
