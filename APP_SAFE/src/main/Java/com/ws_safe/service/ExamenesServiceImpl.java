@@ -28,11 +28,11 @@ public class ExamenesServiceImpl implements ExamenesService{
     
     ExamenesDAO examenesDAOImpl;
 
-   
+    //Servicios para llamadas a base de datos directa
+    
     public List<Examenes> getListExamen() {
         return examenesDAOImpl.getListExamen();
     }
-
    
     public boolean addExamen(Examenes examenes) {
         return examenesDAOImpl.addExamen(examenes);
@@ -49,5 +49,34 @@ public class ExamenesServiceImpl implements ExamenesService{
     public boolean updateExamen(Examenes examenes) {
         return examenesDAOImpl.updateExamen(examenes);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addExamenSP(Examenes examenes) {
+        return examenesDAOImpl.addExamenSP(examenes);
+    }
+
+    @Override
+    public List<Examenes> getByIdExamenSP(Long id) {
+        return examenesDAOImpl.getByIdExamenSP(id);
+    }
+
+    @Override
+    public List<Examenes> getAllExamenesSP() {
+        return examenesDAOImpl.getAllExamenesSP();
+    }
+
+    @Override
+    public boolean updateExamenSP(Examenes examenes) {
+        return examenesDAOImpl.updateExamenSP(examenes);
+    }
+
+    @Override
+    public void deleteExamenSP(Long id, Long estado) {
+        examenesDAOImpl.deleteExamenSP(id, estado);
+    }
+    
+    
     
 }

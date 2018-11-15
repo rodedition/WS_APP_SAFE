@@ -13,9 +13,17 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface ExamenesDAO {
+    //Interfaces para llamadas directas a base de datos
     public List<Examenes> getListExamen();
     public boolean addExamen(Examenes examenes);
     public Examenes getByIdExamen (Long id);
     public void deleteExamen (Long id);
-    public boolean updateExamen (Examenes examenes);   
+    public boolean updateExamen (Examenes examenes);  
+    
+    //Interfaces para llamadas a PROCEDURE
+    public boolean addExamenSP(Examenes examenes);
+    public List<Examenes> getByIdExamenSP(Long id);
+    public List<Examenes> getAllExamenesSP();
+    public boolean updateExamenSP (Examenes examenes);
+    public void deleteExamenSP(Long id, Long estado);
 }

@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Capacitacion;
 import com.ws_safe.service.CapacitacionService;
-import com.ws_safe.service.CapacitacionServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,6 +34,8 @@ public class CapacitacionRest {
     @Autowired
     @Qualifier("capacitacionService")
     CapacitacionService capacitacionServiceImpl;
+    
+    //Creación de URIS para llamadas a base de dtos de directa
     
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getCapJSON(@PathVariable String name){
@@ -88,5 +89,50 @@ public class CapacitacionRest {
         }
         return jsonCap;
     }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createCapacitacionSP",method=RequestMethod.POST,produces="application/json")
+    public String saveCapacitacionSP(@RequestBody Capacitacion capacitacion){
+        String jsonCapacitacion = "";
+        boolean getresponse = false;
+        try {
+            getresponse = capacitacionServiceImpl.addCapacitacionSP(capacitacion);
+            jsonCapacitacion = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonCapacitacion;
+    }
+    
+    @RequestMapping(value="/readOneCapacitacion/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Capacitacion> readOneCapacitacion (@PathVariable("id") String id){
+        return capacitacionServiceImpl.getByIdCapacitacionSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllCapacitacion/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Capacitacion> getAllCapacitacionSP (){
+        return capacitacionServiceImpl.getAllCapacitacionSP();
+    }
+    
+    @RequestMapping(value="/upCapacitacion",method=RequestMethod.PUT,produces="application/json")
+    public String updateCapacitacionSP(@RequestBody Capacitacion capacitacion){
+        String jsonCapacitacion = "";
+        boolean getresponse = false;
+        try {
+            getresponse = capacitacionServiceImpl.updateCap(capacitacion);
+            jsonCapacitacion = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonCapacitacion;
+    }
+
+    @RequestMapping(value="/deleteCapacitacion/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteCapacitacionSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        capacitacionServiceImpl.deleteCapacitacionSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    } 
+
 
 }

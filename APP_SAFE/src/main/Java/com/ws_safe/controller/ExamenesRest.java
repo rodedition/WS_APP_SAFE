@@ -36,6 +36,8 @@ public class ExamenesRest {
     @Qualifier("examenesService")
     ExamenesService examenesServiceImpl;
     
+    //Creación de URIS para llamadas a base de dtos de directa
+    
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getExamenJSON(@PathVariable String name){
         Gson gson = new Gson();
@@ -87,6 +89,50 @@ public class ExamenesRest {
             e.printStackTrace();
         }
         return jsonExa;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createExamenSP",method=RequestMethod.POST,produces="application/json")
+    public String saveExamenSP(@RequestBody Examenes examenes){
+        String jsonExamen = "";
+        boolean getresponse = false;
+        try {
+            getresponse = examenesServiceImpl.addExamenSP(examenes);
+            jsonExamen = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonExamen;
+    }
+    
+    @RequestMapping(value="/readOneExamen/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Examenes> readOneExamen (@PathVariable("id") String id){
+        return examenesServiceImpl.getByIdExamenSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllExamenes/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Examenes> getAllExamenesSP (){
+        return examenesServiceImpl.getAllExamenesSP();
+    }
+    
+    @RequestMapping(value="/upExamen",method=RequestMethod.PUT,produces="application/json")
+    public String updateExamenSP(@RequestBody Examenes examenes){
+        String jsonExamen = "";
+        boolean getresponse = false;
+        try {
+            getresponse = examenesServiceImpl.updateExamenSP(examenes);
+            jsonExamen = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonExamen;
+    }
+
+    @RequestMapping(value="/deleteExamenes/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteExamenesSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        examenesServiceImpl.deleteExamenSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

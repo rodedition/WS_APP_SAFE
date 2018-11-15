@@ -178,8 +178,8 @@ public class CertificadoDAOImpl implements CertificadoDAO{
     }
     
     public void deleteCertificadoSP(Long id, Long estado) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CertificadoPKG.certificado_eliminar(:id_cli, :est_cli)").addEntity(Certificado.class).
-        setParameter("id_cli", id).setParameter("est_cli", estado);        
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CertificadoPKG.certificado_eliminar(:id_cer, :estado_cer)").addEntity(Certificado.class).
+        setParameter("id_cer", id).setParameter("estado_cer", estado);        
         query.executeUpdate();
     }
 
