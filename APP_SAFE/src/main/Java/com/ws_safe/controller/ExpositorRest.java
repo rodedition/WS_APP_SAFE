@@ -36,6 +36,8 @@ public class ExpositorRest {
     @Qualifier("expositorService")
     ExpositorService expositorServiceImpl;
     
+    //Creación de URIS para llamadas a base de dtos de directa
+    
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getExpositorJSON(@PathVariable String name){
         Gson gson = new Gson();
@@ -87,6 +89,50 @@ public class ExpositorRest {
             e.printStackTrace();
         }
         return jsonExp;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createExpositorSP",method=RequestMethod.POST,produces="application/json")
+    public String saveExpositorSP(@RequestBody Expositor expositor){
+        String jsonExpositor = "";
+        boolean getresponse = false;
+        try {
+            getresponse = expositorServiceImpl.addExpositorSP(expositor);
+            jsonExpositor = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonExpositor;
+    }
+    
+    @RequestMapping(value="/readOneExpositor/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Expositor> readOneExpositor (@PathVariable("id") String id){
+        return expositorServiceImpl.getByIdExpositorSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllExpositor/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Expositor> getAllExpositorSP (){
+        return expositorServiceImpl.getAllExpositoresSP();
+    }
+    
+    @RequestMapping(value="/upExpositor",method=RequestMethod.PUT,produces="application/json")
+    public String updateExpositorSP(@RequestBody Expositor expositor){
+        String jsonExpositor = "";
+        boolean getresponse = false;
+        try {
+            getresponse = expositorServiceImpl.updateExpositorSP(expositor);
+            jsonExpositor = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonExpositor;
+    }
+
+    @RequestMapping(value="/deleteExpositor/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteExpositorSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        expositorServiceImpl.deleteExpositorSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

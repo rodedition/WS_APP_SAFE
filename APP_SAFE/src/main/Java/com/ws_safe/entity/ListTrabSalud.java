@@ -65,12 +65,12 @@ public class ListTrabSalud implements Serializable{
         this.usuarioidusuario = usuarioidusuario;
     }
 
-    public long getLisasiscapidlistasalud() {
+    public long getLisasissaludidlistasalud() {
         return lisasissaludidlistasalud;
     }
 
-    public void setLisasiscapidlistasalud(long lisasiscapidlistasalud) {
-        this.lisasissaludidlistasalud = lisasiscapidlistasalud;
+    public void setLisasissaludidlistasalud(long lisasissaludidlistasalud) {
+        this.lisasissaludidlistasalud = lisasissaludidlistasalud;
     }
 
     public long getCertificadoidcertificado() {
@@ -86,5 +86,5 @@ public class ListTrabSalud implements Serializable{
         return "ListTrabSalud{" + "idlistrabsalud=" + idlistrabsalud + ", presenteSalud=" + presenteSalud + ", estadoSalud=" + estadoSalud + ", usuarioidusuario=" + usuarioidusuario + ", lisasissaludidlistasalud=" + lisasissaludidlistasalud + ", certificadoidcertificado=" + certificadoidcertificado + '}';
     }
 
-       
+          
 }

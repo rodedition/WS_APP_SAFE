@@ -27,7 +27,8 @@ public class List_Trab_CapServiceImpl implements List_Trab_CapService{
     @Qualifier("list_Trab_CapDAO")
     
     List_Trab_CapDAO list_Trab_CapDAOImpl;
-
+    
+    //Servicios para llamadas a base de datos directa
    
     public List<List_Trab_Cap> getListList_Trab_Cap() {
         return list_Trab_CapDAOImpl.getListList_Trab_Cap();
@@ -50,5 +51,32 @@ public class List_Trab_CapServiceImpl implements List_Trab_CapService{
         return list_Trab_CapDAOImpl.updateList_Trab_Cap(list_Trab_Cap);
     }    
 
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addListTrabCapSP(List_Trab_Cap list_Trab_Cap) {
+        return list_Trab_CapDAOImpl.addListTrabCapSP(list_Trab_Cap);
+    }
+
+    @Override
+    public List<List_Trab_Cap> getByIdListTrabCapSP(Long id) {
+        return list_Trab_CapDAOImpl.getByIdListTrabCapSP(id);
+    }
+
+    @Override
+    public List<List_Trab_Cap> getAllListTrabCapSP() {
+        return list_Trab_CapDAOImpl.getAllListTrabCapSP();
+    }
+
+    @Override
+    public boolean updateListTrabCapSP(List_Trab_Cap list_Trab_Cap) {
+        return list_Trab_CapDAOImpl.updateListTrabCapSP(list_Trab_Cap);
+    }
+
+    @Override
+    public void deleteListTrabCapSP(Long id, Long estado) {
+        list_Trab_CapDAOImpl.deleteListTrabCapSP(id, estado);
+    }
+    
     
 }

@@ -27,7 +27,8 @@ public class MedicoServiceImpl implements MedicoService{
     @Qualifier("medicoDAO")
     
     MedicoDAO medicoDAOImpl;
-
+    
+    //Servicios para llamadas a base de datos directa
    
     public List<Medico> getListMedico() {
         return medicoDAOImpl.getListMedico();
@@ -49,5 +50,33 @@ public class MedicoServiceImpl implements MedicoService{
     public boolean updateMedico(Medico medico) {
         return medicoDAOImpl.updateMedico(medico);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addMedicoSP(Medico medico) {
+        return medicoDAOImpl.addMedicoSP(medico);
+    }
+
+    @Override
+    public List<Medico> getByIdMedicoSP(Long id) {
+        return medicoDAOImpl.getByIdMedicoSP(id);
+    }
+
+    @Override
+    public List<Medico> getAllMedicoSP() {
+        return medicoDAOImpl.getAllMedicoSP();
+    }
+
+    @Override
+    public boolean updateMedicoSP(Medico medico) {
+        return medicoDAOImpl.updateMedicoSP(medico);
+    }
+
+    @Override
+    public void deleteMedicoSP(Long id, Long estado) {
+        medicoDAOImpl.deleteMedicoSP(id, estado);
+    }
+    
     
 }

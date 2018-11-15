@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.ListTrabSalud;
 import com.ws_safe.service.ListTrabSaludService;
-import com.ws_safe.service.ListTrabSaludServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,6 +34,8 @@ public class ListTrabSaludRest {
     @Autowired
     @Qualifier("listTrabSaludService")
     ListTrabSaludService listTrabSaludServiceImpl;
+    
+    //Creación de URIS para llamadas a base de dtos de directa
     
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getListTrabSaludJSON(@PathVariable String name){
@@ -87,6 +88,50 @@ public class ListTrabSaludRest {
             e.printStackTrace();
         }
         return jsonList;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createListTrabSaludSP",method=RequestMethod.POST,produces="application/json")
+    public String saveListTrabSaludSP(@RequestBody ListTrabSalud listTrabSalud){
+        String jsonListTrabS = "";
+        boolean getresponse = false;
+        try {
+            getresponse = listTrabSaludServiceImpl.addListTrabSaludSP(listTrabSalud);
+            jsonListTrabS = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonListTrabS;
+    }
+    
+    @RequestMapping(value="/readOneListTrabSalud/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<ListTrabSalud> readOneListTrabdSalud (@PathVariable("id") String id){
+        return listTrabSaludServiceImpl.getByIdListTrabSaludSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllListTrabSalud/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<ListTrabSalud> getAllListTrabSaludSP (){
+        return listTrabSaludServiceImpl.getAllListTrabSaludSP();
+    }
+    
+    @RequestMapping(value="/upListTrabSalud",method=RequestMethod.PUT,produces="application/json")
+    public String updateListTrabSaludSP(@RequestBody ListTrabSalud listTrabSalud){
+        String jsonListTrabs = "";
+        boolean getresponse = false;
+        try {
+            getresponse = listTrabSaludServiceImpl.updateListTrabSaludSP(listTrabSalud);
+            jsonListTrabs = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonListTrabs;
+    }
+
+    @RequestMapping(value="/deleteListTrabSalud/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteListTrabSaludSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        listTrabSaludServiceImpl.deleteListTrabSaludSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

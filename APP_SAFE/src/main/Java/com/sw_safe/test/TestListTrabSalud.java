@@ -49,7 +49,7 @@ public class TestListTrabSalud {
             lis.setPresenteSalud(1);
             lis.setEstadoSalud(1);
             lis.setUsuarioidusuario(1);
-            lis.setLisasiscapidlistasalud(1);
+            lis.setLisasissaludidlistasalud(1);
             lis.setCertificadoidcertificado(1);
             
             Gson request = new Gson();

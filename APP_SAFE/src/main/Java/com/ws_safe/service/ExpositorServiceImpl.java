@@ -27,6 +27,8 @@ public class ExpositorServiceImpl implements ExpositorService{
     @Qualifier("expositorDAO")
     
     ExpositorDAO expositorDAOImpl;
+    
+    //Servicios para llamadas a base de datos directa
 
    
     public List<Expositor> getListExpositor() {
@@ -49,5 +51,32 @@ public class ExpositorServiceImpl implements ExpositorService{
     public boolean updateExpositor(Expositor expositor) {
         return expositorDAOImpl.updateExpositor(expositor);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addExpositorSP(Expositor expositor) {
+        return expositorDAOImpl.addExpositorSP(expositor);
+    }
+
+    @Override
+    public List<Expositor> getByIdExpositorSP(Long id) {
+        return expositorDAOImpl.getByIdExpositorSP(id);
+    }
+
+    @Override
+    public List<Expositor> getAllExpositoresSP() {
+        return expositorDAOImpl.getAllExpositoresSP();
+    }
+
+    @Override
+    public boolean updateExpositorSP(Expositor expositor) {
+        return expositorDAOImpl.updateExpositorSP(expositor);
+    }
+
+    @Override
+    public void deleteExpositorSP(Long id, Long estado) {
+        expositorDAOImpl.deleteExpositorSP(id, estado);
+    }
     
 }

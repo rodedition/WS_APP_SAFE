@@ -36,6 +36,8 @@ public class List_Trab_CapRest {
     @Qualifier("list_Trab_CapService")
     List_Trab_CapService list_Trab_CapServiceImpl;
     
+    //Creación de URIS para llamadas a base de dtos de directa
+    
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getList_Trab_CapJSON(@PathVariable String name){
         Gson gson = new Gson();
@@ -87,6 +89,50 @@ public class List_Trab_CapRest {
             e.printStackTrace();
         }
         return jsonList;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createListTrabCapSP",method=RequestMethod.POST,produces="application/json")
+    public String saveListTrabCapSP(@RequestBody List_Trab_Cap list_Trab_Cap){
+        String jsonListTrabC = "";
+        boolean getresponse = false;
+        try {
+            getresponse = list_Trab_CapServiceImpl.addListTrabCapSP(list_Trab_Cap);
+            jsonListTrabC = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonListTrabC;
+    }
+    
+    @RequestMapping(value="/readOneListTrabCap/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<List_Trab_Cap> readOneListTrabdCap (@PathVariable("id") String id){
+        return list_Trab_CapServiceImpl.getByIdListTrabCapSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllListTrabCap/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<List_Trab_Cap> getAllListTrabCapSP (){
+        return list_Trab_CapServiceImpl.getAllListTrabCapSP();
+    }
+    
+    @RequestMapping(value="/upListTrabCap",method=RequestMethod.PUT,produces="application/json")
+    public String updateListTrabCapSP(@RequestBody List_Trab_Cap list_Trab_Cap){
+        String jsonListTrabC = "";
+        boolean getresponse = false;
+        try {
+            getresponse = list_Trab_CapServiceImpl.updateListTrabCapSP(list_Trab_Cap);
+            jsonListTrabC = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonListTrabC;
+    }
+
+    @RequestMapping(value="/deleteListTrabCap/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteListTrabCapSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        list_Trab_CapServiceImpl.deleteListTrabCapSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }
