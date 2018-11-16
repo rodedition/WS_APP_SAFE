@@ -28,11 +28,11 @@ public class Obs_IngenieroServiceImpl implements Obs_IngenieroService{
     
     Obs_IngenieroDAO obs_IngenieroDAOImpl;
 
+    //Servicios para llamadas a base de datos directa
    
     public List<Obs_Ingeniero> getListObs_Ingeniero() {
         return obs_IngenieroDAOImpl.getListObs_Ingeniero();
     }
-
    
     public boolean addObs_Ingeniero(Obs_Ingeniero obs_Ingeniero) {
         return obs_IngenieroDAOImpl.addObs_Ingeniero(obs_Ingeniero);
@@ -49,5 +49,33 @@ public class Obs_IngenieroServiceImpl implements Obs_IngenieroService{
     public boolean updateObs_Ingeniero(Obs_Ingeniero obs_Ingeniero) {
         return obs_IngenieroDAOImpl.updateObs_Ingeniero(obs_Ingeniero);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addObsIngSP(Obs_Ingeniero obs_Ingeniero) {
+        return obs_IngenieroDAOImpl.addObsIngSP(obs_Ingeniero);
+    }
+
+    @Override
+    public List<Obs_Ingeniero> getByIdObsIngSP(Long id) {
+        return obs_IngenieroDAOImpl.getByIdObsIngSP(id);
+    }
+
+    @Override
+    public List<Obs_Ingeniero> getAllObsIngSP() {
+        return obs_IngenieroDAOImpl.getAllObsIngSP();
+    }
+
+    @Override
+    public boolean updateObsIngSP(Obs_Ingeniero obs_Ingeniero) {
+        return obs_IngenieroDAOImpl.updateObsIngSP(obs_Ingeniero);
+    }
+
+    @Override
+    public void deleteObsIngSP(Long id, Long estado) {
+        obs_IngenieroDAOImpl.deleteObsIngSP(id, estado);
+    }
+    
     
 }

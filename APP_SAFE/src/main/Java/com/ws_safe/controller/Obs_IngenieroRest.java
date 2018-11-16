@@ -6,7 +6,6 @@
 package com.ws_safe.controller;
 
 import com.google.gson.Gson;
-import com.ws_safe.entity.Medico;
 import com.ws_safe.entity.Obs_Ingeniero;
 import com.ws_safe.service.Obs_IngenieroService;
 import java.util.ArrayList;
@@ -35,6 +34,8 @@ public class Obs_IngenieroRest {
     @Autowired
     @Qualifier("obs_IngenieroService")
     Obs_IngenieroService obs_IngenieroServiceImpl;
+    
+    //Creación de URIS para llamadas a base de dtos de directa
     
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getObs_IngenieroJSON(@PathVariable String name){
@@ -87,6 +88,50 @@ public class Obs_IngenieroRest {
             e.printStackTrace();
         }
         return jsonObsI;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createObsIngSP",method=RequestMethod.POST,produces="application/json")
+    public String saveObsIngSP(@RequestBody Obs_Ingeniero obs_Ingeniero){
+        String jsonObs = "";
+        boolean getresponse = false;
+        try {
+            getresponse = obs_IngenieroServiceImpl.addObsIngSP(obs_Ingeniero);
+            jsonObs = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObs;
+    }
+    
+    @RequestMapping(value="/readOneObsIng/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Obs_Ingeniero> readOneObsIng (@PathVariable("id") String id){
+        return obs_IngenieroServiceImpl.getByIdObsIngSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllObsIng/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Obs_Ingeniero> getAllObsIngSP (){
+        return obs_IngenieroServiceImpl.getAllObsIngSP();
+    }
+    
+    @RequestMapping(value="/upObsIng",method=RequestMethod.PUT,produces="application/json")
+    public String updateObsIngSP(@RequestBody Obs_Ingeniero obs_Ingeniero){
+        String jsonObs = "";
+        boolean getresponse = false;
+        try {
+            getresponse = obs_IngenieroServiceImpl.updateObsIngSP(obs_Ingeniero);
+            jsonObs = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObs;
+    }
+
+    @RequestMapping(value="/deleteObsIng/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteObsIngSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        obs_IngenieroServiceImpl.deleteObsIngSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

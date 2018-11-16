@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Obs_Supervisor;
 import com.ws_safe.service.Obs_SupervisorService;
-import com.ws_safe.service.Obs_SupervisorServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,6 +34,8 @@ public class Obs_SupervisorRest {
     @Autowired
     @Qualifier("obs_SupervisorService")
     Obs_SupervisorService obs_SupervisorServiceImpl;
+    
+    //Creación de URIS para llamadas a base de dtos de directa
     
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getObs_SupervisorJSON(@PathVariable String name){
@@ -87,6 +88,50 @@ public class Obs_SupervisorRest {
             e.printStackTrace();
         }
         return jsonObsS;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createObsSupSP",method=RequestMethod.POST,produces="application/json")
+    public String saveObsSupSP(@RequestBody Obs_Supervisor obs_Supervisor){
+        String jsonObs = "";
+        boolean getresponse = false;
+        try {
+            getresponse = obs_SupervisorServiceImpl.addObsSupSP(obs_Supervisor);
+            jsonObs = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObs;
+    }
+    
+    @RequestMapping(value="/readOneObsSup/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Obs_Supervisor> readOneObsSup (@PathVariable("id") String id){
+        return obs_SupervisorServiceImpl.getByIdObsSupSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllObsSup/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Obs_Supervisor> getAllObsSupSP (){
+        return obs_SupervisorServiceImpl.getAllObsSupSP();
+    }
+    
+    @RequestMapping(value="/upObsSup",method=RequestMethod.PUT,produces="application/json")
+    public String updateObsSupSP(@RequestBody Obs_Supervisor obs_Supervisor){
+        String jsonObs = "";
+        boolean getresponse = false;
+        try {
+            getresponse = obs_SupervisorServiceImpl.updateObsSupSP(obs_Supervisor);
+            jsonObs = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObs;
+    }
+
+    @RequestMapping(value="/deleteObsSup/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteObsSupSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        obs_SupervisorServiceImpl.deleteObsSupSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

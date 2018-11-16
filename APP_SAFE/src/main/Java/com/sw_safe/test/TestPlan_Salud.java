@@ -48,7 +48,7 @@ public class TestPlan_Salud {
             
             Plan_Salud pla = new Plan_Salud();
             pla.setIdplansalud(3);
-            pla.setFechacreacion(Date.from(Instant.MIN));
+            pla.setFechacreacion("18-09-2018");
             pla.setEstadoplansalud(1);
             pla.setClienteidcliente(1);
             

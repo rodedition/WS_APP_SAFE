@@ -5,7 +5,6 @@
  */
 package com.ws_safe.dao;
 
-import com.ws_safe.entity.Expositor;
 import com.ws_safe.entity.Medico;
 import java.sql.CallableStatement;
 import java.sql.Connection;

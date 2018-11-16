@@ -48,7 +48,7 @@ public class TestObs_Supervisor {
             
             Obs_Supervisor obs = new Obs_Supervisor();
             obs.setIdobssupervisor(3);
-            obs.setFechahoraobssupervisor(Date.from(Instant.MIN));
+            obs.setFechahoraobssupervisor("12-05-2018");
             obs.setObssupervisor("Se aprueba visita en terreno");
             obs.setEstadoObsSupervisor(1);
             obs.setEvalterridevalterr(1);

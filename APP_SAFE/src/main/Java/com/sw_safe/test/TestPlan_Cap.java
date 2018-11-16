@@ -48,7 +48,7 @@ public class TestPlan_Cap {
             
             Plan_Cap pla = new Plan_Cap();
             pla.setIdplancap(3);
-            pla.setFechacreacion(Date.from(Instant.MIN));
+            pla.setFechacreacion("12-05-2018");
             pla.setEstadoplancap(1);
             pla.setClienteidcliente(1);
             

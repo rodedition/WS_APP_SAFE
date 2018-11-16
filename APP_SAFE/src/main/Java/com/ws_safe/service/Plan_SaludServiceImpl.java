@@ -28,6 +28,7 @@ public class Plan_SaludServiceImpl implements Plan_SaludService{
     
     Plan_SaludDAO plan_SaludDAOImpl;
 
+    //Servicios para llamadas a base de datos directa
    
     public List<Plan_Salud> getListPlan_Salud() {
         return plan_SaludDAOImpl.getListPlan_Salud();
@@ -49,5 +50,34 @@ public class Plan_SaludServiceImpl implements Plan_SaludService{
     public boolean updatePlan_Salud(Plan_Salud plan_Salud) {
         return plan_SaludDAOImpl.updatePlan_Salud(plan_Salud);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addPlanSaludSP(Plan_Salud plan_Salud) {
+        return plan_SaludDAOImpl.addPlanSaludSP(plan_Salud);
+    }
+
+    @Override
+    public List<Plan_Salud> getByIdPlanSaludSP(Long id) {
+        return plan_SaludDAOImpl.getByIdPlanSaludSP(id);
+    }
+
+    @Override
+    public List<Plan_Salud> getAllPlanSaludSP() {
+        return plan_SaludDAOImpl.getAllPlanSaludSP();
+    }
+
+    @Override
+    public boolean updatePlanSaludSP(Plan_Salud plan_Salud) {
+        return plan_SaludDAOImpl.updatePlanSaludSP(plan_Salud);
+    }
+
+    @Override
+    public void deletePlanSaludSP(Long id, Long estado) {
+        plan_SaludDAOImpl.deletePlanSaludSP(id, estado);
+    }
+    
+    
     
 }

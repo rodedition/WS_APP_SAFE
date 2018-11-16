@@ -13,9 +13,17 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface Obs_SupervisorDAO {
+    //Interfaces para llamadas directas a base de datos
     public List<Obs_Supervisor> getListObs_Supervisor();
     public boolean addObs_Supervisor(Obs_Supervisor obs_Supervisor);
     public Obs_Supervisor getByIdObs_Supervisor (Long id);
     public void deleteObs_Supervisor (Long id);
-    public boolean updateObs_Supervisor (Obs_Supervisor obs_Supervisor);   
+    public boolean updateObs_Supervisor (Obs_Supervisor obs_Supervisor); 
+    
+    //Interfaces para llamadas a PROCEDURE
+    public boolean addObsSupSP(Obs_Supervisor obs_Supervisor);
+    public List<Obs_Supervisor> getByIdObsSupSP(Long id);
+    public List<Obs_Supervisor> getAllObsSupSP();
+    public boolean updateObsSupSP (Obs_Supervisor obs_Supervisor);
+    public void deleteObsSupSP(Long id, Long estado);
 }

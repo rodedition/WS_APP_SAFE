@@ -28,6 +28,7 @@ public class Plan_CapServiceImpl implements Plan_CapService{
     
     Plan_CapDAO plan_CapDAOImpl;
 
+    //Servicios para llamadas a base de datos directa
    
     public List<Plan_Cap> getListPlan_Cap() {
         return plan_CapDAOImpl.getListPlan_Cap();
@@ -50,4 +51,30 @@ public class Plan_CapServiceImpl implements Plan_CapService{
         return plan_CapDAOImpl.updatePlan_Cap(plan_Cap);
     }    
     
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addPlanCapSP(Plan_Cap plan_Cap) {
+        return plan_CapDAOImpl.addPlanCapSP(plan_Cap);
+    }
+
+    @Override
+    public List<Plan_Cap> getByIdPlanCapSP(Long id) {
+        return plan_CapDAOImpl.getByIdPlanCapSP(id);
+    }
+
+    @Override
+    public List<Plan_Cap> getAllPlanCapSP() {
+        return plan_CapDAOImpl.getAllPlanCapSP();
+    }
+
+    @Override
+    public boolean updatePlanCapSP(Plan_Cap plan_Cap) {
+        return plan_CapDAOImpl.updatePlanCapSP(plan_Cap);
+    }
+
+    @Override
+    public void deletePlanCapSP(Long id, Long estado) {
+        plan_CapDAOImpl.deletePlanCapSP(id, estado);
+    }
 }

@@ -22,7 +22,7 @@ public class Obs_Supervisor implements Serializable{
     private long idobssupervisor;
     
     @Column(name="FECHA_HORA_OBS_SUPERVISOR")
-    private Date fechahoraobssupervisor;
+    private String fechahoraobssupervisor;
     
     @Column(name="OBS_SUPERVISOR")
     private String obssupervisor;
@@ -41,11 +41,11 @@ public class Obs_Supervisor implements Serializable{
         this.idobssupervisor = idobssupervisor;
     }
 
-    public Date getFechahoraobssupervisor() {
+    public String getFechahoraobssupervisor() {
         return fechahoraobssupervisor;
     }
 
-    public void setFechahoraobssupervisor(Date fechahoraobssupervisor) {
+    public void setFechahoraobssupervisor(String fechahoraobssupervisor) {
         this.fechahoraobssupervisor = fechahoraobssupervisor;
     }
 
@@ -78,6 +78,5 @@ public class Obs_Supervisor implements Serializable{
         return "Obs_Supervisor{" + "idobssupervisor=" + idobssupervisor + ", fechahoraobssupervisor=" + fechahoraobssupervisor + ", obssupervisor=" + obssupervisor + ", estadoObsSupervisor=" + estadoObsSupervisor + ", evalterridevalterr=" + evalterridevalterr + '}';
     }
 
-    
     
 }

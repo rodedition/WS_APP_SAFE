@@ -22,7 +22,7 @@ public class Plan_Cap implements Serializable{
     private long idplancap;
     
     @Column(name="FECHA_CREACION")
-    private Date fechacreacion;
+    private String fechacreacion;
     
     @Column(name="ESTADO_PLAN_CAP")
     private long estadoplancap;
@@ -38,11 +38,11 @@ public class Plan_Cap implements Serializable{
         this.idplancap = idplancap;
     }
 
-    public Date getFechacreacion() {
+    public String getFechacreacion() {
         return fechacreacion;
     }
 
-    public void setFechacreacion(Date fechacreacion) {
+    public void setFechacreacion(String fechacreacion) {
         this.fechacreacion = fechacreacion;
     }
 
@@ -65,7 +65,5 @@ public class Plan_Cap implements Serializable{
     @Override
     public String toString() {
         return "Plan_Cap{" + "idplancap=" + idplancap + ", fechacreacion=" + fechacreacion + ", estadoplancap=" + estadoplancap + ", clienteidcliente=" + clienteidcliente + '}';
-    }
-
-    
+    }   
 }
