@@ -31,13 +31,13 @@ public class Sesion_Salud implements Serializable{
     private long cupossesion;
     
     @Column(name="FECHA_SESION")
-    private Date fechasesion;
+    private String fechasesion;
     
     @Column(name="HORA_INICIO_SALUD")
-    private Date horainiciosalud;
+    private String horainiciosalud;
     
     @Column(name="HORA_TERMINO_SALUD")
-    private Date horaterminosalud;
+    private String horaterminosalud;
     
     @Column(name="DESCRIPCION_SESION_SALUD")
     private String descripcionsesionsalud;
@@ -83,27 +83,27 @@ public class Sesion_Salud implements Serializable{
         this.cupossesion = cupossesion;
     }
 
-    public Date getFechasesion() {
+    public String getFechasesion() {
         return fechasesion;
     }
 
-    public void setFechasesion(Date fechasesion) {
+    public void setFechasesion(String fechasesion) {
         this.fechasesion = fechasesion;
     }
 
-    public Date getHorainiciosalud() {
+    public String getHorainiciosalud() {
         return horainiciosalud;
     }
 
-    public void setHorainiciosalud(Date horainiciosalud) {
+    public void setHorainiciosalud(String horainiciosalud) {
         this.horainiciosalud = horainiciosalud;
     }
 
-    public Date getHoraterminosalud() {
+    public String getHoraterminosalud() {
         return horaterminosalud;
     }
 
-    public void setHoraterminosalud(Date horaterminosalud) {
+    public void setHoraterminosalud(String horaterminosalud) {
         this.horaterminosalud = horaterminosalud;
     }
 
@@ -144,7 +144,5 @@ public class Sesion_Salud implements Serializable{
         return "Sesion_Salud{" + "idsesionsalud=" + idsesionsalud + ", numsesionsalud=" + numsesionsalud + ", nombresesionsalud=" + nombresesionsalud + ", cupossesion=" + cupossesion + ", fechasesion=" + fechasesion + ", horainiciosalud=" + horainiciosalud + ", horaterminosalud=" + horaterminosalud + ", descripcionsesionsalud=" + descripcionsesionsalud + ", medicoidmedico=" + medicoidmedico + ", examenesidexamenes=" + examenesidexamenes + ", estadosesionsalud=" + estadosesionsalud + '}';
     }
 
-    
-    
     
 }

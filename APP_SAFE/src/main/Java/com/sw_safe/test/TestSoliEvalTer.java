@@ -48,7 +48,7 @@ public class TestSoliEvalTer {
             
             SoliEvalTer sol = new SoliEvalTer();
             sol.setIdsolicitud(10);
-            sol.setFechacreacion(Date.from(Instant.MIN));
+            sol.setFechacreacion("29-12-2018");
             sol.setDireccionvisita("Cerro el Plomo");
             sol.setDescripcionvisita("Evaluación personas");
             sol.setClienteidcliente(1);

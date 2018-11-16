@@ -36,6 +36,8 @@ public class SoliEvalTerRest {
     @Qualifier("soliEvalTerService")
     SoliEvalTerService soliEvalTerServiceImpl;
     
+    //Creación de URIS para llamadas a base de dtos de directa
+    
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getSoliEvalTerJSON(@PathVariable String name){
         Gson gson = new Gson();
@@ -87,6 +89,50 @@ public class SoliEvalTerRest {
             e.printStackTrace();
         }
         return jsonSol;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createSoliEvalTerSP",method=RequestMethod.POST,produces="application/json")
+    public String saveSoliEvalTerSP(@RequestBody SoliEvalTer soliEvalTer){
+        String jsonSol = "";
+        boolean getresponse = false;
+        try {
+            getresponse = soliEvalTerServiceImpl.addSoliEvalTerSP(soliEvalTer);
+            jsonSol = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonSol;
+    }
+    
+    @RequestMapping(value="/readOneSoliEvalTer/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<SoliEvalTer> readOneSoliEvalTer (@PathVariable("id") String id){
+        return soliEvalTerServiceImpl.getByIdSoliEvalTerSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllSoliEvalTer/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<SoliEvalTer> getAllSoliEvalTerSP (){
+        return soliEvalTerServiceImpl.getAllSoliEvalTerSP();
+    }
+    
+    @RequestMapping(value="/upSoliEvalTer",method=RequestMethod.PUT,produces="application/json")
+    public String updateSoliEvalTerSP(@RequestBody SoliEvalTer soliEvalTer){
+        String jsonSol = "";
+        boolean getresponse = false;
+        try {
+            getresponse = soliEvalTerServiceImpl.updateSoliEvalTerSP(soliEvalTer);
+            jsonSol = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonSol;
+    }
+
+    @RequestMapping(value="/deleteSoliEvalTer/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteSoliEvalTerSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        soliEvalTerServiceImpl.deleteSoliEvalTerSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

@@ -34,7 +34,7 @@ public class Usuarios implements Serializable{
     private String apmaterno;
     
     @Column(name="F_NACIMIENTO_USUARIO")
-    private Date fnacimientousuario;
+    private String fnacimientousuario;
     
     @Column(name="SEXO_USUARIO")
     private String sexousuario;
@@ -97,11 +97,11 @@ public class Usuarios implements Serializable{
         this.apmaterno = apmaterno;
     }
 
-    public Date getFnacimientousuario() {
+    public String getFnacimientousuario() {
         return fnacimientousuario;
     }
 
-    public void setFnacimientousuario(Date fnacimientousuario) {
+    public void setFnacimientousuario(String fnacimientousuario) {
         this.fnacimientousuario = fnacimientousuario;
     }
 
@@ -164,7 +164,5 @@ public class Usuarios implements Serializable{
     @Override
     public String toString() {
         return "Usuarios{" + "idusuario=" + idusuario + ", runusuario=" + runusuario + ", nombresusuario=" + nombresusuario + ", appaterno=" + appaterno + ", apmaterno=" + apmaterno + ", fnacimientousuario=" + fnacimientousuario + ", sexousuario=" + sexousuario + ", telusuario=" + telusuario + ", mailusuario=" + mailusuario + ", estadousuario=" + estadousuario + ", claveusuario=" + claveusuario + ", perfilidperfil=" + perfilidperfil + ", clienteidcliente=" + clienteidcliente + '}';
-    }
-    
-    
+    }   
 }

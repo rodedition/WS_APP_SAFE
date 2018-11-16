@@ -31,13 +31,13 @@ public class Sesion_Cap implements Serializable{
     private long cupossesion;
     
     @Column(name="FECHA_SESION")
-    private Date fechasesion;
+    private String fechasesion;
     
     @Column(name="HORA_INICIO_CAP")
-    private Date horainiciocap;
+    private String horainiciocap;
     
     @Column(name="HORA_TERMINO_CAP")
-    private Date horaterminocap;
+    private String horaterminocap;
     
     @Column(name="DESCRIPCION_SESION")
     private String descripcionsesion;
@@ -83,27 +83,27 @@ public class Sesion_Cap implements Serializable{
         this.cupossesion = cupossesion;
     }
 
-    public Date getFechasesion() {
+    public String getFechasesion() {
         return fechasesion;
     }
 
-    public void setFechasesion(Date fechasesion) {
+    public void setFechasesion(String fechasesion) {
         this.fechasesion = fechasesion;
     }
 
-    public Date getHorainiciocap() {
+    public String getHorainiciocap() {
         return horainiciocap;
     }
 
-    public void setHorainiciocap(Date horainiciocap) {
+    public void setHorainiciocap(String horainiciocap) {
         this.horainiciocap = horainiciocap;
     }
 
-    public Date getHoraterminocap() {
+    public String getHoraterminocap() {
         return horaterminocap;
     }
 
-    public void setHoraterminocap(Date horaterminocap) {
+    public void setHoraterminocap(String horaterminocap) {
         this.horaterminocap = horaterminocap;
     }
 
@@ -142,10 +142,6 @@ public class Sesion_Cap implements Serializable{
     @Override
     public String toString() {
         return "Sesion_Cap{" + "idsesioncap=" + idsesioncap + ", numsesioncap=" + numsesioncap + ", nombresesion=" + nombresesion + ", cupossesion=" + cupossesion + ", fechasesion=" + fechasesion + ", horainiciocap=" + horainiciocap + ", horaterminocap=" + horaterminocap + ", descripcionsesion=" + descripcionsesion + ", estadosesioncap=" + estadosesioncap + ", capacitacionidcap=" + capacitacionidcap + ", expositoridexpositor=" + expositoridexpositor + '}';
-    }
-
-    
-    
-    
+    }   
 
 }

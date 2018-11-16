@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Usuarios;
 import com.ws_safe.service.UsuariosService;
-import com.ws_safe.service.UsuariosServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,6 +34,8 @@ public class UsuariosRest {
     @Autowired
     @Qualifier("usuariosService")
     UsuariosService usuariosServiceImpl;
+    
+    //Creación de URIS para llamadas a base de dtos de directa
     
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getUsuariosJSON(@PathVariable String name){
@@ -87,6 +88,50 @@ public class UsuariosRest {
             e.printStackTrace();
         }
         return jsonUsu;
+    }
+    
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createUsuarioSP",method=RequestMethod.POST,produces="application/json")
+    public String saveUsuarioSP(@RequestBody Usuarios usuarios){
+        String jsonUsu = "";
+        boolean getresponse = false;
+        try {
+            getresponse = usuariosServiceImpl.addUsuarioSP(usuarios);
+            jsonUsu = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonUsu;
+    }
+    
+    @RequestMapping(value="/readOneUsuario/{rut}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Usuarios> readOneMedico (@PathVariable("rut") String rut){
+        return usuariosServiceImpl.getByIdUsuarioSP(new String (rut));
+    }
+    
+    @RequestMapping(value="/getAllUsuarios/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Usuarios> getAllUsuriosSP (){
+        return usuariosServiceImpl.getAllUsuarioSP();
+    }
+    
+    @RequestMapping(value="/upUsuario",method=RequestMethod.PUT,produces="application/json")
+    public String updateUsurioSP(@RequestBody Usuarios usuarios){
+        String jsonUsu = "";
+        boolean getresponse = false;
+        try {
+            getresponse = usuariosServiceImpl.updateUsuarioSP(usuarios);
+            jsonUsu = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonUsu;
+    }
+
+    @RequestMapping(value="/deleteMedico/{rut}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteUsurioSP(@PathVariable("rut") String rut, @PathVariable("estado") String estado){
+        usuariosServiceImpl.deleteUsuarioSP(new String (rut), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

@@ -22,7 +22,7 @@ public class SoliEvalTer implements Serializable{
     private long idsolicitud;
     
     @Column(name="FECHA_CREACION")
-    private Date fechacreacion;
+    private String fechacreacion;
     
     @Column(name="DIRECCION_VISITA")
     private String direccionvisita;
@@ -47,11 +47,11 @@ public class SoliEvalTer implements Serializable{
         this.idsolicitud = idsolicitud;
     }
 
-    public Date getFechacreacion() {
+    public String getFechacreacion() {
         return fechacreacion;
     }
 
-    public void setFechacreacion(Date fechacreacion) {
+    public void setFechacreacion(String fechacreacion) {
         this.fechacreacion = fechacreacion;
     }
 
@@ -98,6 +98,7 @@ public class SoliEvalTer implements Serializable{
     @Override
     public String toString() {
         return "SoliEvalTer{" + "idsolicitud=" + idsolicitud + ", fechacreacion=" + fechacreacion + ", direccionvisita=" + direccionvisita + ", descripcionvisita=" + descripcionvisita + ", clienteidcliente=" + clienteidcliente + ", tipovisitteridtipovister=" + tipovisitteridtipovister + ", estadosolievalter=" + estadosolievalter + '}';
-    }    
+    }
+
     
 }

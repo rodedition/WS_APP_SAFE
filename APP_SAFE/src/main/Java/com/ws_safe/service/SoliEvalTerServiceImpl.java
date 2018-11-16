@@ -26,6 +26,8 @@ public class SoliEvalTerServiceImpl implements SoliEvalTerService{
     @Autowired
     @Qualifier("soliEvalTerDAO")
     
+    //Servicios para llamadas a base de datos directa
+            
     SoliEvalTerDAO soliEvalTerDAOImpl;
 
    
@@ -49,5 +51,33 @@ public class SoliEvalTerServiceImpl implements SoliEvalTerService{
     public boolean updateSoliEvalTer(SoliEvalTer soliEvalTer) {
         return soliEvalTerDAOImpl.updateSoliEvalTer(soliEvalTer);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addSoliEvalTerSP(SoliEvalTer soliEvalTer) {
+        return soliEvalTerDAOImpl.addSoliEvalTerSP(soliEvalTer);
+    }
+
+    @Override
+    public List<SoliEvalTer> getByIdSoliEvalTerSP(Long id) {
+        return soliEvalTerDAOImpl.getByIdSoliEvalTerSP(id);
+    }
+
+    @Override
+    public List<SoliEvalTer> getAllSoliEvalTerSP() {
+        return soliEvalTerDAOImpl.getAllSoliEvalTerSP();
+    }
+
+    @Override
+    public boolean updateSoliEvalTerSP(SoliEvalTer soliEvalTer) {
+        return soliEvalTerDAOImpl.updateSoliEvalTerSP(soliEvalTer);
+    }
+
+    @Override
+    public void deleteSoliEvalTerSP(Long id, Long estado) {
+        soliEvalTerDAOImpl.deleteSoliEvalTerSP(id, estado);
+    }
+    
     
 }

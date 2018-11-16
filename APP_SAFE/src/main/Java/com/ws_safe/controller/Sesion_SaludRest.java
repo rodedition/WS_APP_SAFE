@@ -36,6 +36,8 @@ public class Sesion_SaludRest {
     @Qualifier("sesion_SaludService")
     Sesion_SaludService sesion_SaludServiceImpl;
     
+    //Creación de URIS para llamadas a base de dtos de directa
+    
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getSesion_SaludJSON(@PathVariable String name){
         Gson gson = new Gson();
@@ -89,4 +91,47 @@ public class Sesion_SaludRest {
         return jsonSesS;
     }
 
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createSesionSaludSP",method=RequestMethod.POST,produces="application/json")
+    public String saveSesionSaludSP(@RequestBody Sesion_Salud sesion_Salud){
+        String jsonSes = "";
+        boolean getresponse = false;
+        try {
+            getresponse = sesion_SaludServiceImpl.addSesionSaludSP(sesion_Salud);
+            jsonSes = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonSes;
+    }
+    
+    @RequestMapping(value="/readOneSesionSalud/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Sesion_Salud> readOneSesionSalud (@PathVariable("id") String id){
+        return sesion_SaludServiceImpl.getByIdSesionSaludSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllSesionSalud/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Sesion_Salud> getAllSesionSaludSP (){
+        return sesion_SaludServiceImpl.getAllSesionSaludSP();
+    }
+    
+    @RequestMapping(value="/upSesionSalud",method=RequestMethod.PUT,produces="application/json")
+    public String updateSesionSaludSP(@RequestBody Sesion_Salud sesion_Salud){
+        String jsonSes = "";
+        boolean getresponse = false;
+        try {
+            getresponse = sesion_SaludServiceImpl.updateSesionSaludSP(sesion_Salud);
+            jsonSes = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonSes;
+    }
+
+    @RequestMapping(value="/deleteSesionSalud/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteSesionSaludSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        sesion_SaludServiceImpl.deleteSesionSaludSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

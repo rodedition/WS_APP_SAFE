@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Sesion_Cap;
 import com.ws_safe.service.Sesion_CapService;
-import com.ws_safe.service.Sesion_CapServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,6 +34,8 @@ public class Sesion_CapRest {
     @Autowired
     @Qualifier("sesion_CapService")
     Sesion_CapService sesion_CapServiceImpl;
+    
+    //Creación de URIS para llamadas a base de dtos de directa
     
     @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
     public String getSesion_CapJSON(@PathVariable String name){
@@ -89,4 +90,47 @@ public class Sesion_CapRest {
         return jsonSesC;
     }
 
+    //Creación de URIS para llamadas a PROCEDURE
+    
+    @RequestMapping(value="/createSesionCapSP",method=RequestMethod.POST,produces="application/json")
+    public String saveSesionCapSP(@RequestBody Sesion_Cap sesion_Cap){
+        String jsonSes = "";
+        boolean getresponse = false;
+        try {
+            getresponse = sesion_CapServiceImpl.addSesionCapSP(sesion_Cap);
+            jsonSes = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonSes;
+    }
+    
+    @RequestMapping(value="/readOneSesionCap/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Sesion_Cap> readOneSesionCap (@PathVariable("id") String id){
+        return sesion_CapServiceImpl.getByIdSesionCapSP(new Long (id));
+    }
+    
+    @RequestMapping(value="/getAllSesionCap/", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Sesion_Cap> getAllSesionCapSP (){
+        return sesion_CapServiceImpl.getAllSesionCapSP();
+    }
+    
+    @RequestMapping(value="/upSesionCap",method=RequestMethod.PUT,produces="application/json")
+    public String updateSesionCapSP(@RequestBody Sesion_Cap sesion_Cap){
+        String jsonSes = "";
+        boolean getresponse = false;
+        try {
+            getresponse = sesion_CapServiceImpl.updateSesionCapSP(sesion_Cap);
+            jsonSes = getresponse==true?"1":"0";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonSes;
+    }
+
+    @RequestMapping(value="/deleteSesionCap/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteSesionCapSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
+        sesion_CapServiceImpl.deleteSesionCapSP(new Long (id), new Long (estado));
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

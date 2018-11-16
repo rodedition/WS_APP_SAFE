@@ -28,6 +28,7 @@ public class Sesion_CapServiceImpl implements Sesion_CapService{
     
     Sesion_CapDAO sesion_CapDAOImpl;
 
+    //Servicios para llamadas a base de datos directa
    
     public List<Sesion_Cap> getListSesion_Cap() {
         return sesion_CapDAOImpl.getListSesion_Cap();
@@ -49,5 +50,33 @@ public class Sesion_CapServiceImpl implements Sesion_CapService{
     public boolean updateSesion_Cap(Sesion_Cap sesion_Cap) {
         return sesion_CapDAOImpl.updateSesion_Cap(sesion_Cap);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addSesionCapSP(Sesion_Cap sesion_Cap) {
+        return sesion_CapDAOImpl.addSesionCapSP(sesion_Cap);
+    }
+
+    @Override
+    public List<Sesion_Cap> getByIdSesionCapSP(Long id) {
+        return sesion_CapDAOImpl.getByIdSesionCapSP(id);
+    }
+
+    @Override
+    public List<Sesion_Cap> getAllSesionCapSP() {
+        return sesion_CapDAOImpl.getAllSesionCapSP();
+    }
+
+    @Override
+    public boolean updateSesionCapSP(Sesion_Cap sesion_Cap) {
+        return sesion_CapDAOImpl.updateSesionCapSP(sesion_Cap);
+    }
+
+    @Override
+    public void deleteSesionCapSP(Long id, Long estado) {
+        sesion_CapDAOImpl.deleteSesionCapSP(id, estado);
+    }
+    
     
 }

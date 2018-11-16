@@ -51,9 +51,9 @@ public class TestSesion_Cap {
             ses.setNumsesioncap(3);
             ses.setNombresesion("Artefactos");
             ses.setCupossesion(20);
-            ses.setFechasesion(Date.from(Instant.MIN));
-            ses.setHorainiciocap(Date.from(Instant.MIN));
-            ses.setHoraterminocap(Date.from(Instant.MIN));
+            ses.setFechasesion("19-12-2018");
+            ses.setHorainiciocap("19-12-2018");
+            ses.setHoraterminocap("19-12-2018");
             ses.setDescripcionsesion("descripcion de artefactos explosivos");
             ses.setEstadosesioncap(1);
             ses.setCapacitacionidcap(1);

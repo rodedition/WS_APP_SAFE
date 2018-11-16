@@ -52,7 +52,7 @@ public class TestUsuario {
             usu.setNombresusuario("Pedro");
             usu.setAppaterno("Vargas");
             usu.setApmaterno("Barrera");
-            usu.setFnacimientousuario(Date.from(Instant.MIN));
+            usu.setFnacimientousuario("12-05-1986");
             usu.setSexousuario("Masculino");
             usu.setTelusuario("985247852");
             usu.setMailusuario("a@a.cl");

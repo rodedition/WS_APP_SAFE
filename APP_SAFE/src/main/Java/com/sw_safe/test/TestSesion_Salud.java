@@ -51,9 +51,9 @@ public class TestSesion_Salud {
             ses.setNumsesionsalud(1);
             ses.setNombresesionsalud("Vías respiratorias");
             ses.setCupossesion(15);
-            ses.setFechasesion(Date.from(Instant.MIN));
-            ses.setHorainiciosalud(Date.from(Instant.MIN));
-            ses.setHoraterminosalud(Date.from(Instant.MIN));
+            ses.setFechasesion("13-12-2018");
+            ses.setHorainiciosalud("13-12-2018");
+            ses.setHoraterminosalud("13-12-2018");
             ses.setDescripcionsesionsalud("Vías circulatorias de los humanos");
             ses.setMedicoidmedico(1);
             ses.setExamenesidexamenes(1);

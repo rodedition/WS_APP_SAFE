@@ -28,6 +28,7 @@ public class Sesion_SaludServiceImpl implements Sesion_SaludService{
     
     Sesion_SaludDAO sesion_SaludDAOImpl;
 
+    //Servicios para llamadas a base de datos directa
    
     public List<Sesion_Salud> getListSesion_Salud() {
         return sesion_SaludDAOImpl.getListSesion_Salud();
@@ -49,5 +50,33 @@ public class Sesion_SaludServiceImpl implements Sesion_SaludService{
     public boolean updateSesion_Salud(Sesion_Salud sesion_Salud) {
         return sesion_SaludDAOImpl.updateSesion_Salud(sesion_Salud);
     }    
+    
+    //Servicios para llamadas a PROCEDURE
+
+    @Override
+    public boolean addSesionSaludSP(Sesion_Salud sesion_Salud) {
+        return sesion_SaludDAOImpl.addSesionSaludSP(sesion_Salud);
+    }
+
+    @Override
+    public List<Sesion_Salud> getByIdSesionSaludSP(Long id) {
+        return sesion_SaludDAOImpl.getByIdSesionSaludSP(id);
+    }
+
+    @Override
+    public List<Sesion_Salud> getAllSesionSaludSP() {
+        return sesion_SaludDAOImpl.getAllSesionSaludSP();
+    }
+
+    @Override
+    public boolean updateSesionSaludSP(Sesion_Salud sesion_Salud) {
+        return sesion_SaludDAOImpl.updateSesionSaludSP(sesion_Salud);
+    }
+
+    @Override
+    public void deleteSesionSaludSP(Long id, Long estado) {
+        sesion_SaludDAOImpl.deleteSesionSaludSP(id, estado);
+    }
+    
     
 }
