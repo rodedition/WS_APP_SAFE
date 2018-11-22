@@ -27,29 +27,7 @@ public class Sesion_CapServiceImpl implements Sesion_CapService{
     @Qualifier("sesion_CapDAO")
     
     Sesion_CapDAO sesion_CapDAOImpl;
-
-    //Servicios para llamadas a base de datos directa
-   
-    public List<Sesion_Cap> getListSesion_Cap() {
-        return sesion_CapDAOImpl.getListSesion_Cap();
-    }
-
-   
-    public boolean addSesion_Cap(Sesion_Cap sesion_Cap) {
-        return sesion_CapDAOImpl.addSesion_Cap(sesion_Cap);
-    }
-
-    public Sesion_Cap getByIdSesion_Cap(Long id) {
-        return sesion_CapDAOImpl.getByIdSesion_Cap(id);
-    }
-
-    public void deleteSesion_Cap(Long id) {
-        sesion_CapDAOImpl.deleteSesion_Cap(id);
-    }
-
-    public boolean updateSesion_Cap(Sesion_Cap sesion_Cap) {
-        return sesion_CapDAOImpl.updateSesion_Cap(sesion_Cap);
-    }    
+  
     
     //Servicios para llamadas a PROCEDURE
 

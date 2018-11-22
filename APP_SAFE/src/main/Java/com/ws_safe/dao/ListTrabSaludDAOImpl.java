@@ -5,7 +5,6 @@
  */
 package com.ws_safe.dao;
 
-import com.ws_safe.entity.Expositor;
 import com.ws_safe.entity.ListTrabSalud;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -36,47 +35,7 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<ListTrabSalud> getListListTrabSalud() {
-        return (List<ListTrabSalud>)sessionFactory.getCurrentSession().createCriteria(ListTrabSalud.class).list();
-    }
-    
-    @Override
-    public boolean addListTrabSalud(ListTrabSalud listTrabSalud) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(listTrabSalud);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public ListTrabSalud getByIdListTrabSalud(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM ListTrabSalud as c WHERE c.idlistrabsalud=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (ListTrabSalud)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteListTrabSalud(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM ListTrabSalud as c WHERE c.idlistrabsalud=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateListTrabSalud(ListTrabSalud listTrabSalud) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(listTrabSalud);
-        flagsave=true;
-        
-        return flagsave;
-    } 
-    
+       
     //Llamadas a procedures
 
     @Override

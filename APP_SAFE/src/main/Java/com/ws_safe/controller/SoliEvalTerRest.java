@@ -36,60 +36,6 @@ public class SoliEvalTerRest {
     @Qualifier("soliEvalTerService")
     SoliEvalTerService soliEvalTerServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getSoliEvalTerJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonSol="";
-        List<SoliEvalTer> listSoliEvalTer = new ArrayList<SoliEvalTer>();        
-        try {
-            listSoliEvalTer = soliEvalTerServiceImpl.getListSoliEvalTer();
-            logger.info("La cantidad de solicitudes son: "+listSoliEvalTer.size());
-            jsonSol = gson.toJson(listSoliEvalTer);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSol;
-    }
-    
-    @RequestMapping(value="/createSoliEvalTer",method=RequestMethod.POST,produces="application/json")
-    public String saveSol(@RequestBody SoliEvalTer soliEvalTer){
-        String jsonSol = "";
-        boolean getresponse = false;
-        try {
-            getresponse = soliEvalTerServiceImpl.addSoliEvalTer(soliEvalTer);
-            jsonSol = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSol;
-    }
-    
-    @RequestMapping(value="/deleteSoliEvalTer/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteSoliEvalTer(@PathVariable("id") String id){
-        soliEvalTerServiceImpl.deleteSoliEvalTer(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneSoliEvalTer/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody SoliEvalTer getOneSoliEvalTer (@PathVariable("id") String id){
-        return soliEvalTerServiceImpl.getByIdSoliEvalTer(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateSoliEvalTer",method=RequestMethod.PUT,produces="application/json")
-    public String updateSoliEvalTer(@RequestBody SoliEvalTer soliEvalTer){
-        String jsonSol = "";
-        boolean getresponse = false;
-        try {
-            getresponse = soliEvalTerServiceImpl.updateSoliEvalTer(soliEvalTer);
-            jsonSol = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSol;
-    }
     
     //Creación de URIS para llamadas a PROCEDURE
     

@@ -5,7 +5,6 @@
  */
 package com.ws_safe.dao;
 
-import com.ws_safe.entity.Obs_Ingeniero;
 import com.ws_safe.entity.Obs_Supervisor;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -35,48 +34,7 @@ public class Obs_SupervisorDAOImpl implements Obs_SupervisorDAO{
     
     @Autowired
     private SessionFactory sessionFactory;
-    
-    //Llamadas directas a base de datos    
         
-    @Override
-    public List<Obs_Supervisor> getListObs_Supervisor() {
-        return (List<Obs_Supervisor>)sessionFactory.getCurrentSession().createCriteria(Obs_Supervisor.class).list();
-    }
-    
-    @Override
-    public boolean addObs_Supervisor(Obs_Supervisor obs_Supervisor) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(obs_Supervisor);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Obs_Supervisor getByIdObs_Supervisor(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Obs_Supervisor as c WHERE c.idobssupervisor=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Obs_Supervisor)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteObs_Supervisor(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Obs_Supervisor as c WHERE c.idobssupervisor=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateObs_Supervisor(Obs_Supervisor obs_Supervisor) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(obs_Supervisor);
-        flagsave=true;
-        
-        return flagsave;
-    }  
-    
     //Llamadas a procedures
 
     @Override

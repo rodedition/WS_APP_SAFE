@@ -13,12 +13,6 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface ExamenesService {
-    //Interfaces Llamadas directas a base de datos
-    public List<Examenes> getListExamen();
-    public boolean addExamen(Examenes examenes);
-    public Examenes getByIdExamen (Long id);
-    public void deleteExamen (Long id);
-    public boolean updateExamen (Examenes examenes);
     
     //Interfaces Llamadas a PROCEDURE
     public boolean addExamenSP(Examenes examenes);

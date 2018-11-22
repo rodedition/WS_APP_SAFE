@@ -28,30 +28,6 @@ public class ExpositorServiceImpl implements ExpositorService{
     
     ExpositorDAO expositorDAOImpl;
     
-    //Servicios para llamadas a base de datos directa
-
-   
-    public List<Expositor> getListExpositor() {
-        return expositorDAOImpl.getListExpositor();
-    }
-
-   
-    public boolean addExpositor(Expositor expositor) {
-        return expositorDAOImpl.addExpositor(expositor);
-    }
-
-    public Expositor getByIdExpositor(Long id) {
-        return expositorDAOImpl.getByIdExpositor(id);
-    }
-
-    public void deleteExpositor(Long id) {
-        expositorDAOImpl.deleteExpositor(id);
-    }
-
-    public boolean updateExpositor(Expositor expositor) {
-        return expositorDAOImpl.updateExpositor(expositor);
-    }    
-    
     //Servicios para llamadas a PROCEDURE
 
     @Override

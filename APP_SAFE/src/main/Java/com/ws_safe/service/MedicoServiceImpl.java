@@ -28,29 +28,6 @@ public class MedicoServiceImpl implements MedicoService{
     
     MedicoDAO medicoDAOImpl;
     
-    //Servicios para llamadas a base de datos directa
-   
-    public List<Medico> getListMedico() {
-        return medicoDAOImpl.getListMedico();
-    }
-
-   
-    public boolean addMedico(Medico medico) {
-        return medicoDAOImpl.addMedico(medico);
-    }
-
-    public Medico getByIdMedico(Long id) {
-        return medicoDAOImpl.getByIdMedico(id);
-    }
-
-    public void deleteMedico(Long id) {
-        medicoDAOImpl.deleteMedico(id);
-    }
-
-    public boolean updateMedico(Medico medico) {
-        return medicoDAOImpl.updateMedico(medico);
-    }    
-    
     //Servicios para llamadas a PROCEDURE
 
     @Override

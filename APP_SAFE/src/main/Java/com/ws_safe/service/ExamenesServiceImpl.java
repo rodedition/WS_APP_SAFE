@@ -28,28 +28,6 @@ public class ExamenesServiceImpl implements ExamenesService{
     
     ExamenesDAO examenesDAOImpl;
 
-    //Servicios para llamadas a base de datos directa
-    
-    public List<Examenes> getListExamen() {
-        return examenesDAOImpl.getListExamen();
-    }
-   
-    public boolean addExamen(Examenes examenes) {
-        return examenesDAOImpl.addExamen(examenes);
-    }
-
-    public Examenes getByIdExamen(Long id) {
-        return examenesDAOImpl.getByIdExamen(id);
-    }
-
-    public void deleteExamen(Long id) {
-        examenesDAOImpl.deleteExamen(id);
-    }
-
-    public boolean updateExamen(Examenes examenes) {
-        return examenesDAOImpl.updateExamen(examenes);
-    }    
-    
     //Servicios para llamadas a PROCEDURE
 
     @Override

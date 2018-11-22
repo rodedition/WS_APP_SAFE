@@ -36,61 +36,6 @@ public class ExamenesRest {
     @Qualifier("examenesService")
     ExamenesService examenesServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getExamenJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonExa="";
-        List<Examenes> listExamenes = new ArrayList<Examenes>();        
-        try {
-            listExamenes = examenesServiceImpl.getListExamen();
-            logger.info("La cantidad de examenes son: "+listExamenes.size());
-            jsonExa = gson.toJson(listExamenes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExa;
-    }
-    
-    @RequestMapping(value="/createExamen",method=RequestMethod.POST,produces="application/json")
-    public String saveExa(@RequestBody Examenes examenes){
-        String jsonExa = "";
-        boolean getresponse = false;
-        try {
-            getresponse = examenesServiceImpl.addExamen(examenes);
-            jsonExa = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExa;
-    }
-    
-    @RequestMapping(value="/deleteExamen/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteExamen(@PathVariable("id") String id){
-        examenesServiceImpl.deleteExamen(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneExamen/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Examenes getOneExamen (@PathVariable("id") String id){
-        return examenesServiceImpl.getByIdExamen(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateExamen",method=RequestMethod.PUT,produces="application/json")
-    public String updateExamen(@RequestBody Examenes examenes){
-        String jsonExa = "";
-        boolean getresponse = false;
-        try {
-            getresponse = examenesServiceImpl.updateExamen(examenes);
-            jsonExa = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExa;
-    }
-    
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createExamenSP",method=RequestMethod.POST,produces="application/json")

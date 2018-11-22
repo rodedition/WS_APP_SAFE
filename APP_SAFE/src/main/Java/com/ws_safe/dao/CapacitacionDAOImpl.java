@@ -35,49 +35,7 @@ public class CapacitacionDAOImpl implements CapacitacionDAO{
     
     @Autowired
     private SessionFactory sessionFactory;
-    
-    
-    //Llamadas directas a base de datos
-    
-    @Override
-    public List<Capacitacion> getListCapacitacion() {
-        return (List<Capacitacion>)sessionFactory.getCurrentSession().createCriteria(Capacitacion.class).list();
-    }
-    
-    @Override
-    public boolean addCap(Capacitacion capacitacion) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(capacitacion);
-        flagsave=true;
         
-        return flagsave;
-    }
-
-    public Capacitacion getByIdCap(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Capacitacion as c WHERE c.idcap=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Capacitacion)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteCap(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Capacitacion as c WHERE c.idcap=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateCap(Capacitacion capacitacion) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(capacitacion);
-        flagsave=true;
-        
-        return flagsave;
-    }   
-    
     //Llamadas a procedures
 
     @Override

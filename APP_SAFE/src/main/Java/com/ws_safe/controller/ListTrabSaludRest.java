@@ -35,61 +35,6 @@ public class ListTrabSaludRest {
     @Qualifier("listTrabSaludService")
     ListTrabSaludService listTrabSaludServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getListTrabSaludJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonList="";
-        List<ListTrabSalud> listListTrabSalud = new ArrayList<ListTrabSalud>();        
-        try {
-            listListTrabSalud = listTrabSaludServiceImpl.getListListTrabSalud();
-            logger.info("La cantidad de listas son: "+listListTrabSalud.size());
-            jsonList = gson.toJson(listListTrabSalud);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonList;
-    }
-    
-    @RequestMapping(value="/createListaTrabajadoresSalud",method=RequestMethod.POST,produces="application/json")
-    public String saveList(@RequestBody ListTrabSalud listTrabSalud){
-        String jsonList = "";
-        boolean getresponse = false;
-        try {
-            getresponse = listTrabSaludServiceImpl.addListTrabSalud(listTrabSalud);
-            jsonList = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonList;
-    }
-    
-    @RequestMapping(value="/deleteListaTrabajadoresSalud/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteListTrabSalud(@PathVariable("id") String id){
-        listTrabSaludServiceImpl.deleteListTrabSalud(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneListaTrabajadoresSalud/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody ListTrabSalud getOneListTrabSalud (@PathVariable("id") String id){
-        return listTrabSaludServiceImpl.getByIdListTrabSalud(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateListaTrabajadoresSalud",method=RequestMethod.PUT,produces="application/json")
-    public String updateListTrabSalud(@RequestBody ListTrabSalud listTrabSalud){
-        String jsonList = "";
-        boolean getresponse = false;
-        try {
-            getresponse = listTrabSaludServiceImpl.updateListTrabSalud(listTrabSalud);
-            jsonList = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonList;
-    }
-    
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createListTrabSaludSP",method=RequestMethod.POST,produces="application/json")

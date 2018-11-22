@@ -35,61 +35,6 @@ public class Plan_CapRest {
     @Qualifier("plan_CapService")
     Plan_CapService plan_CapServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getPlan_CapJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonPlanC="";
-        List<Plan_Cap> listPlan_Cap = new ArrayList<Plan_Cap>();        
-        try {
-            listPlan_Cap = plan_CapServiceImpl.getListPlan_Cap();
-            logger.info("La cantidad de planes son: "+listPlan_Cap.size());
-            jsonPlanC = gson.toJson(listPlan_Cap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonPlanC;
-    }
-    
-    @RequestMapping(value="/createPlanCapacitacion",method=RequestMethod.POST,produces="application/json")
-    public String savePlanC(@RequestBody Plan_Cap plan_Cap){
-        String jsonPlanC = "";
-        boolean getresponse = false;
-        try {
-            getresponse = plan_CapServiceImpl.addPlan_Cap(plan_Cap);
-            jsonPlanC = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonPlanC;
-    }
-    
-    @RequestMapping(value="/deletePlanCapacitacion/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deletePlan_Cap(@PathVariable("id") String id){
-        plan_CapServiceImpl.deletePlan_Cap(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOnePlanCapacitacion/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Plan_Cap getOnePlan_Cap (@PathVariable("id") String id){
-        return plan_CapServiceImpl.getByIdPlan_Cap(new Long (id));
-    }
-    
-    @RequestMapping(value="/updatePlanCapacitacion",method=RequestMethod.PUT,produces="application/json")
-    public String updatePlan_Cap(@RequestBody Plan_Cap plan_Cap){
-        String jsonPlanC = "";
-        boolean getresponse = false;
-        try {
-            getresponse = plan_CapServiceImpl.updatePlan_Cap(plan_Cap);
-            jsonPlanC = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonPlanC;
-    }
-    
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createPlanCapSP",method=RequestMethod.POST,produces="application/json")

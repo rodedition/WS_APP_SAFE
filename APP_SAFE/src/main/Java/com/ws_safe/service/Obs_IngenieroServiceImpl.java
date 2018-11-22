@@ -28,28 +28,6 @@ public class Obs_IngenieroServiceImpl implements Obs_IngenieroService{
     
     Obs_IngenieroDAO obs_IngenieroDAOImpl;
 
-    //Servicios para llamadas a base de datos directa
-   
-    public List<Obs_Ingeniero> getListObs_Ingeniero() {
-        return obs_IngenieroDAOImpl.getListObs_Ingeniero();
-    }
-   
-    public boolean addObs_Ingeniero(Obs_Ingeniero obs_Ingeniero) {
-        return obs_IngenieroDAOImpl.addObs_Ingeniero(obs_Ingeniero);
-    }
-
-    public Obs_Ingeniero getByIdObs_Ingeniero(Long id) {
-        return obs_IngenieroDAOImpl.getByIdObs_Ingeniero(id);
-    }
-
-    public void deleteObs_Ingeniero(Long id) {
-        obs_IngenieroDAOImpl.deleteObs_Ingeniero(id);
-    }
-
-    public boolean updateObs_Ingeniero(Obs_Ingeniero obs_Ingeniero) {
-        return obs_IngenieroDAOImpl.updateObs_Ingeniero(obs_Ingeniero);
-    }    
-    
     //Servicios para llamadas a PROCEDURE
 
     @Override

@@ -28,28 +28,6 @@ public class CapacitacionServiceImpl implements CapacitacionService{
     
     CapacitacionDAO capacitacionDAOImpl;
 
-    //Servicios para llamadas a base de datos directa
-   
-    public List<Capacitacion> getListCapacitacion() {
-        return capacitacionDAOImpl.getListCapacitacion();
-    }
-
-   
-    public boolean addCap(Capacitacion capacitacion) {
-        return capacitacionDAOImpl.addCap(capacitacion);
-    }
-
-    public Capacitacion getByIdCap(Long id) {
-        return capacitacionDAOImpl.getByIdCap(id);
-    }
-
-    public void deleteCap(Long id) {
-        capacitacionDAOImpl.deleteCap(id);
-    }
-
-    public boolean updateCap(Capacitacion capacitacion) {
-        return capacitacionDAOImpl.updateCap(capacitacion);
-    }  
     
     //Servicios para llamadas a PROCEDURE
 

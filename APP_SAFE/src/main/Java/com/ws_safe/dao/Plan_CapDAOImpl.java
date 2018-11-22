@@ -35,47 +35,6 @@ public class Plan_CapDAOImpl implements Plan_CapDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<Plan_Cap> getListPlan_Cap() {
-        return (List<Plan_Cap>)sessionFactory.getCurrentSession().createCriteria(Plan_Cap.class).list();
-    }
-    
-    @Override
-    public boolean addPlan_Cap(Plan_Cap plan_Cap) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(plan_Cap);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Plan_Cap getByIdPlan_Cap(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Plan_Cap as c WHERE c.idplancap=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Plan_Cap)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deletePlan_Cap(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Plan_Cap as c WHERE c.idplancap=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updatePlan_Cap(Plan_Cap plan_Cap) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(plan_Cap);
-        flagsave=true;
-        
-        return flagsave;
-    }   
-    
     //Llamadas a procedures
 
     @Override

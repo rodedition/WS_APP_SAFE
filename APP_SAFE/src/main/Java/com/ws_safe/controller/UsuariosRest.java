@@ -35,63 +35,6 @@ public class UsuariosRest {
     @Qualifier("usuariosService")
     UsuariosService usuariosServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getUsuariosJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonUsu="";
-        List<Usuarios> listUsuarios = new ArrayList<Usuarios>();        
-        try {
-            listUsuarios = usuariosServiceImpl.getListUsuarios();
-            logger.info("La cantidad de usuarios son: "+listUsuarios.size());
-            jsonUsu = gson.toJson(listUsuarios);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonUsu;
-    }
-    
-    @RequestMapping(value="/createUsuario",method=RequestMethod.POST,produces="application/json")
-    public String saveUsu(@RequestBody Usuarios usuarios){
-        String jsonUsu = "";
-        boolean getresponse = false;
-        try {
-            getresponse = usuariosServiceImpl.addUsuarios(usuarios);
-            jsonUsu = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonUsu;
-    }
-    
-    @RequestMapping(value="/deleteUsuario/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteUsuarios(@PathVariable("id") String id){
-        usuariosServiceImpl.deleteUsuarios(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneUsuario/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Usuarios getOneUsuarios (@PathVariable("id") String id){
-        return usuariosServiceImpl.getByIdUsuarios(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateUsuario",method=RequestMethod.PUT,produces="application/json")
-    public String updateUsuarios(@RequestBody Usuarios usuarios){
-        String jsonUsu = "";
-        boolean getresponse = false;
-        try {
-            getresponse = usuariosServiceImpl.updateUsuarios(usuarios);
-            jsonUsu = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonUsu;
-    }
-    
-    //Creación de URIS para llamadas a PROCEDURE
-    
     @RequestMapping(value="/createUsuarioSP",method=RequestMethod.POST,produces="application/json")
     public String saveUsuarioSP(@RequestBody Usuarios usuarios){
         String jsonUsu = "";

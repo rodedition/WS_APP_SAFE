@@ -37,59 +37,6 @@ public class CertificadoRest {
     
     //Creación de URIS para llamadas a base de dtos de directa
     
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getCertificadoJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonCer="";
-        List<Certificado> listCertificado = new ArrayList<Certificado>();        
-        try {
-            listCertificado = certificadoServiceImpl.getListCertificado();
-            logger.info("La cantidad de certificado son: "+listCertificado.size());
-            jsonCer = gson.toJson(listCertificado);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCer;
-    }
-    
-    @RequestMapping(value="/createCertificado",method=RequestMethod.POST,produces="application/json")
-    public String saveCer(@RequestBody Certificado certificado){
-        String jsonCer = "";
-        boolean getresponse = false;
-        try {
-            getresponse = certificadoServiceImpl.addCertificado(certificado);
-            jsonCer = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCer;
-    }   
-    
-    @RequestMapping(value="/deleteCertificado/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteCertificado(@PathVariable("id") String id){
-        certificadoServiceImpl.deleteCertificado(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneCertificado/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Certificado getOneCertificado (@PathVariable("id") String id){
-        return certificadoServiceImpl.getByIdCertificado(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateCertificado",method=RequestMethod.PUT,produces="application/json")
-    public String updateCertificado(@RequestBody Certificado certificado){
-        String jsonCer = "";
-        boolean getresponse = false;
-        try {
-            getresponse = certificadoServiceImpl.updateCertificado(certificado);
-            jsonCer = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCer;
-    }
-    
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createCertificadoSP",method=RequestMethod.POST,produces="application/json")

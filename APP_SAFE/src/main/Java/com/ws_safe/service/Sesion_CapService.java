@@ -13,12 +13,6 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface Sesion_CapService {
-    //Interfaces para llamadas directas a base de datos
-    public List<Sesion_Cap> getListSesion_Cap();
-    public boolean addSesion_Cap(Sesion_Cap sesion_Cap);
-    public Sesion_Cap getByIdSesion_Cap (Long id);
-    public void deleteSesion_Cap (Long id);
-    public boolean updateSesion_Cap (Sesion_Cap sesion_Cap);
     
     //Interfaces para llamadas a PROCEDURE
     public boolean addSesionCapSP(Sesion_Cap sesion_Cap);

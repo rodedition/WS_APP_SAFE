@@ -35,61 +35,6 @@ public class CapacitacionRest {
     @Qualifier("capacitacionService")
     CapacitacionService capacitacionServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getCapJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonCap="";
-        List<Capacitacion> listCapacitacion = new ArrayList<Capacitacion>();        
-        try {
-            listCapacitacion = capacitacionServiceImpl.getListCapacitacion();
-            logger.info("La cantidad de cap son: "+listCapacitacion.size());
-            jsonCap = gson.toJson(listCapacitacion);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCap;
-    }
-    
-    @RequestMapping(value="/createCapacitacion",method=RequestMethod.POST,produces="application/json")
-    public String saveCap(@RequestBody Capacitacion capacitacion){
-        String jsonCap = "";
-        boolean getresponse = false;
-        try {
-            getresponse = capacitacionServiceImpl.addCap(capacitacion);
-            jsonCap = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCap;
-    }
-    
-    @RequestMapping(value="/deleteCapacitacion/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteCap(@PathVariable("id") String id){
-        capacitacionServiceImpl.deleteCap(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneCapacitacion/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Capacitacion getOneCap (@PathVariable("id") String id){
-        return capacitacionServiceImpl.getByIdCap(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateCapacitacion",method=RequestMethod.PUT,produces="application/json")
-    public String updateCap(@RequestBody Capacitacion capacitacion){
-        String jsonCap = "";
-        boolean getresponse = false;
-        try {
-            getresponse = capacitacionServiceImpl.updateCap(capacitacion);
-            jsonCap = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCap;
-    }
-    
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createCapacitacionSP",method=RequestMethod.POST,produces="application/json")
@@ -120,7 +65,7 @@ public class CapacitacionRest {
         String jsonCapacitacion = "";
         boolean getresponse = false;
         try {
-            getresponse = capacitacionServiceImpl.updateCap(capacitacion);
+            getresponse = capacitacionServiceImpl.updateCapacitacionSP(capacitacion);
             jsonCapacitacion = getresponse==true?"1":"0";
         } catch (Exception e) {
             e.printStackTrace();

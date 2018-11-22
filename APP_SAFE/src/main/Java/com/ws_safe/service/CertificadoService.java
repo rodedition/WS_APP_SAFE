@@ -13,13 +13,7 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface CertificadoService {
-    //Interfaces Llamadas directas a base de datos
-    public List<Certificado> getListCertificado();
-    public boolean addCertificado(Certificado certificado);
-    public Certificado getByIdCertificado (Long id);
-    public void deleteCertificado (Long id);
-    public boolean updateCertificado (Certificado capacitacion);
-    
+        
     //Interfaces Llamadas a PROCEDURE
     public boolean addCertificadoSP(Certificado certificado);
     public List<Certificado> getByIdCertificadoSP(Long id);

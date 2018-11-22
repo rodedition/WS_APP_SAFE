@@ -35,46 +35,6 @@ public class Obs_IngenieroDAOImpl implements Obs_IngenieroDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<Obs_Ingeniero> getListObs_Ingeniero() {
-        return (List<Obs_Ingeniero>)sessionFactory.getCurrentSession().createCriteria(Obs_Ingeniero.class).list();
-    }
-    
-    @Override
-    public boolean addObs_Ingeniero(Obs_Ingeniero obs_Ingeniero) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(obs_Ingeniero);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Obs_Ingeniero getByIdObs_Ingeniero(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Obs_Ingeniero as c WHERE c.idobsingeniero=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Obs_Ingeniero)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteObs_Ingeniero(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Obs_Ingeniero as c WHERE c.idobsingeniero=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateObs_Ingeniero(Obs_Ingeniero obs_Ingeniero) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(obs_Ingeniero);
-        flagsave=true;
-        
-        return flagsave;
-    }   
     
     //Llamadas a procedures
 

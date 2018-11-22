@@ -35,47 +35,6 @@ public class UsuariosDAOImpl implements UsuariosDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<Usuarios> getListUsuarios() {
-        return (List<Usuarios>)sessionFactory.getCurrentSession().createCriteria(Usuarios.class).list();
-    }
-    
-    @Override
-    public boolean addUsuarios(Usuarios usuarios) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(usuarios);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Usuarios getByIdUsuarios(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Usuarios as c WHERE c.idusuario=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Usuarios)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteUsuarios(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Usuarios as c WHERE c.idusuario=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateUsuarios(Usuarios usuarios) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(usuarios);
-        flagsave=true;
-        
-        return flagsave;
-    }   
-    
     //Llamadas a procedures
 
     @Override
@@ -109,14 +68,14 @@ public class UsuariosDAOImpl implements UsuariosDAO{
     }
 
     @Override
-    public List<Usuarios> getByIdUsuarioSP(String run) {
+    public List<Usuarios> getByIdUsuarioSP(String rut) {
         Session session = sessionFactory.getCurrentSession();
         return session.doReturningWork(new ReturningWork<List<Usuarios>>() {
             @Override
             public List<Usuarios> execute(Connection connection) throws SQLException {
                 String query = "{CALL USUARIOS_PKG.usuarios_consultar(?, ?)}";
                 CallableStatement callableStatement = connection.prepareCall(query);
-                callableStatement.setString(1, run);
+                callableStatement.setString(1, rut);
                 callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
                 callableStatement.executeUpdate();
                 ResultSet rs = (ResultSet) callableStatement.getObject(2);

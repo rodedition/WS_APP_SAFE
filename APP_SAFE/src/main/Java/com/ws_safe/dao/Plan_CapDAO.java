@@ -13,14 +13,7 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface Plan_CapDAO {
-    
-    //Interfaces para llamadas directas a base de datos
-    public List<Plan_Cap> getListPlan_Cap();
-    public boolean addPlan_Cap(Plan_Cap plan_Cap);
-    public Plan_Cap getByIdPlan_Cap (Long id);
-    public void deletePlan_Cap (Long id);
-    public boolean updatePlan_Cap (Plan_Cap plan_Cap);  
-    
+       
     //Interfaces para llamadas a PROCEDURE
     public boolean addPlanCapSP(Plan_Cap plan_Cap);
     public List<Plan_Cap> getByIdPlanCapSP(Long id);

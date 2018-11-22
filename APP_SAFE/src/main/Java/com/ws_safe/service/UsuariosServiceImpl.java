@@ -28,29 +28,7 @@ public class UsuariosServiceImpl implements UsuariosService{
     
     UsuariosDAO usuariosDAOImpl;
     
-    //Servicios para llamadas a base de datos directa
-   
-    public List<Usuarios> getListUsuarios() {
-        return usuariosDAOImpl.getListUsuarios();
-    }
-
-   
-    public boolean addUsuarios(Usuarios usuarios) {
-        return usuariosDAOImpl.addUsuarios(usuarios);
-    }
-
-    public Usuarios getByIdUsuarios(Long id) {
-        return usuariosDAOImpl.getByIdUsuarios(id);
-    }
-
-    public void deleteUsuarios(Long id) {
-        usuariosDAOImpl.deleteUsuarios(id);
-    }
-
-    public boolean updateUsuarios(Usuarios usuarios) {
-        return usuariosDAOImpl.updateUsuarios(usuarios);
-    }    
-    
+       
     //Servicios para llamadas a PROCEDURE
 
     @Override
@@ -59,8 +37,8 @@ public class UsuariosServiceImpl implements UsuariosService{
     }
 
     @Override
-    public List<Usuarios> getByIdUsuarioSP(String run) {
-        return usuariosDAOImpl.getByIdUsuarioSP(run);
+    public List<Usuarios> getByIdUsuarioSP(String rut) {
+        return usuariosDAOImpl.getByIdUsuarioSP(rut);
     }
 
     @Override

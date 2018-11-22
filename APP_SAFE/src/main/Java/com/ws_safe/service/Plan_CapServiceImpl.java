@@ -28,29 +28,6 @@ public class Plan_CapServiceImpl implements Plan_CapService{
     
     Plan_CapDAO plan_CapDAOImpl;
 
-    //Servicios para llamadas a base de datos directa
-   
-    public List<Plan_Cap> getListPlan_Cap() {
-        return plan_CapDAOImpl.getListPlan_Cap();
-    }
-
-   
-    public boolean addPlan_Cap(Plan_Cap plan_Cap) {
-        return plan_CapDAOImpl.addPlan_Cap(plan_Cap);
-    }
-
-    public Plan_Cap getByIdPlan_Cap(Long id) {
-        return plan_CapDAOImpl.getByIdPlan_Cap(id);
-    }
-
-    public void deletePlan_Cap(Long id) {
-        plan_CapDAOImpl.deletePlan_Cap(id);
-    }
-
-    public boolean updatePlan_Cap(Plan_Cap plan_Cap) {
-        return plan_CapDAOImpl.updatePlan_Cap(plan_Cap);
-    }    
-    
     //Servicios para llamadas a PROCEDURE
 
     @Override

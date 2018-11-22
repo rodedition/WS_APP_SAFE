@@ -5,7 +5,6 @@
  */
 package com.ws_safe.dao;
 
-import com.ws_safe.entity.ListTrabSalud;
 import com.ws_safe.entity.List_Trab_Cap;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -36,47 +35,7 @@ public class List_Trab_CapDAOImpl implements List_Trab_CapDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos    
-        
-    @Override
-    public List<List_Trab_Cap> getListList_Trab_Cap() {
-        return (List<List_Trab_Cap>)sessionFactory.getCurrentSession().createCriteria(List_Trab_Cap.class).list();
-    }
-    
-    @Override
-    public boolean addList_Trab_Cap(List_Trab_Cap list_Trab_Cap) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(list_Trab_Cap);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public List_Trab_Cap getByIdList_Trab_Cap(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM List_Trab_Cap as c WHERE c.idlistrabcap=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (List_Trab_Cap)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteList_Trab_Cap(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM List_Trab_Cap as c WHERE c.idlistrabcap=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateList_Trab_Cap(List_Trab_Cap list_Trab_Cap) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(list_Trab_Cap);
-        flagsave=true;
-        
-        return flagsave;
-    }   
-    
+       
     //Llamadas a procedures
 
     @Override

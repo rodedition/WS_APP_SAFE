@@ -28,29 +28,6 @@ public class ListTrabSaludServiceImpl implements ListTrabSaludService{
     
     ListTrabSaludDAO listTrabSaludDAOImpl;
 
-    //Servicios para llamadas a base de datos directa
-   
-    public List<ListTrabSalud> getListListTrabSalud() {
-        return listTrabSaludDAOImpl.getListListTrabSalud();
-    }
-
-   
-    public boolean addListTrabSalud(ListTrabSalud listTrabSalud) {
-        return listTrabSaludDAOImpl.addListTrabSalud(listTrabSalud);
-    }
-
-    public ListTrabSalud getByIdListTrabSalud(Long id) {
-        return listTrabSaludDAOImpl.getByIdListTrabSalud(id);
-    }
-
-    public void deleteListTrabSalud(Long id) {
-        listTrabSaludDAOImpl.deleteListTrabSalud(id);
-    }
-
-    public boolean updateListTrabSalud(ListTrabSalud listTrabSalud) {
-        return listTrabSaludDAOImpl.updateListTrabSalud(listTrabSalud);
-    }   
-    
     //Servicios para llamadas a PROCEDURE
 
     @Override

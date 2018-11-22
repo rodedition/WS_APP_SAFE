@@ -14,13 +14,6 @@ import java.util.List;
  */
 public interface ClienteService {
     
-    //Interfaces Llamadas directas a base de datos
-    public List<Cliente> getListCliente();
-    public boolean addCliente(Cliente cliente);
-    public Cliente getByIdCliente (Long id);
-    public void deleteCliente (Long id);
-    public boolean updateCliente (Cliente cliente);
-    
     //Interfaces Llamadas a PROCEDURE
     public boolean addClienteSP(Cliente cliente);
     public List<Cliente> getByIdClienteSP(Long id);

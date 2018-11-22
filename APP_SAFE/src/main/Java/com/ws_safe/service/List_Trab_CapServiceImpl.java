@@ -28,29 +28,6 @@ public class List_Trab_CapServiceImpl implements List_Trab_CapService{
     
     List_Trab_CapDAO list_Trab_CapDAOImpl;
     
-    //Servicios para llamadas a base de datos directa
-   
-    public List<List_Trab_Cap> getListList_Trab_Cap() {
-        return list_Trab_CapDAOImpl.getListList_Trab_Cap();
-    }
-
-   
-    public boolean addList_Trab_Cap(List_Trab_Cap list_Trab_Cap) {
-        return list_Trab_CapDAOImpl.addList_Trab_Cap(list_Trab_Cap);
-    }
-
-    public List_Trab_Cap getByIdList_Trab_Cap(Long id) {
-        return list_Trab_CapDAOImpl.getByIdList_Trab_Cap(id);
-    }
-
-    public void deleteList_Trab_Cap(Long id) {
-        list_Trab_CapDAOImpl.deleteList_Trab_Cap(id);
-    }
-
-    public boolean updateList_Trab_Cap(List_Trab_Cap list_Trab_Cap) {
-        return list_Trab_CapDAOImpl.updateList_Trab_Cap(list_Trab_Cap);
-    }    
-
     //Servicios para llamadas a PROCEDURE
 
     @Override

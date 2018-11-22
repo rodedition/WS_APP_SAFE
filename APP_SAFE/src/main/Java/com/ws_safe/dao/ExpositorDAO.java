@@ -13,12 +13,6 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface ExpositorDAO {
-    //Interfaces para llamadas directas a base de datos
-    public List<Expositor> getListExpositor();
-    public boolean addExpositor(Expositor expositor);
-    public Expositor getByIdExpositor (Long id);
-    public void deleteExpositor (Long id);
-    public boolean updateExpositor (Expositor expositor);  
     
     //Interfaces para llamadas a PROCEDURE
     public boolean addExpositorSP(Expositor expositor);

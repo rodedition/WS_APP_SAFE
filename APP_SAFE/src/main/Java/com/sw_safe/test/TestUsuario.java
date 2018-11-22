@@ -2,8 +2,6 @@ package com.sw_safe.test;
 
 import com.google.gson.Gson;
 import com.ws_safe.entity.Usuarios;
-import java.time.Instant;
-import java.util.Date;
 import org.jboss.logging.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;

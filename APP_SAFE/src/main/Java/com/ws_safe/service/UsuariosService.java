@@ -14,16 +14,9 @@ import java.util.List;
  */
 public interface UsuariosService {
     
-    //Interfaces para llamadas directas a base de datos
-    public List<Usuarios> getListUsuarios();
-    public boolean addUsuarios(Usuarios usuarios);
-    public Usuarios getByIdUsuarios (Long id);
-    public void deleteUsuarios (Long id);
-    public boolean updateUsuarios (Usuarios usuarios);
-    
     //Interfaces para llamadas a PROCEDURE
     public boolean addUsuarioSP(Usuarios usuarios);
-    public List<Usuarios> getByIdUsuarioSP(String run);
+    public List<Usuarios> getByIdUsuarioSP(String rut);
     public List<Usuarios> getAllUsuarioSP();
     public boolean updateUsuarioSP (Usuarios usuarios);
     public void deleteUsuarioSP(String run, Long estado);

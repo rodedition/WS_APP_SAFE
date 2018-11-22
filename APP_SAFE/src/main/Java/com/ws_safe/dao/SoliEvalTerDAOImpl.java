@@ -36,47 +36,6 @@ public class SoliEvalTerDAOImpl implements SoliEvalTerDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<SoliEvalTer> getListSoliEvalTer() {
-        return (List<SoliEvalTer>)sessionFactory.getCurrentSession().createCriteria(SoliEvalTer.class).list();
-    }
-    
-    @Override
-    public boolean addSoliEvalTer(SoliEvalTer soliEvalTer) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(soliEvalTer);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public SoliEvalTer getByIdSoliEvalTer(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM SoliEvalTer as c WHERE c.idsolicitud=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (SoliEvalTer)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteSoliEvalTer(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM SoliEvalTer as c WHERE c.idsolicitud=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateSoliEvalTer(SoliEvalTer soliEvalTer) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(soliEvalTer);
-        flagsave=true;
-        
-        return flagsave;
-    }   
-    
     //Llamadas a procedures
 
     @Override

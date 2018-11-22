@@ -38,47 +38,7 @@ public class CertificadoDAOImpl implements CertificadoDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
         
-    @Override
-    public List<Certificado> getListCertificado() {
-        return (List<Certificado>)sessionFactory.getCurrentSession().createCriteria(Certificado.class).list();
-    }
-    
-    @Override
-    public boolean addCertificado(Certificado certificado) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(certificado);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Certificado getByIdCertificado(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Certificado as c WHERE c.idcertificado=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Certificado)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteCertificado(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Certificado as c WHERE c.idcertificado=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateCertificado(Certificado certificado) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(certificado);
-        flagsave=true;
-        
-        return flagsave;
-    }  
-    
     //Llamadas a procedures
     
      public boolean addCertificadoSP(Certificado certificado) {

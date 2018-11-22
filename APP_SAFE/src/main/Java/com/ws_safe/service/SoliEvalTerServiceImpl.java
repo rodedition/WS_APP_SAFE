@@ -26,32 +26,10 @@ public class SoliEvalTerServiceImpl implements SoliEvalTerService{
     @Autowired
     @Qualifier("soliEvalTerDAO")
     
-    //Servicios para llamadas a base de datos directa
-            
+                
     SoliEvalTerDAO soliEvalTerDAOImpl;
 
-   
-    public List<SoliEvalTer> getListSoliEvalTer() {
-        return soliEvalTerDAOImpl.getListSoliEvalTer();
-    }
-
-   
-    public boolean addSoliEvalTer(SoliEvalTer soliEvalTer) {
-        return soliEvalTerDAOImpl.addSoliEvalTer(soliEvalTer);
-    }
-
-    public SoliEvalTer getByIdSoliEvalTer(Long id) {
-        return soliEvalTerDAOImpl.getByIdSoliEvalTer(id);
-    }
-
-    public void deleteSoliEvalTer(Long id) {
-        soliEvalTerDAOImpl.deleteSoliEvalTer(id);
-    }
-
-    public boolean updateSoliEvalTer(SoliEvalTer soliEvalTer) {
-        return soliEvalTerDAOImpl.updateSoliEvalTer(soliEvalTer);
-    }    
-    
+       
     //Servicios para llamadas a PROCEDURE
 
     @Override

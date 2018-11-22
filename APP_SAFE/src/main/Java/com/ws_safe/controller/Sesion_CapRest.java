@@ -35,61 +35,6 @@ public class Sesion_CapRest {
     @Qualifier("sesion_CapService")
     Sesion_CapService sesion_CapServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getSesion_CapJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonSesC="";
-        List<Sesion_Cap> listSesion_Cap = new ArrayList<Sesion_Cap>();        
-        try {
-            listSesion_Cap = sesion_CapServiceImpl.getListSesion_Cap();
-            logger.info("La cantidad de sesiones son: "+listSesion_Cap.size());
-            jsonSesC = gson.toJson(listSesion_Cap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSesC;
-    }
-    
-    @RequestMapping(value="/createSesionCap",method=RequestMethod.POST,produces="application/json")
-    public String saveSesC(@RequestBody Sesion_Cap sesion_Cap){
-        String jsonSesC = "";
-        boolean getresponse = false;
-        try {
-            getresponse = sesion_CapServiceImpl.addSesion_Cap(sesion_Cap);
-            jsonSesC = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSesC;
-    }
-    
-    @RequestMapping(value="/deleteSesionCap/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteSesion_Cap(@PathVariable("id") String id){
-        sesion_CapServiceImpl.deleteSesion_Cap(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneSesionCap/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Sesion_Cap getOneSesion_Cap (@PathVariable("id") String id){
-        return sesion_CapServiceImpl.getByIdSesion_Cap(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateSesionCap",method=RequestMethod.PUT,produces="application/json")
-    public String updateSesion_Cap(@RequestBody Sesion_Cap sesion_Cap){
-        String jsonSesC = "";
-        boolean getresponse = false;
-        try {
-            getresponse = sesion_CapServiceImpl.updateSesion_Cap(sesion_Cap);
-            jsonSesC = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSesC;
-    }
-
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createSesionCapSP",method=RequestMethod.POST,produces="application/json")

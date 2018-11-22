@@ -27,29 +27,6 @@ public class Sesion_SaludServiceImpl implements Sesion_SaludService{
     @Qualifier("sesion_SaludDAO")
     
     Sesion_SaludDAO sesion_SaludDAOImpl;
-
-    //Servicios para llamadas a base de datos directa
-   
-    public List<Sesion_Salud> getListSesion_Salud() {
-        return sesion_SaludDAOImpl.getListSesion_Salud();
-    }
-
-   
-    public boolean addSesion_Salud(Sesion_Salud sesion_Salud) {
-        return sesion_SaludDAOImpl.addSesion_Salud(sesion_Salud);
-    }
-
-    public Sesion_Salud getByIdSesion_Salud(Long id) {
-        return sesion_SaludDAOImpl.getByIdSesion_Salud(id);
-    }
-
-    public void deleteSesion_Salud(Long id) {
-        sesion_SaludDAOImpl.deleteSesion_Salud(id);
-    }
-
-    public boolean updateSesion_Salud(Sesion_Salud sesion_Salud) {
-        return sesion_SaludDAOImpl.updateSesion_Salud(sesion_Salud);
-    }    
     
     //Servicios para llamadas a PROCEDURE
 

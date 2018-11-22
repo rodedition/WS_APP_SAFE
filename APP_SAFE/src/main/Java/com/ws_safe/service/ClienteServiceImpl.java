@@ -28,29 +28,7 @@ public class ClienteServiceImpl implements ClienteService{
     
     ClienteDAO clienteDAOImpl;
 
-   //Servicios para llamadas a base de datos directa
-    
-    public List<Cliente> getListCliente() {
-        return clienteDAOImpl.getListCliente();
-    }
-
    
-    public boolean addCliente(Cliente cliente) {
-        return clienteDAOImpl.addCliente(cliente);
-    }
-
-    public Cliente getByIdCliente(Long id) {
-        return clienteDAOImpl.getByIdCliente(id);
-    }
-
-    public void deleteCliente(Long id) {
-        clienteDAOImpl.deleteCliente(id);
-    }
-
-    public boolean updateCliente(Cliente cliente) {
-        return clienteDAOImpl.updateCliente(cliente);
-    }
-
     //Servicios para llamadas a PROCEDURE
     
     @Override
@@ -68,7 +46,7 @@ public class ClienteServiceImpl implements ClienteService{
     }
     
     public boolean updateClienteSP(Cliente cliente) {
-        return clienteDAOImpl.updateCliente(cliente);
+        return clienteDAOImpl.updateClienteSP(cliente);
     }
 
     public void deleteClienteSP(Long id, Long estado) {

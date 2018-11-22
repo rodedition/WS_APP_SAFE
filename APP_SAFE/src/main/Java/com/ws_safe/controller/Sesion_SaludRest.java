@@ -36,61 +36,7 @@ public class Sesion_SaludRest {
     @Qualifier("sesion_SaludService")
     Sesion_SaludService sesion_SaludServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
     
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getSesion_SaludJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonSesS="";
-        List<Sesion_Salud> listSesion_Salud = new ArrayList<Sesion_Salud>();        
-        try {
-            listSesion_Salud = sesion_SaludServiceImpl.getListSesion_Salud();
-            logger.info("La cantidad de sesiones son: "+listSesion_Salud.size());
-            jsonSesS = gson.toJson(listSesion_Salud);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSesS;
-    }
-    
-    @RequestMapping(value="/createSesionSalud",method=RequestMethod.POST,produces="application/json")
-    public String saveSesS(@RequestBody Sesion_Salud sesion_Salud){
-        String jsonSesS = "";
-        boolean getresponse = false;
-        try {
-            getresponse = sesion_SaludServiceImpl.addSesion_Salud(sesion_Salud);
-            jsonSesS = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSesS;
-    }
-    
-    @RequestMapping(value="/deleteSesionSalud/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteSesion_Salud(@PathVariable("id") String id){
-        sesion_SaludServiceImpl.deleteSesion_Salud(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneSesionSalud/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Sesion_Salud getOneSesion_Salud (@PathVariable("id") String id){
-        return sesion_SaludServiceImpl.getByIdSesion_Salud(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateSesionSalud",method=RequestMethod.PUT,produces="application/json")
-    public String updateSesion_Salud(@RequestBody Sesion_Salud sesion_Salud){
-        String jsonSesS = "";
-        boolean getresponse = false;
-        try {
-            getresponse = sesion_SaludServiceImpl.updateSesion_Salud(sesion_Salud);
-            jsonSesS = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSesS;
-    }
-
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createSesionSaludSP",method=RequestMethod.POST,produces="application/json")

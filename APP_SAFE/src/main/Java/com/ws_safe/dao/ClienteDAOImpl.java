@@ -41,46 +41,6 @@ public class ClienteDAOImpl implements ClienteDAO{
     @Autowired
     private SessionFactory sessionFactory;   
     
-    //Llamadas directas a base de datos
-    @Override
-    public List<Cliente> getListCliente() {
-        return (List<Cliente>)sessionFactory.getCurrentSession().createCriteria(Cliente.class).list();
-    }
-    
-    @Override
-    public boolean addCliente(Cliente cliente) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(cliente);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Cliente getByIdCliente(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Cliente as c WHERE c.idcliente=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Cliente)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteCliente(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Cliente as c WHERE c.idcliente=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateCliente(Cliente cliente) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(cliente);
-        flagsave=true;
-        
-        return flagsave;
-    }
-    
     //Llamadas a procedures
      public boolean addClienteSP(Cliente cliente) {
         boolean flagsave = false;

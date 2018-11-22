@@ -14,13 +14,6 @@ import java.util.List;
  */
 public interface Sesion_SaludDAO {
     
-    //Interfaces para llamadas directas a base de datos
-    public List<Sesion_Salud> getListSesion_Salud();
-    public boolean addSesion_Salud(Sesion_Salud sesion_Salud);
-    public Sesion_Salud getByIdSesion_Salud (Long id);
-    public void deleteSesion_Salud (Long id);
-    public boolean updateSesion_Salud (Sesion_Salud sesion_Salud); 
-    
     //Interfaces para llamadas a PROCEDURE
     public boolean addSesionSaludSP(Sesion_Salud sesion_Salud);
     public List<Sesion_Salud> getByIdSesionSaludSP(Long id);

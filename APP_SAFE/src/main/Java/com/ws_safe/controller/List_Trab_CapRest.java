@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.List_Trab_Cap;
 import com.ws_safe.service.List_Trab_CapService;
-import com.ws_safe.service.List_Trab_CapServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,61 +34,6 @@ public class List_Trab_CapRest {
     @Autowired
     @Qualifier("list_Trab_CapService")
     List_Trab_CapService list_Trab_CapServiceImpl;
-    
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getList_Trab_CapJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonList="";
-        List<List_Trab_Cap> listList_Trab_Cap = new ArrayList<List_Trab_Cap>();        
-        try {
-            listList_Trab_Cap = list_Trab_CapServiceImpl.getListList_Trab_Cap();
-            logger.info("La cantidad de listas son: "+listList_Trab_Cap.size());
-            jsonList = gson.toJson(listList_Trab_Cap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonList;
-    }
-    
-    @RequestMapping(value="/createListaTrabajadoresCap",method=RequestMethod.POST,produces="application/json")
-    public String saveList(@RequestBody List_Trab_Cap list_Trab_Cap){
-        String jsonList = "";
-        boolean getresponse = false;
-        try {
-            getresponse = list_Trab_CapServiceImpl.addList_Trab_Cap(list_Trab_Cap);
-            jsonList = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonList;
-    }
-    
-    @RequestMapping(value="/deleteListaTrabajadoresCap/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteList_Trab_Cap(@PathVariable("id") String id){
-        list_Trab_CapServiceImpl.deleteList_Trab_Cap(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneListaTrabajadoresCap/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody List_Trab_Cap getOneList_Trab_Cap (@PathVariable("id") String id){
-        return list_Trab_CapServiceImpl.getByIdList_Trab_Cap(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateListaTrabajadoresCap",method=RequestMethod.PUT,produces="application/json")
-    public String updateList_Trab_Cap(@RequestBody List_Trab_Cap list_Trab_Cap){
-        String jsonList = "";
-        boolean getresponse = false;
-        try {
-            getresponse = list_Trab_CapServiceImpl.updateList_Trab_Cap(list_Trab_Cap);
-            jsonList = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonList;
-    }
     
     //Creación de URIS para llamadas a PROCEDURE
     

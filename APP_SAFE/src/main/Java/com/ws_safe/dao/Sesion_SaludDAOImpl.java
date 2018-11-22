@@ -5,7 +5,6 @@
  */
 package com.ws_safe.dao;
 
-import com.ws_safe.entity.Sesion_Cap;
 import com.ws_safe.entity.Sesion_Salud;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -35,47 +34,6 @@ public class Sesion_SaludDAOImpl implements Sesion_SaludDAO{
     
     @Autowired
     private SessionFactory sessionFactory;
-    
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<Sesion_Salud> getListSesion_Salud() {
-        return (List<Sesion_Salud>)sessionFactory.getCurrentSession().createCriteria(Sesion_Salud.class).list();
-    }
-    
-    @Override
-    public boolean addSesion_Salud(Sesion_Salud sesion_Salud) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(sesion_Salud);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Sesion_Salud getByIdSesion_Salud(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Sesion_Salud as c WHERE c.idsesionsalud=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Sesion_Salud)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteSesion_Salud(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Sesion_Salud as c WHERE c.idsesionsalud=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateSesion_Salud(Sesion_Salud sesion_Salud) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(sesion_Salud);
-        flagsave=true;
-        
-        return flagsave;
-    }   
     
     //Llamadas a procedures
 

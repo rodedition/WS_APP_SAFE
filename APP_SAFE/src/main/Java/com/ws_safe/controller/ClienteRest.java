@@ -36,61 +36,6 @@ public class ClienteRest {
     @Qualifier("clienteService")
     ClienteService clienteServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getClienteJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonCliente="";
-        List<Cliente> listCliente = new ArrayList<Cliente>();        
-        try {
-            listCliente = clienteServiceImpl.getListCliente();
-            logger.info("La cantidad de clientes son: "+listCliente.size());
-            jsonCliente = gson.toJson(listCliente);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCliente;
-    }
-    
-    @RequestMapping(value="/createCliente",method=RequestMethod.POST,produces="application/json")
-    public String saveCliente(@RequestBody Cliente cliente){
-        String jsonCliente = "";
-        boolean getresponse = false;
-        try {
-            getresponse = clienteServiceImpl.addCliente(cliente);
-            jsonCliente = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCliente;
-    }
-    
-    @RequestMapping(value="/deleteCliente/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteCliente(@PathVariable("id") String id){
-        clienteServiceImpl.deleteCliente(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneCliente/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Cliente getOneCliente (@PathVariable("id") Long id){
-        return clienteServiceImpl.getByIdCliente(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateCliente",method=RequestMethod.PUT,produces="application/json")
-    public String updateCliente(@RequestBody Cliente cliente){
-        String jsonCliente = "";
-        boolean getresponse = false;
-        try {
-            getresponse = clienteServiceImpl.updateCliente(cliente);
-            jsonCliente = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCliente;
-    }
-    
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createClienteSP",method=RequestMethod.POST,produces="application/json")

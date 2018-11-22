@@ -36,47 +36,6 @@ public class Plan_SaludDAOImpl implements Plan_SaludDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<Plan_Salud> getListPlan_Salud() {
-        return (List<Plan_Salud>)sessionFactory.getCurrentSession().createCriteria(Plan_Salud.class).list();
-    }
-    
-    @Override
-    public boolean addPlan_Salud(Plan_Salud plan_Salud) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(plan_Salud);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Plan_Salud getByIdPlan_Salud(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Plan_Salud as c WHERE c.idsesionsalud=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Plan_Salud)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deletePlan_Salud(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Plan_Salud as c WHERE c.idsesionsalud=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updatePlan_Salud(Plan_Salud plan_Salud) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(plan_Salud);
-        flagsave=true;
-        
-        return flagsave;
-    }   
-    
     //Llamadas a procedures
 
     @Override

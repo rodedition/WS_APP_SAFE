@@ -13,13 +13,7 @@ import java.util.List;
  * @author Rodrigo
  */
 public interface CapacitacionDAO {
-    //Interfaces para llamadas directas a base de datos
-    public List<Capacitacion> getListCapacitacion();
-    public boolean addCap(Capacitacion capacitacion);
-    public Capacitacion getByIdCap (Long id);
-    public void deleteCap (Long id);
-    public boolean updateCap (Capacitacion capacitacion);
-    
+        
     //Interfaces para llamadas a PROCEDURE
     public boolean addCapacitacionSP(Capacitacion capacitacion);
     public List<Capacitacion> getByIdCapacitacionSP(Long id);

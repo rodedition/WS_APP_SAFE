@@ -35,60 +35,7 @@ public class Obs_IngenieroRest {
     @Qualifier("obs_IngenieroService")
     Obs_IngenieroService obs_IngenieroServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
     
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getObs_IngenieroJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonObsI="";
-        List<Obs_Ingeniero> listObs_Ingeniero = new ArrayList<Obs_Ingeniero>();        
-        try {
-            listObs_Ingeniero = obs_IngenieroServiceImpl.getListObs_Ingeniero();
-            logger.info("La cantidad de observaciones son: "+listObs_Ingeniero.size());
-            jsonObsI = gson.toJson(listObs_Ingeniero);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonObsI;
-    }
-    
-    @RequestMapping(value="/createObsIngeniero",method=RequestMethod.POST,produces="application/json")
-    public String saveObsI(@RequestBody Obs_Ingeniero obs_Ingeniero){
-        String jsonObsI = "";
-        boolean getresponse = false;
-        try {
-            getresponse = obs_IngenieroServiceImpl.addObs_Ingeniero(obs_Ingeniero);
-            jsonObsI = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonObsI;
-    }
-    
-    @RequestMapping(value="/deleteObsIngeniero/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteObs_Ingeniero(@PathVariable("id") String id){
-        obs_IngenieroServiceImpl.deleteObs_Ingeniero(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneObsIngeniero/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Obs_Ingeniero getOneObs_Ingeniero (@PathVariable("id") String id){
-        return obs_IngenieroServiceImpl.getByIdObs_Ingeniero(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateObsIngeniero",method=RequestMethod.PUT,produces="application/json")
-    public String updateObs_Ingeniero(@RequestBody Obs_Ingeniero obs_Ingeniero){
-        String jsonObsI = "";
-        boolean getresponse = false;
-        try {
-            getresponse = obs_IngenieroServiceImpl.updateObs_Ingeniero(obs_Ingeniero);
-            jsonObsI = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonObsI;
-    }
     
     //Creación de URIS para llamadas a PROCEDURE
     

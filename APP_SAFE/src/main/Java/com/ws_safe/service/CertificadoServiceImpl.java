@@ -28,29 +28,6 @@ public class CertificadoServiceImpl implements CertificadoService{
     
     CertificadoDAO certificadoDAOImpl;
 
-    //Servicios para llamadas a base de datos directa
-    
-    public List<Certificado> getListCertificado() {
-        return certificadoDAOImpl.getListCertificado();
-    }
-
-   
-    public boolean addCertificado(Certificado certificado) {
-        return certificadoDAOImpl.addCertificado(certificado);
-    }
-
-    public Certificado getByIdCertificado(Long id) {
-        return certificadoDAOImpl.getByIdCertificado(id);
-    }
-
-    public void deleteCertificado(Long id) {
-        certificadoDAOImpl.deleteCertificado(id);
-    }
-
-    public boolean updateCertificado(Certificado certificado) {
-        return certificadoDAOImpl.updateCertificado(certificado);
-    }    
-
     //Servicios para llamadas a PROCEDURE
     
     @Override

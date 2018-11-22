@@ -8,7 +8,6 @@ package com.ws_safe.controller;
 import com.google.gson.Gson;
 import com.ws_safe.entity.Expositor;
 import com.ws_safe.service.ExpositorService;
-import com.ws_safe.service.ExpositorServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -36,60 +35,6 @@ public class ExpositorRest {
     @Qualifier("expositorService")
     ExpositorService expositorServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getExpositorJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonExp="";
-        List<Expositor> listExpositor = new ArrayList<Expositor>();        
-        try {
-            listExpositor = expositorServiceImpl.getListExpositor();
-            logger.info("La cantidad de expositores son: "+listExpositor.size());
-            jsonExp = gson.toJson(listExpositor);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExp;
-    }
-    
-    @RequestMapping(value="/createExpositor",method=RequestMethod.POST,produces="application/json")
-    public String saveExp(@RequestBody Expositor expositor){
-        String jsonExp = "";
-        boolean getresponse = false;
-        try {
-            getresponse = expositorServiceImpl.addExpositor(expositor);
-            jsonExp = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExp;
-    }
-    
-    @RequestMapping(value="/deleteExpositor/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteExpositor(@PathVariable("id") String id){
-        expositorServiceImpl.deleteExpositor(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneExpositor/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Expositor getOneExpositor (@PathVariable("id") String id){
-        return expositorServiceImpl.getByIdExpositor(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateExpositor",method=RequestMethod.PUT,produces="application/json")
-    public String updateExpositor(@RequestBody Expositor expositor){
-        String jsonExp = "";
-        boolean getresponse = false;
-        try {
-            getresponse = expositorServiceImpl.updateExpositor(expositor);
-            jsonExp = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExp;
-    }
     
     //Creación de URIS para llamadas a PROCEDURE
     

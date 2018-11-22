@@ -35,47 +35,6 @@ public class ExamenesDAOImpl implements ExamenesDAO{
     @Autowired
     private SessionFactory sessionFactory;
     
-    //Llamadas directas a base de datos
-        
-    @Override
-    public List<Examenes> getListExamen() {
-        return (List<Examenes>)sessionFactory.getCurrentSession().createCriteria(Examenes.class).list();
-    }
-    
-    @Override
-    public boolean addExamen(Examenes examenes) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().save(examenes);
-        flagsave=true;
-        
-        return flagsave;
-    }
-
-    public Examenes getByIdExamen(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Examenes as c WHERE c.idexamen=:id");
-        query.setParameter("id", id);
-        List queryList = query.list();
-        if (queryList.size()>0) {
-            return (Examenes)queryList.get(0);
-        }else{
-            return null;
-        }
-    }
-
-    public void deleteExamen(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete FROM Examenes as c WHERE c.idexamen=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }
-
-    public boolean updateExamen(Examenes examenes) {
-        boolean flagsave = false;
-        sessionFactory.getCurrentSession().update(examenes);
-        flagsave=true;
-        
-        return flagsave;
-    }   
-    
     //Llamadas a procedures
 
     @Override

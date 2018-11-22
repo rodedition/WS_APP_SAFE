@@ -35,60 +35,6 @@ public class MedicoRest {
     @Qualifier("medicoService")
     MedicoService medicoServiceImpl;
     
-    //Creación de URIS para llamadas a base de dtos de directa
-    
-    @RequestMapping(value="/{name}", method=RequestMethod.GET,produces="application/json")
-    public String getMedicoJSON(@PathVariable String name){
-        Gson gson = new Gson();
-        
-        String jsonMed="";
-        List<Medico> listMedico = new ArrayList<Medico>();        
-        try {
-            listMedico = medicoServiceImpl.getListMedico();
-            logger.info("La cantidad de médicos son: "+listMedico.size());
-            jsonMed = gson.toJson(listMedico);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonMed;
-    }
-    
-    @RequestMapping(value="/createMedico",method=RequestMethod.POST,produces="application/json")
-    public String saveMed(@RequestBody Medico medico){
-        String jsonMed = "";
-        boolean getresponse = false;
-        try {
-            getresponse = medicoServiceImpl.addMedico(medico);
-            jsonMed = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonMed;
-    }
-    
-    @RequestMapping(value="/deleteMedico/{id}",method=RequestMethod.DELETE,produces="application/json")
-    public ResponseEntity<Void> deleteMedico(@PathVariable("id") String id){
-        medicoServiceImpl.deleteMedico(new Long (id));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    } 
-    
-    @RequestMapping(value="/getOneMedico/{id}", method=RequestMethod.GET,produces="application/json")
-    public @ResponseBody Medico getOneMedico (@PathVariable("id") String id){
-        return medicoServiceImpl.getByIdMedico(new Long (id));
-    }
-    
-    @RequestMapping(value="/updateMedico",method=RequestMethod.PUT,produces="application/json")
-    public String updateMedico(@RequestBody Medico medico){
-        String jsonMed = "";
-        boolean getresponse = false;
-        try {
-            getresponse = medicoServiceImpl.updateMedico(medico);
-            jsonMed = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonMed;
-    }
     
     //Creación de URIS para llamadas a PROCEDURE
     
