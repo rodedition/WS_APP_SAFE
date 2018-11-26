@@ -5,11 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Sesion_Salud;
 import com.ws_safe.service.Sesion_SaludService;
-import com.ws_safe.service.Sesion_SaludServiceImpl;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -40,16 +37,8 @@ public class Sesion_SaludRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createSesionSaludSP",method=RequestMethod.POST,produces="application/json")
-    public String saveSesionSaludSP(@RequestBody Sesion_Salud sesion_Salud){
-        String jsonSes = "";
-        boolean getresponse = false;
-        try {
-            getresponse = sesion_SaludServiceImpl.addSesionSaludSP(sesion_Salud);
-            jsonSes = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSes;
+    public @ResponseBody List<Sesion_Salud> saveSesionSaludSP(@RequestBody Sesion_Salud sesion_Salud){
+        return sesion_SaludServiceImpl.addSesionSaludSP(sesion_Salud);
     }
     
     @RequestMapping(value="/readOneSesionSalud/{id}", method = RequestMethod.GET,produces = "application/json")

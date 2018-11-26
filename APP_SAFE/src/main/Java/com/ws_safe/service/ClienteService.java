@@ -15,7 +15,7 @@ import java.util.List;
 public interface ClienteService {
     
     //Interfaces Llamadas a PROCEDURE
-    public boolean addClienteSP(Cliente cliente);
+    public List<Cliente> addClienteSP(Cliente cliente);
     public List<Cliente> getByIdClienteSP(Long id);
     public List<Cliente> getAllClienteSP();
     public boolean updateClienteSP (Cliente cliente);

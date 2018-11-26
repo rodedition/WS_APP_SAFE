@@ -15,7 +15,7 @@ import java.util.List;
 public interface CapacitacionDAO {
         
     //Interfaces para llamadas a PROCEDURE
-    public boolean addCapacitacionSP(Capacitacion capacitacion);
+    public List<Capacitacion> addCapacitacionSP(Capacitacion capacitacion);
     public List<Capacitacion> getByIdCapacitacionSP(Long id);
     public List<Capacitacion> getAllCapacitacionSP();
     public boolean updateCapacitacionSP (Capacitacion capacitacion);

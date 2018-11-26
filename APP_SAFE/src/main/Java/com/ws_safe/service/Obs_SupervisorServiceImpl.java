@@ -31,7 +31,7 @@ public class Obs_SupervisorServiceImpl implements Obs_SupervisorService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addObsSupSP(Obs_Supervisor obs_Supervisor) {
+    public List<Obs_Supervisor> addObsSupSP(Obs_Supervisor obs_Supervisor) {
         return obs_SupervisorDAOImpl.addObsSupSP(obs_Supervisor);
     }
 

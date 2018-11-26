@@ -31,7 +31,7 @@ public class List_Trab_CapServiceImpl implements List_Trab_CapService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addListTrabCapSP(List_Trab_Cap list_Trab_Cap) {
+    public List<List_Trab_Cap> addListTrabCapSP(List_Trab_Cap list_Trab_Cap) {
         return list_Trab_CapDAOImpl.addListTrabCapSP(list_Trab_Cap);
     }
 

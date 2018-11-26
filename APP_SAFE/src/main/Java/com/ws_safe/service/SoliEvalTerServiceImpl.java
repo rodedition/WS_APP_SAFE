@@ -33,7 +33,7 @@ public class SoliEvalTerServiceImpl implements SoliEvalTerService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addSoliEvalTerSP(SoliEvalTer soliEvalTer) {
+    public List<SoliEvalTer> addSoliEvalTerSP(SoliEvalTer soliEvalTer) {
         return soliEvalTerDAOImpl.addSoliEvalTerSP(soliEvalTer);
     }
 

@@ -38,13 +38,12 @@ public class ExpositorDAOImpl implements ExpositorDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addExpositorSP(Expositor expositor) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Expositor> addExpositorSP(Expositor expositor) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Expositor>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL EXPOSITORPKG.expositor_agregar(?, ?, ?, ?, ?, ?)}";
+              public List<Expositor> execute(Connection connection) throws SQLException {
+                String query = "{CALL EXPOSITORPKG.expositor_agregar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, expositor.getIdexpositor());
                 statement.setString(2, expositor.getRunexpositor());
@@ -52,12 +51,24 @@ public class ExpositorDAOImpl implements ExpositorDAO{
                 statement.setString(4, expositor.getTelexpositor());
                 statement.setString(5, expositor.getMailexpositor());
                 statement.setLong(6, expositor.getEstadoexpositor());
-                statement.executeUpdate();
+                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(7);
+                List<Expositor> expos;
+                expos = new ArrayList<Expositor>();
+                while (rs.next()) {
+                    Expositor expositor = new Expositor();
+                    expositor.setIdexpositor(rs.getLong("ID_EXPOSITOR"));
+                    expositor.setRunexpositor(rs.getString("RUN_EXPOSITOR"));
+                    expositor.setNombreexpositor(rs.getString("NOMBRE_EXPOSITOR"));
+                    expositor.setTelexpositor(rs.getString("TEL_EXPOSITOR"));
+                    expositor.setMailexpositor(rs.getString("MAIL_EXPOSITOR"));
+                    expositor.setEstadoexpositor(rs.getLong("ESTADO_EXPOSITOR"));
+                    expos.add(expositor);
+                }
+                return expos;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

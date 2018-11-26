@@ -31,7 +31,7 @@ public class ListTrabSaludServiceImpl implements ListTrabSaludService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addListTrabSaludSP(ListTrabSalud listTrabSalud) {
+    public List<ListTrabSalud> addListTrabSaludSP(ListTrabSalud listTrabSalud) {
         return listTrabSaludDAOImpl.addListTrabSaludSP(listTrabSalud);
     }
 

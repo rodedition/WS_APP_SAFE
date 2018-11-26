@@ -15,7 +15,7 @@ import java.util.List;
 public interface ExpositorService {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addExpositorSP(Expositor expositor);
+    public List<Expositor> addExpositorSP(Expositor expositor);
     public List<Expositor> getByIdExpositorSP(Long id);
     public List<Expositor> getAllExpositoresSP();
     public boolean updateExpositorSP (Expositor expositor);

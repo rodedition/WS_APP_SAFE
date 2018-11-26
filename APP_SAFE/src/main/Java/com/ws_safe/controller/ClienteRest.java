@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Cliente;
 import com.ws_safe.service.ClienteService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -39,16 +37,8 @@ public class ClienteRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createClienteSP",method=RequestMethod.POST,produces="application/json")
-    public String saveClienteSP(@RequestBody Cliente cliente){
-        String jsonCliente = "";
-        boolean getresponse = false;
-        try {
-            getresponse = clienteServiceImpl.addClienteSP(cliente);
-            jsonCliente = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCliente;
+    public @ResponseBody List<Cliente> saveClienteSP(@RequestBody Cliente cliente){
+        return clienteServiceImpl.addClienteSP(cliente);
     }
     
     @RequestMapping(value="/readOneCliente/{id}", method = RequestMethod.GET,produces = "application/json")

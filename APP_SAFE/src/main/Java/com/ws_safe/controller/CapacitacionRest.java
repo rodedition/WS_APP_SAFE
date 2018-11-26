@@ -38,16 +38,8 @@ public class CapacitacionRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createCapacitacionSP",method=RequestMethod.POST,produces="application/json")
-    public String saveCapacitacionSP(@RequestBody Capacitacion capacitacion){
-        String jsonCapacitacion = "";
-        boolean getresponse = false;
-        try {
-            getresponse = capacitacionServiceImpl.addCapacitacionSP(capacitacion);
-            jsonCapacitacion = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCapacitacion;
+    public @ResponseBody List<Capacitacion> saveCapacitacionSP(@RequestBody Capacitacion capacitacion){
+        return capacitacionServiceImpl.addCapacitacionSP(capacitacion);
     }
     
     @RequestMapping(value="/readOneCapacitacion/{id}", method = RequestMethod.GET,produces = "application/json")

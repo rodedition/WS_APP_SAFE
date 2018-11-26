@@ -15,7 +15,7 @@ import java.util.List;
 public interface Plan_CapDAO {
        
     //Interfaces para llamadas a PROCEDURE
-    public boolean addPlanCapSP(Plan_Cap plan_Cap);
+    public List<Plan_Cap> addPlanCapSP(Plan_Cap plan_Cap);
     public List<Plan_Cap> getByIdPlanCapSP(Long id);
     public List<Plan_Cap> getAllPlanCapSP();
     public boolean updatePlanCapSP (Plan_Cap plan_Cap);

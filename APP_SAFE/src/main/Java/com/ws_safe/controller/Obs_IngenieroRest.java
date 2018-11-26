@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Obs_Ingeniero;
 import com.ws_safe.service.Obs_IngenieroService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -40,16 +38,8 @@ public class Obs_IngenieroRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createObsIngSP",method=RequestMethod.POST,produces="application/json")
-    public String saveObsIngSP(@RequestBody Obs_Ingeniero obs_Ingeniero){
-        String jsonObs = "";
-        boolean getresponse = false;
-        try {
-            getresponse = obs_IngenieroServiceImpl.addObsIngSP(obs_Ingeniero);
-            jsonObs = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonObs;
+    public @ResponseBody List<Obs_Ingeniero> saveObsIngSP(@RequestBody Obs_Ingeniero obs_Ingeniero){
+        return obs_IngenieroServiceImpl.addObsIngSP(obs_Ingeniero);
     }
     
     @RequestMapping(value="/readOneObsIng/{id}", method = RequestMethod.GET,produces = "application/json")

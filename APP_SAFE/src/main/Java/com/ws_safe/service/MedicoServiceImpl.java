@@ -31,7 +31,7 @@ public class MedicoServiceImpl implements MedicoService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addMedicoSP(Medico medico) {
+    public List<Medico> addMedicoSP(Medico medico) {
         return medicoDAOImpl.addMedicoSP(medico);
     }
 

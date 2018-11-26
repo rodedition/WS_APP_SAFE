@@ -15,7 +15,7 @@ import java.util.List;
 public interface Obs_IngenieroDAO {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addObsIngSP(Obs_Ingeniero obs_Ingeniero);
+    public List<Obs_Ingeniero> addObsIngSP(Obs_Ingeniero obs_Ingeniero);
     public List<Obs_Ingeniero> getByIdObsIngSP(Long id);
     public List<Obs_Ingeniero> getAllObsIngSP();
     public boolean updateObsIngSP (Obs_Ingeniero obs_Ingeniero);

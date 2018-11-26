@@ -32,7 +32,7 @@ public class Sesion_CapServiceImpl implements Sesion_CapService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addSesionCapSP(Sesion_Cap sesion_Cap) {
+    public List<Sesion_Cap> addSesionCapSP(Sesion_Cap sesion_Cap) {
         return sesion_CapDAOImpl.addSesionCapSP(sesion_Cap);
     }
 

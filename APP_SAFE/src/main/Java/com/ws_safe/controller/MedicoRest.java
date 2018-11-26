@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Medico;
 import com.ws_safe.service.MedicoService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -39,16 +37,8 @@ public class MedicoRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createMedicoSP",method=RequestMethod.POST,produces="application/json")
-    public String saveMedicoSP(@RequestBody Medico medico){
-        String jsonMed = "";
-        boolean getresponse = false;
-        try {
-            getresponse = medicoServiceImpl.addMedicoSP(medico);
-            jsonMed = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonMed;
+    public @ResponseBody List<Medico> saveMedicoSP(@RequestBody Medico medico){
+        return medicoServiceImpl.addMedicoSP(medico);
     }
     
     @RequestMapping(value="/readOneMedico/{id}", method = RequestMethod.GET,produces = "application/json")

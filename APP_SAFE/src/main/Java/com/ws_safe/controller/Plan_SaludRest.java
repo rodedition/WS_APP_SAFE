@@ -5,7 +5,6 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Plan_Salud;
 import com.ws_safe.service.Plan_SaludService;
 import java.util.ArrayList;
@@ -38,16 +37,8 @@ public class Plan_SaludRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createPlanSaludSP",method=RequestMethod.POST,produces="application/json")
-    public String savePlanSaludSP(@RequestBody Plan_Salud plan_Salud){
-        String jsonPlan = "";
-        boolean getresponse = false;
-        try {
-            getresponse = plan_SaludServiceImpl.addPlanSaludSP(plan_Salud);
-            jsonPlan = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonPlan;
+    public @ResponseBody List<Plan_Salud> savePlanSaludSP(@RequestBody Plan_Salud plan_Salud){
+        return plan_SaludServiceImpl.addPlanSaludSP(plan_Salud);
     }
     
     @RequestMapping(value="/readOnePlanSalud/{id}", method = RequestMethod.GET,produces = "application/json")

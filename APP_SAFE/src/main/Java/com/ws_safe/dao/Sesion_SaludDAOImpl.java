@@ -38,13 +38,12 @@ public class Sesion_SaludDAOImpl implements Sesion_SaludDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addSesionSaludSP(Sesion_Salud sesion_Salud) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Sesion_Salud> addSesionSaludSP(Sesion_Salud sesion_Salud) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Sesion_Salud>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL SESION_SALUD_PKG.sesion_salud_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+              public List<Sesion_Salud> execute(Connection connection) throws SQLException {
+                String query = "{CALL SESION_SALUD_PKG.sesion_salud_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, sesion_Salud.getIdsesionsalud());
                 statement.setLong(2, sesion_Salud.getNumsesionsalud());
@@ -57,12 +56,29 @@ public class Sesion_SaludDAOImpl implements Sesion_SaludDAO{
                 statement.setLong(9, sesion_Salud.getMedicoidmedico());
                 statement.setLong(10, sesion_Salud.getExamenesidexamenes());
                 statement.setLong(11, sesion_Salud.getEstadosesionsalud());
-                statement.executeUpdate();
+                statement.registerOutParameter(12, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(12);
+                List<Sesion_Salud> ses;
+                ses = new ArrayList<Sesion_Salud>();
+                while (rs.next()) {
+                    Sesion_Salud sesion_Salud = new Sesion_Salud();
+                    sesion_Salud.setIdsesionsalud(rs.getLong("ID_SESION_SALUD"));
+                    sesion_Salud.setNumsesionsalud(rs.getLong("NUM_SESION_SALUD"));
+                    sesion_Salud.setNombresesionsalud(rs.getString("NOMBRE_SESION_SALUD"));
+                    sesion_Salud.setCupossesion(rs.getLong("CUPOS_SESION"));
+                    sesion_Salud.setFechasesion(rs.getString("FECHA_SESION"));
+                    sesion_Salud.setHorainiciosalud(rs.getString("HORA_INICIO_SALUD"));
+                    sesion_Salud.setHoraterminosalud(rs.getString("HORA_TERMINO_SALUD"));
+                    sesion_Salud.setDescripcionsesionsalud(rs.getString("DESCRIPCION_SESION_SALUD"));
+                    sesion_Salud.setMedicoidmedico(rs.getLong("MEDICO_ID_MEDICO"));
+                    sesion_Salud.setExamenesidexamenes(rs.getLong("EXAMENES_ID_EXAMEN"));
+                    sesion_Salud.setEstadosesionsalud(rs.getLong("ESTADO"));
+                    ses.add(sesion_Salud);
+                }
+                return ses;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

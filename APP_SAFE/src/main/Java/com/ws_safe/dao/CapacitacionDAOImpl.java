@@ -39,25 +39,35 @@ public class CapacitacionDAOImpl implements CapacitacionDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addCapacitacionSP(Capacitacion capacitacion) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Capacitacion> addCapacitacionSP(Capacitacion capacitacion) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Capacitacion>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL CapacitacionPKG.cap_agregar(?, ?, ?, ?, ?)}";
+              public List<Capacitacion> execute(Connection connection) throws SQLException {
+                String query = "{CALL CapacitacionPKG.cap_agregar(?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, capacitacion.getIdcap());
                 statement.setString(2, capacitacion.getNombrecapacitacion());
                 statement.setLong(3, capacitacion.getEstadocapacitacion());
                 statement.setLong(4, capacitacion.getPlancapidplancap());
                 statement.setLong(5, capacitacion.getTipocapidtipocap());
-                statement.executeUpdate();
+                statement.registerOutParameter(6, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(6);
+                List<Capacitacion> capacs;
+                capacs = new ArrayList<Capacitacion>();
+                while (rs.next()) {
+                    Capacitacion capacitacion = new Capacitacion();
+                    capacitacion.setIdcap(rs.getLong("ID_CAP"));
+                    capacitacion.setNombrecapacitacion(rs.getString("NOMBRE_CAPACITACION"));
+                    capacitacion.setEstadocapacitacion(rs.getLong("ESTADO_CAPACITACION"));
+                    capacitacion.setPlancapidplancap(rs.getLong("PLAN_CAP_ID_PLAN_CAP"));
+                    capacitacion.setTipocapidtipocap(rs.getLong("TIPO_CAP_ID_TIPO_CAP"));
+                    capacs.add(capacitacion);
+                }
+                return capacs;
             }
-        });
-       
-        flagsave=true;
-        return flagsave;
+        });        
     }
 
     @Override

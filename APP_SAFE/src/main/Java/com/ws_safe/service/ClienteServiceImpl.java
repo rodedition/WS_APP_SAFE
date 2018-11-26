@@ -32,7 +32,7 @@ public class ClienteServiceImpl implements ClienteService{
     //Servicios para llamadas a PROCEDURE
     
     @Override
-    public boolean addClienteSP(Cliente cliente) {
+    public List<Cliente> addClienteSP(Cliente cliente) {
         return clienteDAOImpl.addClienteSP(cliente);
     }
     

@@ -38,25 +38,35 @@ public class ExamenesDAOImpl implements ExamenesDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addExamenSP(Examenes examenes) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Examenes> addExamenSP(Examenes examenes) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Examenes>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL EXAMENESPKG.examen_agregar(?, ?, ?, ?, ?)}";
+              public List<Examenes> execute(Connection connection) throws SQLException {
+                String query = "{CALL EXAMENESPKG.examen_agregar(?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, examenes.getIdexamen());
                 statement.setString(2, examenes.getNombreexamen());
                 statement.setLong(3, examenes.getEstadoexamen());
                 statement.setLong(4, examenes.getPlansaludidplansalud());
                 statement.setLong(5, examenes.getTipoexamenidtipoexam());
-                statement.executeUpdate();
+                statement.registerOutParameter(6, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(2);
+                List<Examenes> exams;
+                exams = new ArrayList<Examenes>();
+                while (rs.next()) {
+                    Examenes examenes = new Examenes();
+                    examenes.setIdexamen(rs.getLong("ID_EXAMEN"));
+                    examenes.setNombreexamen(rs.getString("NOMBRE_EXAMEN"));
+                    examenes.setEstadoexamen(rs.getLong("ESTADO_EXAMEN"));
+                    examenes.setPlansaludidplansalud(rs.getLong("PLAN_SALUD_ID_PLAN_SALUD"));
+                    examenes.setTipoexamenidtipoexam(rs.getLong("TIPO_EXAMEN_ID_TIPO_EXAM"));
+                    exams.add(examenes);
+                }
+                return exams;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

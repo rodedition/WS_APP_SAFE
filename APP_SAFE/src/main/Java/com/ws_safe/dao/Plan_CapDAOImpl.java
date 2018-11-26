@@ -38,24 +38,33 @@ public class Plan_CapDAOImpl implements Plan_CapDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addPlanCapSP(Plan_Cap plan_Cap) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Plan_Cap> addPlanCapSP(Plan_Cap plan_Cap) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Plan_Cap>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL PLAN_CAP_PKG.plan_cap_agregar(?, ?, ?, ?)}";
+              public List<Plan_Cap> execute(Connection connection) throws SQLException {
+                String query = "{CALL PLAN_CAP_PKG.plan_cap_agregar(?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, plan_Cap.getIdplancap());
                 statement.setString(2, plan_Cap.getFechacreacion());
                 statement.setLong(3, plan_Cap.getEstadoplancap());
                 statement.setLong(4, plan_Cap.getClienteidcliente());
-                statement.executeUpdate();
+                statement.registerOutParameter(5, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(5);
+                List<Plan_Cap> plans;
+                plans = new ArrayList<Plan_Cap>();
+                while (rs.next()) {
+                    Plan_Cap plan_Cap = new Plan_Cap();
+                    plan_Cap.setIdplancap(rs.getLong("ID_PLAN_CAP"));
+                    plan_Cap.setFechacreacion(rs.getString("FECHA_CREACION"));
+                    plan_Cap.setEstadoplancap(rs.getLong("ESTADO_PLAN_CAP"));
+                    plan_Cap.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    plans.add(plan_Cap);
+                }
+                return plans;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

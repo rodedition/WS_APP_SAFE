@@ -15,7 +15,7 @@ import java.util.List;
 public interface Sesion_SaludDAO {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addSesionSaludSP(Sesion_Salud sesion_Salud);
+    public List<Sesion_Salud> addSesionSaludSP(Sesion_Salud sesion_Salud);
     public List<Sesion_Salud> getByIdSesionSaludSP(Long id);
     public List<Sesion_Salud> getAllSesionSaludSP();
     public boolean updateSesionSaludSP (Sesion_Salud sesion_Salud);

@@ -39,13 +39,12 @@ public class List_Trab_CapDAOImpl implements List_Trab_CapDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addListTrabCapSP(List_Trab_Cap list_Trab_Cap) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<List_Trab_Cap> addListTrabCapSP(List_Trab_Cap list_Trab_Cap) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<List_Trab_Cap>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL List_Trab_Cap_PKG.list_trab_cap_agregar(?, ?, ?, ?, ?, ?)}";
+              public List<List_Trab_Cap> execute(Connection connection) throws SQLException {
+                String query = "{CALL List_Trab_Cap_PKG.list_trab_cap_agregar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, list_Trab_Cap.getIdlistrabcap());
                 statement.setLong(2, list_Trab_Cap.getPresente());
@@ -53,12 +52,24 @@ public class List_Trab_CapDAOImpl implements List_Trab_CapDAO{
                 statement.setLong(4, list_Trab_Cap.getUsuarioidusuario());
                 statement.setLong(5, list_Trab_Cap.getLisasiscapidlistacap());
                 statement.setLong(6, list_Trab_Cap.getCertificadoidcertificado());
-                statement.executeUpdate();
+                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(7);
+                List<List_Trab_Cap> lists;
+                lists = new ArrayList<List_Trab_Cap>();
+                while (rs.next()) {
+                    List_Trab_Cap listTrabCap = new List_Trab_Cap();
+                    listTrabCap.setIdlistrabcap(rs.getLong("ID_LIS_TRAB_CAP"));
+                    listTrabCap.setPresente(rs.getLong("PRESENTE"));
+                    listTrabCap.setEstado(rs.getLong("ESTADO"));
+                    listTrabCap.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
+                    listTrabCap.setLisasiscapidlistacap(rs.getLong("LIST_ASIS_CAP_ID_LISTA_CAP"));
+                    listTrabCap.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    lists.add(listTrabCap);
+                }
+                return lists;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

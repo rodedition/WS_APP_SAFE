@@ -5,11 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Examenes;
 import com.ws_safe.service.ExamenesService;
-import com.ws_safe.service.ExamenesServiceImpl;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -39,16 +36,8 @@ public class ExamenesRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createExamenSP",method=RequestMethod.POST,produces="application/json")
-    public String saveExamenSP(@RequestBody Examenes examenes){
-        String jsonExamen = "";
-        boolean getresponse = false;
-        try {
-            getresponse = examenesServiceImpl.addExamenSP(examenes);
-            jsonExamen = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExamen;
+    public @ResponseBody List<Examenes> saveExamenSP(@RequestBody Examenes examenes){
+        return examenesServiceImpl.addExamenSP(examenes);
     }
     
     @RequestMapping(value="/readOneExamen/{id}", method = RequestMethod.GET,produces = "application/json")

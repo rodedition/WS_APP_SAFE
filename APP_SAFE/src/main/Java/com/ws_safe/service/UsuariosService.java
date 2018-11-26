@@ -15,7 +15,7 @@ import java.util.List;
 public interface UsuariosService {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addUsuarioSP(Usuarios usuarios);
+    public List<Usuarios> addUsuarioSP(Usuarios usuarios);
     public List<Usuarios> getByIdUsuarioSP(String rut);
     public List<Usuarios> getAllUsuarioSP();
     public boolean updateUsuarioSP (Usuarios usuarios);

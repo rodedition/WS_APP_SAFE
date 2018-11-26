@@ -32,7 +32,7 @@ public class CapacitacionServiceImpl implements CapacitacionService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addCapacitacionSP(Capacitacion capacitacion) {
+    public List<Capacitacion> addCapacitacionSP(Capacitacion capacitacion) {
         return capacitacionDAOImpl.addCapacitacionSP(capacitacion);
     }
 

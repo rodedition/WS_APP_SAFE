@@ -39,13 +39,12 @@ public class MedicoDAOImpl implements MedicoDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addMedicoSP(Medico medico) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Medico> addMedicoSP(Medico medico) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Medico>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL MEDICO_PKG.medico_agregar(?, ?, ?, ?, ?, ?, ?)}";
+              public List<Medico> execute(Connection connection) throws SQLException {
+                String query = "{CALL MEDICO_PKG.medico_agregar(?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, medico.getIdmedico());
                 statement.setString(2, medico.getRunmedico());
@@ -54,12 +53,25 @@ public class MedicoDAOImpl implements MedicoDAO{
                 statement.setString(5, medico.getMailmedico());
                 statement.setString(6, medico.getTelmedico());
                 statement.setLong(7, medico.getEstadomedico());
-                statement.executeUpdate();
+                statement.registerOutParameter(8, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(8);
+                List<Medico> meds;
+                meds = new ArrayList<Medico>();
+                while (rs.next()) {
+                    Medico medico = new Medico();
+                    medico.setIdmedico(rs.getLong("ID_MEDICO"));
+                    medico.setRunmedico(rs.getString("RUN_MEDICO"));
+                    medico.setNombremedico(rs.getString("NOMBRE_MEDICO"));
+                    medico.setUniversidadMed(rs.getString("UNIVERSIDAD"));
+                    medico.setMailmedico(rs.getString("MAIL_MEDICO"));
+                    medico.setTelmedico(rs.getString("TEL_MEDICO"));
+                    medico.setEstadomedico(rs.getLong("ESTADO_MEDICO"));
+                    meds.add(medico);
+                }
+                return meds;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

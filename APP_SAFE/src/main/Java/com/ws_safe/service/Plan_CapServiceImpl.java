@@ -31,7 +31,7 @@ public class Plan_CapServiceImpl implements Plan_CapService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addPlanCapSP(Plan_Cap plan_Cap) {
+    public List<Plan_Cap> addPlanCapSP(Plan_Cap plan_Cap) {
         return plan_CapDAOImpl.addPlanCapSP(plan_Cap);
     }
 

@@ -38,13 +38,12 @@ public class UsuariosDAOImpl implements UsuariosDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addUsuarioSP(Usuarios usuarios) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Usuarios> addUsuarioSP(Usuarios usuarios) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Usuarios>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL USUARIOS_PKG.usuarios_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+              public List<Usuarios> execute(Connection connection) throws SQLException {
+                String query = "{CALL USUARIOS_PKG.usuarios_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, usuarios.getIdusuario());
                 statement.setString(2, usuarios.getRunusuario());
@@ -59,12 +58,31 @@ public class UsuariosDAOImpl implements UsuariosDAO{
                 statement.setString(11, usuarios.getClaveusuario());
                 statement.setLong(12, usuarios.getPerfilidperfil());
                 statement.setLong(13, usuarios.getClienteidcliente());
-                statement.executeUpdate();
+                statement.registerOutParameter(14, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(14);
+                List<Usuarios> usus;
+                usus = new ArrayList<Usuarios>();
+                while (rs.next()) {
+                    Usuarios usuarios = new Usuarios();
+                    usuarios.setIdusuario(rs.getLong("ID_USUARIO"));
+                    usuarios.setRunusuario(rs.getString("RUN_USUARIO"));
+                    usuarios.setNombresusuario(rs.getString("NOMBRES_USUARIO"));
+                    usuarios.setAppaterno(rs.getString("AP_PATERNO"));
+                    usuarios.setApmaterno(rs.getString("AP_MATERNO"));
+                    usuarios.setFnacimientousuario(rs.getString("F_NACIMIENTO_USUARIO"));
+                    usuarios.setSexousuario(rs.getString("SEXO_USUARIO"));
+                    usuarios.setTelusuario(rs.getString("TEL_USUARIO"));
+                    usuarios.setMailusuario(rs.getString("MAIL_USUARIO"));
+                    usuarios.setEstadousuario(rs.getLong("ESTADO_USUARIO"));
+                    usuarios.setClaveusuario(rs.getString("CLAVE_USUARIO"));
+                    usuarios.setPerfilidperfil(rs.getLong("PERFIL_ID_PERFIL"));
+                    usuarios.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    usus.add(usuarios);
+                }
+                return usus;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

@@ -31,7 +31,7 @@ public class ExamenesServiceImpl implements ExamenesService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addExamenSP(Examenes examenes) {
+    public List<Examenes> addExamenSP(Examenes examenes) {
         return examenesDAOImpl.addExamenSP(examenes);
     }
 

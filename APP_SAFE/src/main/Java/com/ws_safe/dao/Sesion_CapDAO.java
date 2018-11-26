@@ -15,7 +15,7 @@ import java.util.List;
 public interface Sesion_CapDAO {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addSesionCapSP(Sesion_Cap sesion_Cap);
+    public List<Sesion_Cap> addSesionCapSP(Sesion_Cap sesion_Cap);
     public List<Sesion_Cap> getByIdSesionCapSP(Long id);
     public List<Sesion_Cap> getAllSesionCapSP();
     public boolean updateSesionCapSP (Sesion_Cap sesion_Cap);

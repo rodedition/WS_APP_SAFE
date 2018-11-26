@@ -15,7 +15,7 @@ import java.util.List;
 public interface CertificadoService {
         
     //Interfaces Llamadas a PROCEDURE
-    public boolean addCertificadoSP(Certificado certificado);
+    public List<Certificado> addCertificadoSP(Certificado certificado);
     public List<Certificado> getByIdCertificadoSP(Long id);
     public List<Certificado> getAllCertificadoSP();
     public boolean updateCertificadoSP (Certificado certificado);

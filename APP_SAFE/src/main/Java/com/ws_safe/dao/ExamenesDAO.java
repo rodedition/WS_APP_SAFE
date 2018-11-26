@@ -15,7 +15,7 @@ import java.util.List;
 public interface ExamenesDAO {
       
     //Interfaces para llamadas a PROCEDURE
-    public boolean addExamenSP(Examenes examenes);
+    public List<Examenes> addExamenSP(Examenes examenes);
     public List<Examenes> getByIdExamenSP(Long id);
     public List<Examenes> getAllExamenesSP();
     public boolean updateExamenSP (Examenes examenes);

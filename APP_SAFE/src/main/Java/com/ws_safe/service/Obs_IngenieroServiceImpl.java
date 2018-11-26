@@ -31,7 +31,7 @@ public class Obs_IngenieroServiceImpl implements Obs_IngenieroService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addObsIngSP(Obs_Ingeniero obs_Ingeniero) {
+    public List<Obs_Ingeniero> addObsIngSP(Obs_Ingeniero obs_Ingeniero) {
         return obs_IngenieroDAOImpl.addObsIngSP(obs_Ingeniero);
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 public interface Plan_SaludDAO {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addPlanSaludSP(Plan_Salud plan_Salud);
+    public List<Plan_Salud> addPlanSaludSP(Plan_Salud plan_Salud);
     public List<Plan_Salud> getByIdPlanSaludSP(Long id);
     public List<Plan_Salud> getAllPlanSaludSP();
     public boolean updatePlanSaludSP (Plan_Salud plan_Salud);

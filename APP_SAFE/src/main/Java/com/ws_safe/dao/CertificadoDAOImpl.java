@@ -6,7 +6,6 @@
 package com.ws_safe.dao;
 
 import com.ws_safe.entity.Certificado;
-import com.ws_safe.entity.Cliente;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,24 +40,33 @@ public class CertificadoDAOImpl implements CertificadoDAO{
         
     //Llamadas a procedures
     
-     public boolean addCertificadoSP(Certificado certificado) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+     public List<Certificado> addCertificadoSP(Certificado certificado) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Certificado>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL CertificadoPKG.cetificado_agregar(?, ?, ?, ?)}";
+              public List<Certificado> execute(Connection connection) throws SQLException {
+                String query = "{CALL CertificadoPKG.cetificado_agregar(?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, certificado.getIdcertificado());
                 statement.setString(2, certificado.getTipocertificado());
                 statement.setString(3, certificado.getCodcertificado());
                 statement.setLong(4, certificado.getEstadocert());
-                statement.executeUpdate();
+                statement.registerOutParameter(5, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(5);
+                List<Certificado> certifs;
+                certifs = new ArrayList<Certificado>();
+                while (rs.next()) {
+                    Certificado certificado = new Certificado();
+                    certificado.setIdcertificado(rs.getLong("ID_CERTIFICADO"));
+                    certificado.setTipocertificado(rs.getString("TIPO_CERTIFICADO"));
+                    certificado.setCodcertificado(rs.getString("COD_CERTIFICADO"));
+                    certificado.setEstadocert(rs.getLong("ESTADO"));
+                    certifs.add(certificado);
+                }
+                return certifs;
             }
-        });
-       
-        flagsave=true;
-        return flagsave;
+        }); 
     }  
     
     

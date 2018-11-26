@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Usuarios;
 import com.ws_safe.service.UsuariosService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -36,16 +34,8 @@ public class UsuariosRest {
     UsuariosService usuariosServiceImpl;
     
     @RequestMapping(value="/createUsuarioSP",method=RequestMethod.POST,produces="application/json")
-    public String saveUsuarioSP(@RequestBody Usuarios usuarios){
-        String jsonUsu = "";
-        boolean getresponse = false;
-        try {
-            getresponse = usuariosServiceImpl.addUsuarioSP(usuarios);
-            jsonUsu = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonUsu;
+    public @ResponseBody List<Usuarios> saveUsuarioSP(@RequestBody Usuarios usuarios){
+        return usuariosServiceImpl.addUsuarioSP(usuarios);
     }
     
     @RequestMapping(value="/readOneUsuario/{rut}", method = RequestMethod.GET,produces = "application/json")

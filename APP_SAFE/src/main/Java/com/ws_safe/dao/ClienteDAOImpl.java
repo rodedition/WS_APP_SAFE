@@ -15,11 +15,9 @@ import java.util.List;
 import oracle.jdbc.OracleTypes;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.jdbc.AbstractWork;
 import org.hibernate.jdbc.ReturningWork;
 import org.hibernate.jdbc.Work;
 
@@ -42,16 +40,12 @@ public class ClienteDAOImpl implements ClienteDAO{
     private SessionFactory sessionFactory;   
     
     //Llamadas a procedures
-     public boolean addClienteSP(Cliente cliente) {
-        boolean flagsave = false;
-         //try {
-              Session session = sessionFactory.getCurrentSession();
-              //session.beginTransaction();
-              session.doWork(new Work() {
+     public List<Cliente> addClienteSP(Cliente cliente) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Cliente>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                //CallableStatement statement = null;
-                String query = "{CALL CLIENTEPKG.Cliente_Agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+              public List<Cliente> execute(Connection connection) throws SQLException {
+                String query = "{CALL CLIENTEPKG.Cliente_Agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, cliente.getIdcliente());
                 statement.setString(2, cliente.getRazonsocial());
@@ -65,18 +59,30 @@ public class ClienteDAOImpl implements ClienteDAO{
                 statement.setString(10, cliente.getCargocontacto());
                 statement.setString(11, cliente.getObservacionescliente());
                 statement.setLong(12, cliente.getEstadocliente());
-                statement.executeUpdate();
+                statement.registerOutParameter(13, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(13);
+                List<Cliente> clients;
+                clients = new ArrayList<Cliente>();
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setIdcliente(rs.getLong("ID_CLIENTE"));
+                    cliente.setRazonsocial(rs.getString("RAZON_SOCIAL"));
+                    cliente.setRutcliente(rs.getString("RUT_CLIENTE"));
+                    cliente.setGirocliente(rs.getString("GIRO_CLIENTE"));
+                    cliente.setDireccioncliente(rs.getString("DIRECCION_CLIENTE"));
+                    cliente.setTeloficina(rs.getString("TEL_OFICINA"));
+                    cliente.setNombrecontacto(rs.getString("NOMBRE_CONTACTO"));
+                    cliente.setFonocontacto(rs.getString("FONO_CONTACTO"));
+                    cliente.setMailcontacto(rs.getString("MAIL_CONTACTO"));
+                    cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
+                    cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
+                    cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
+                    clients.add(cliente);
+                }
+                return clients;
             }
         });
-        //session.getTransaction().commit();
-         //} catch (HibernateException e) {
-             //e.printStackTrace();
-        /* } finally{
-             session.close();
-         }*/
-       
-        flagsave=true;
-        return flagsave;
     }  
     
     

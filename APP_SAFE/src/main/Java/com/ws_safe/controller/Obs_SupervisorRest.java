@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Obs_Supervisor;
 import com.ws_safe.service.Obs_SupervisorService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -38,16 +36,8 @@ public class Obs_SupervisorRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createObsSupSP",method=RequestMethod.POST,produces="application/json")
-    public String saveObsSupSP(@RequestBody Obs_Supervisor obs_Supervisor){
-        String jsonObs = "";
-        boolean getresponse = false;
-        try {
-            getresponse = obs_SupervisorServiceImpl.addObsSupSP(obs_Supervisor);
-            jsonObs = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonObs;
+    public @ResponseBody List<Obs_Supervisor> saveObsSupSP(@RequestBody Obs_Supervisor obs_Supervisor){
+        return obs_SupervisorServiceImpl.addObsSupSP(obs_Supervisor);
     }
     
     @RequestMapping(value="/readOneObsSup/{id}", method = RequestMethod.GET,produces = "application/json")

@@ -31,7 +31,7 @@ public class Sesion_SaludServiceImpl implements Sesion_SaludService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addSesionSaludSP(Sesion_Salud sesion_Salud) {
+    public List<Sesion_Salud> addSesionSaludSP(Sesion_Salud sesion_Salud) {
         return sesion_SaludDAOImpl.addSesionSaludSP(sesion_Salud);
     }
 

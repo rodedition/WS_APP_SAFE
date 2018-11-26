@@ -5,7 +5,6 @@
  */
 package com.ws_safe.dao;
 
-import com.ws_safe.entity.Plan_Cap;
 import com.ws_safe.entity.Plan_Salud;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -39,24 +38,33 @@ public class Plan_SaludDAOImpl implements Plan_SaludDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addPlanSaludSP(Plan_Salud plan_Salud) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Plan_Salud> addPlanSaludSP(Plan_Salud plan_Salud) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Plan_Salud>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL PLAN_SALUD_PKG.plan_salud_agregar(?, ?, ?, ?)}";
+              public List<Plan_Salud> execute(Connection connection) throws SQLException {
+                String query = "{CALL PLAN_SALUD_PKG.plan_salud_agregar(?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, plan_Salud.getIdplansalud());
                 statement.setString(2, plan_Salud.getFechacreacion());
                 statement.setLong(3, plan_Salud.getEstadoplansalud());
                 statement.setLong(4, plan_Salud.getClienteidcliente());
-                statement.executeUpdate();
+                statement.registerOutParameter(5, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(5);
+                List<Plan_Salud> plans;
+                plans = new ArrayList<Plan_Salud>();
+                while (rs.next()) {
+                    Plan_Salud plan_Salud = new Plan_Salud();
+                    plan_Salud.setIdplansalud(rs.getLong("ID_PLAN_SALUD"));
+                    plan_Salud.setFechacreacion(rs.getString("FECHA_CREACION"));
+                    plan_Salud.setEstadoplansalud(rs.getLong("ESTADO_PLAN_SALUD"));
+                    plan_Salud.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    plans.add(plan_Salud);
+                }
+                return plans;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

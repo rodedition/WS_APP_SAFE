@@ -31,7 +31,7 @@ public class CertificadoServiceImpl implements CertificadoService{
     //Servicios para llamadas a PROCEDURE
     
     @Override
-    public boolean addCertificadoSP(Certificado certificado) {
+    public List<Certificado> addCertificadoSP(Certificado certificado) {
         return certificadoDAOImpl.addCertificadoSP(certificado);
     }
 

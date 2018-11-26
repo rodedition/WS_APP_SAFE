@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Certificado;
 import com.ws_safe.service.CertificadoService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -40,16 +38,8 @@ public class CertificadoRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createCertificadoSP",method=RequestMethod.POST,produces="application/json")
-    public String saveCertificadoSP(@RequestBody Certificado certificado){
-        String jsonCertificado = "";
-        boolean getresponse = false;
-        try {
-            getresponse = certificadoServiceImpl.addCertificadoSP(certificado);
-            jsonCertificado = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonCertificado;
+    public @ResponseBody List<Certificado> saveCertificadoSP(@RequestBody Certificado certificado){
+        return certificadoServiceImpl.addCertificadoSP(certificado);
     }
     
     @RequestMapping(value="/readOneCertificado/{id}", method = RequestMethod.GET,produces = "application/json")

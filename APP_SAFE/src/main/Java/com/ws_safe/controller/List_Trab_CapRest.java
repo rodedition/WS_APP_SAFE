@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.List_Trab_Cap;
 import com.ws_safe.service.List_Trab_CapService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -38,16 +36,8 @@ public class List_Trab_CapRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createListTrabCapSP",method=RequestMethod.POST,produces="application/json")
-    public String saveListTrabCapSP(@RequestBody List_Trab_Cap list_Trab_Cap){
-        String jsonListTrabC = "";
-        boolean getresponse = false;
-        try {
-            getresponse = list_Trab_CapServiceImpl.addListTrabCapSP(list_Trab_Cap);
-            jsonListTrabC = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonListTrabC;
+    public @ResponseBody List<List_Trab_Cap> saveListTrabCapSP(@RequestBody List_Trab_Cap list_Trab_Cap){
+        return list_Trab_CapServiceImpl.addListTrabCapSP(list_Trab_Cap);
     }
     
     @RequestMapping(value="/readOneListTrabCap/{id}", method = RequestMethod.GET,produces = "application/json")

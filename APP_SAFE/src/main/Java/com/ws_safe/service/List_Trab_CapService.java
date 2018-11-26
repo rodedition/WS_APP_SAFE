@@ -15,7 +15,7 @@ import java.util.List;
 public interface List_Trab_CapService {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addListTrabCapSP(List_Trab_Cap list_Trab_Cap);
+    public List<List_Trab_Cap> addListTrabCapSP(List_Trab_Cap list_Trab_Cap);
     public List<List_Trab_Cap> getByIdListTrabCapSP(Long id);
     public List<List_Trab_Cap> getAllListTrabCapSP();
     public boolean updateListTrabCapSP (List_Trab_Cap list_Trab_Cap);

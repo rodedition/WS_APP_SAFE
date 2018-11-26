@@ -38,25 +38,35 @@ public class Obs_SupervisorDAOImpl implements Obs_SupervisorDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addObsSupSP(Obs_Supervisor obs_Supervisor) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Obs_Supervisor> addObsSupSP(Obs_Supervisor obs_Supervisor) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Obs_Supervisor>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL OBS_SUPERVISOR_PKG.obs_supervisor_agregar(?, ?, ?, ?, ?)}";
+              public List<Obs_Supervisor> execute(Connection connection) throws SQLException {
+                String query = "{CALL OBS_SUPERVISOR_PKG.obs_supervisor_agregar(?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, obs_Supervisor.getIdobssupervisor());
                 statement.setString(2, obs_Supervisor.getFechahoraobssupervisor());
                 statement.setString(3, obs_Supervisor.getObssupervisor());
                 statement.setLong(4, obs_Supervisor.getEstadoObsSupervisor());
                 statement.setLong(5, obs_Supervisor.getEvalterridevalterr());
-                statement.executeUpdate();
+                statement.registerOutParameter(6, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(6);
+                List<Obs_Supervisor> obs;
+                obs = new ArrayList<Obs_Supervisor>();
+                while (rs.next()) {
+                    Obs_Supervisor obs_Supervisor = new Obs_Supervisor();
+                    obs_Supervisor.setIdobssupervisor(rs.getLong("ID_OBS_SUPERVISOR"));
+                    obs_Supervisor.setFechahoraobssupervisor(rs.getString("FECHA_HORA_OBS_SUPERVISOR"));
+                    obs_Supervisor.setObssupervisor(rs.getString("OBS_SUPERVISOR"));
+                    obs_Supervisor.setEstadoObsSupervisor(rs.getLong("ESTADO"));
+                    obs_Supervisor.setEvalterridevalterr(rs.getLong("EVAL_TERR_ID_EVAL_TERR"));
+                    obs.add(obs_Supervisor);
+                }
+                return obs;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
 public interface SoliEvalTerService {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addSoliEvalTerSP(SoliEvalTer soliEvalTer);
+    public List<SoliEvalTer> addSoliEvalTerSP(SoliEvalTer soliEvalTer);
     public List<SoliEvalTer> getByIdSoliEvalTerSP(Long id);
     public List<SoliEvalTer> getAllSoliEvalTerSP();
     public boolean updateSoliEvalTerSP (SoliEvalTer soliEvalTer);

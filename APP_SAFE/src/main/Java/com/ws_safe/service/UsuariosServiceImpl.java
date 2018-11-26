@@ -32,7 +32,7 @@ public class UsuariosServiceImpl implements UsuariosService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addUsuarioSP(Usuarios usuarios) {
+    public List<Usuarios> addUsuarioSP(Usuarios usuarios) {
         return usuariosDAOImpl.addUsuarioSP(usuarios);
     }
 

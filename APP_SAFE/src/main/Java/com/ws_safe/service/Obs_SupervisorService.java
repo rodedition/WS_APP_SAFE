@@ -15,7 +15,7 @@ import java.util.List;
 public interface Obs_SupervisorService {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addObsSupSP(Obs_Supervisor obs_Supervisor);
+    public List<Obs_Supervisor> addObsSupSP(Obs_Supervisor obs_Supervisor);
     public List<Obs_Supervisor> getByIdObsSupSP(Long id);
     public List<Obs_Supervisor> getAllObsSupSP();
     public boolean updateObsSupSP (Obs_Supervisor obs_Supervisor);

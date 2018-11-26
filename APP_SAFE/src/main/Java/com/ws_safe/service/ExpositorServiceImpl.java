@@ -31,7 +31,7 @@ public class ExpositorServiceImpl implements ExpositorService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addExpositorSP(Expositor expositor) {
+    public List<Expositor> addExpositorSP(Expositor expositor) {
         return expositorDAOImpl.addExpositorSP(expositor);
     }
 

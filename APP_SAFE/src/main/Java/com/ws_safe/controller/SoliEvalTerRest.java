@@ -5,11 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.SoliEvalTer;
 import com.ws_safe.service.SoliEvalTerService;
-import com.ws_safe.service.SoliEvalTerServiceImpl;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -40,16 +37,8 @@ public class SoliEvalTerRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createSoliEvalTerSP",method=RequestMethod.POST,produces="application/json")
-    public String saveSoliEvalTerSP(@RequestBody SoliEvalTer soliEvalTer){
-        String jsonSol = "";
-        boolean getresponse = false;
-        try {
-            getresponse = soliEvalTerServiceImpl.addSoliEvalTerSP(soliEvalTer);
-            jsonSol = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSol;
+    public @ResponseBody List<SoliEvalTer> saveSoliEvalTerSP(@RequestBody SoliEvalTer soliEvalTer){
+        return soliEvalTerServiceImpl.addSoliEvalTerSP(soliEvalTer);
     }
     
     @RequestMapping(value="/readOneSoliEvalTer/{id}", method = RequestMethod.GET,produces = "application/json")

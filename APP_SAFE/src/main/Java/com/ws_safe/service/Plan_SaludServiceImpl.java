@@ -31,7 +31,7 @@ public class Plan_SaludServiceImpl implements Plan_SaludService{
     //Servicios para llamadas a PROCEDURE
 
     @Override
-    public boolean addPlanSaludSP(Plan_Salud plan_Salud) {
+    public List<Plan_Salud> addPlanSaludSP(Plan_Salud plan_Salud) {
         return plan_SaludDAOImpl.addPlanSaludSP(plan_Salud);
     }
 

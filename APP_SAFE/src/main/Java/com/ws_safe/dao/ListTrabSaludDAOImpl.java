@@ -39,13 +39,12 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addListTrabSaludSP(ListTrabSalud listTrabSalud) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<ListTrabSalud> addListTrabSaludSP(ListTrabSalud listTrabSalud) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<ListTrabSalud>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL LISTTRABSALUD_PKG.listtrabsalud_agregar(?, ?, ?, ?, ?, ?)}";
+              public List<ListTrabSalud> execute(Connection connection) throws SQLException {
+                String query = "{CALL LISTTRABSALUD_PKG.listtrabsalud_agregar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, listTrabSalud.getIdlistrabsalud());
                 statement.setLong(2, listTrabSalud.getPresenteSalud());
@@ -53,12 +52,24 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
                 statement.setLong(4, listTrabSalud.getUsuarioidusuario());
                 statement.setLong(5, listTrabSalud.getLisasissaludidlistasalud());
                 statement.setLong(6, listTrabSalud.getCertificadoidcertificado());
-                statement.executeUpdate();
+                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(7);
+                List<ListTrabSalud> lists;
+                lists = new ArrayList<ListTrabSalud>();
+                while (rs.next()) {
+                    ListTrabSalud listTrabSalud = new ListTrabSalud();
+                    listTrabSalud.setIdlistrabsalud(rs.getLong("ID_LIS_TRAB_SALUD"));
+                    listTrabSalud.setPresenteSalud(rs.getLong("PRESENTE"));
+                    listTrabSalud.setEstadoSalud(rs.getLong("ESTADO"));
+                    listTrabSalud.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
+                    listTrabSalud.setLisasissaludidlistasalud(rs.getLong("LISTASISSALUD_ID_LIST_SALUD"));
+                    listTrabSalud.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    lists.add(listTrabSalud);
+                }
+                return lists;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

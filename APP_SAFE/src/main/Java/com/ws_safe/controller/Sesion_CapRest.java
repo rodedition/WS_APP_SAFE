@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Sesion_Cap;
 import com.ws_safe.service.Sesion_CapService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -38,16 +36,8 @@ public class Sesion_CapRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createSesionCapSP",method=RequestMethod.POST,produces="application/json")
-    public String saveSesionCapSP(@RequestBody Sesion_Cap sesion_Cap){
-        String jsonSes = "";
-        boolean getresponse = false;
-        try {
-            getresponse = sesion_CapServiceImpl.addSesionCapSP(sesion_Cap);
-            jsonSes = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonSes;
+    public @ResponseBody List<Sesion_Cap> saveSesionCapSP(@RequestBody Sesion_Cap sesion_Cap){
+        return sesion_CapServiceImpl.addSesionCapSP(sesion_Cap);
     }
     
     @RequestMapping(value="/readOneSesionCap/{id}", method = RequestMethod.GET,produces = "application/json")

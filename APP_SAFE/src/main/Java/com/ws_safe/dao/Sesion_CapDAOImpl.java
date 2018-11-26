@@ -38,13 +38,12 @@ public class Sesion_CapDAOImpl implements Sesion_CapDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addSesionCapSP(Sesion_Cap sesion_Cap) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<Sesion_Cap> addSesionCapSP(Sesion_Cap sesion_Cap) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Sesion_Cap>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL SESION_CAP_PKG.sesion_cap_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+              public List<Sesion_Cap> execute(Connection connection) throws SQLException {
+                String query = "{CALL SESION_CAP_PKG.sesion_cap_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, sesion_Cap.getIdsesioncap());
                 statement.setLong(2, sesion_Cap.getNumsesioncap());
@@ -57,12 +56,29 @@ public class Sesion_CapDAOImpl implements Sesion_CapDAO{
                 statement.setLong(9, sesion_Cap.getEstadosesioncap());
                 statement.setLong(10, sesion_Cap.getCapacitacionidcap());
                 statement.setLong(11, sesion_Cap.getExpositoridexpositor());
-                statement.executeUpdate();
+                statement.registerOutParameter(12, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(12);
+                List<Sesion_Cap> ses;
+                ses = new ArrayList<Sesion_Cap>();
+                while (rs.next()) {
+                    Sesion_Cap sesion_Cap = new Sesion_Cap();
+                    sesion_Cap.setIdsesioncap(rs.getLong("ID_SESION_CAP"));
+                    sesion_Cap.setNumsesioncap(rs.getLong("NUM_SESION_CAP"));
+                    sesion_Cap.setNombresesion(rs.getString("NOMBRE_SESION"));
+                    sesion_Cap.setCupossesion(rs.getLong("CUPOS_SESION"));
+                    sesion_Cap.setFechasesion(rs.getString("FECHA_SESION"));
+                    sesion_Cap.setHorainiciocap(rs.getString("HORA_INICIO_CAP"));
+                    sesion_Cap.setHoraterminocap(rs.getString("HORA_TERMINO_CAP"));
+                    sesion_Cap.setDescripcionsesion(rs.getString("DESCRIPCION_SESION"));
+                    sesion_Cap.setEstadosesioncap(rs.getLong("ESTADO"));
+                    sesion_Cap.setCapacitacionidcap(rs.getLong("CAPACITACION_ID_CAP"));
+                    sesion_Cap.setExpositoridexpositor(rs.getLong("EXPOSITOR_ID_EXPOSITOR"));
+                    ses.add(sesion_Cap);
+                }
+                return ses;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

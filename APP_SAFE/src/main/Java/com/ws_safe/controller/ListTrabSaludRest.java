@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.ListTrabSalud;
 import com.ws_safe.service.ListTrabSaludService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -38,16 +36,8 @@ public class ListTrabSaludRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createListTrabSaludSP",method=RequestMethod.POST,produces="application/json")
-    public String saveListTrabSaludSP(@RequestBody ListTrabSalud listTrabSalud){
-        String jsonListTrabS = "";
-        boolean getresponse = false;
-        try {
-            getresponse = listTrabSaludServiceImpl.addListTrabSaludSP(listTrabSalud);
-            jsonListTrabS = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonListTrabS;
+    public @ResponseBody List<ListTrabSalud> saveListTrabSaludSP(@RequestBody ListTrabSalud listTrabSalud){
+        return listTrabSaludServiceImpl.addListTrabSaludSP(listTrabSalud);
     }
     
     @RequestMapping(value="/readOneListTrabSalud/{id}", method = RequestMethod.GET,produces = "application/json")

@@ -39,13 +39,12 @@ public class SoliEvalTerDAOImpl implements SoliEvalTerDAO{
     //Llamadas a procedures
 
     @Override
-    public boolean addSoliEvalTerSP(SoliEvalTer soliEvalTer) {
-        boolean flagsave = false;         
-              Session session = sessionFactory.getCurrentSession();
-              session.doWork(new Work() {
+    public List<SoliEvalTer> addSoliEvalTerSP(SoliEvalTer soliEvalTer) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<SoliEvalTer>>() {
               @Override
-              public void execute(Connection connection) throws SQLException {
-                String query = "{CALL SOLIEVALTER_PKG.soliEvalTer_agregar(?, ?, ?, ?, ?, ?, ?)}";
+              public List<SoliEvalTer> execute(Connection connection) throws SQLException {
+                String query = "{CALL SOLIEVALTER_PKG.soliEvalTer_agregar(?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, soliEvalTer.getIdsolicitud());
                 statement.setString(2, soliEvalTer.getFechacreacion());
@@ -54,12 +53,25 @@ public class SoliEvalTerDAOImpl implements SoliEvalTerDAO{
                 statement.setLong(5, soliEvalTer.getClienteidcliente());
                 statement.setLong(6, soliEvalTer.getTipovisitteridtipovister());
                 statement.setLong(7, soliEvalTer.getEstadosolievalter());
-                statement.executeUpdate();
+                statement.registerOutParameter(8, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(8);
+                List<SoliEvalTer> sols;
+                sols = new ArrayList<SoliEvalTer>();
+                while (rs.next()) {
+                    SoliEvalTer soliEvalTer = new SoliEvalTer();
+                    soliEvalTer.setIdsolicitud(rs.getLong("ID_SOLICITUD"));
+                    soliEvalTer.setFechacreacion(rs.getString("FECHA_CREACION"));
+                    soliEvalTer.setDireccionvisita(rs.getString("DIRECCION_VISITA"));
+                    soliEvalTer.setDescripcionvisita(rs.getString("DESCRIP_VISITA"));
+                    soliEvalTer.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    soliEvalTer.setTipovisitteridtipovister(rs.getLong("TIPOVISITTER_ID_TIPO_VISTER"));
+                    soliEvalTer.setEstadosolievalter(rs.getLong("ESTADO"));
+                    sols.add(soliEvalTer);
+                }
+                return sols;
             }
         });
-       
-        flagsave=true;
-        return flagsave;
     }
 
     @Override

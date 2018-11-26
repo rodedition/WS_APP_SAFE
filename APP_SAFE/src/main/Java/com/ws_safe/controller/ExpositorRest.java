@@ -39,16 +39,8 @@ public class ExpositorRest {
     //Creación de URIS para llamadas a PROCEDURE
     
     @RequestMapping(value="/createExpositorSP",method=RequestMethod.POST,produces="application/json")
-    public String saveExpositorSP(@RequestBody Expositor expositor){
-        String jsonExpositor = "";
-        boolean getresponse = false;
-        try {
-            getresponse = expositorServiceImpl.addExpositorSP(expositor);
-            jsonExpositor = getresponse==true?"1":"0";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonExpositor;
+    public @ResponseBody List<Expositor> saveExpositorSP(@RequestBody Expositor expositor){
+        return expositorServiceImpl.addExpositorSP(expositor);
     }
     
     @RequestMapping(value="/readOneExpositor/{id}", method = RequestMethod.GET,produces = "application/json")

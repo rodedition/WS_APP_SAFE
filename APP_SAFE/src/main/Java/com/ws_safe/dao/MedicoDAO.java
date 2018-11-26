@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface MedicoDAO {
     //Interfaces para llamadas a PROCEDURE
-    public boolean addMedicoSP(Medico medico);
+    public List<Medico> addMedicoSP(Medico medico);
     public List<Medico> getByIdMedicoSP(Long id);
     public List<Medico> getAllMedicoSP();
     public boolean updateMedicoSP (Medico medico);

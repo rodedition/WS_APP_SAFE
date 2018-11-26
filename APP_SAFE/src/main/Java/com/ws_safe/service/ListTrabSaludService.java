@@ -15,7 +15,7 @@ import java.util.List;
 public interface ListTrabSaludService {
     
     //Interfaces para llamadas a PROCEDURE
-    public boolean addListTrabSaludSP(ListTrabSalud listTrabSalud);
+    public List<ListTrabSalud> addListTrabSaludSP(ListTrabSalud listTrabSalud);
     public List<ListTrabSalud> getByIdListTrabSaludSP(Long id);
     public List<ListTrabSalud> getAllListTrabSaludSP();
     public boolean updateListTrabSaludSP (ListTrabSalud listTrabSalud);
