@@ -33,6 +33,11 @@ public class UsuariosRest {
     @Qualifier("usuariosService")
     UsuariosService usuariosServiceImpl;
     
+    @RequestMapping(value="/login",method=RequestMethod.POST,produces="application/json")
+    public @ResponseBody List<Usuarios> loginUsuarioSP(@RequestBody Usuarios usuarios){
+        return usuariosServiceImpl.loginUsuarioSP(usuarios);
+    }
+    
     @RequestMapping(value="/createUsuarioSP",method=RequestMethod.POST,produces="application/json")
     public @ResponseBody List<Usuarios> saveUsuarioSP(@RequestBody Usuarios usuarios){
         return usuariosServiceImpl.addUsuarioSP(usuarios);

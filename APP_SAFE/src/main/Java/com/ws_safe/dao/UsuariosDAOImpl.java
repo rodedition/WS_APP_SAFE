@@ -38,6 +38,34 @@ public class UsuariosDAOImpl implements UsuariosDAO{
     //Llamadas a procedures
 
     @Override
+    public List<Usuarios> loginUsuarioSP(Usuarios usuarios) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Usuarios>>() {
+              @Override
+              public List<Usuarios> execute(Connection connection) throws SQLException {
+                String query = "{CALL USUARIOS_PKG.login(?, ?, ?)}";
+                CallableStatement statement = connection.prepareCall(query);
+                statement.setString(1, usuarios.getRunusuario());
+                statement.setString(2, usuarios.getClaveusuario());
+                statement.registerOutParameter(3, OracleTypes.CURSOR);                                
+                statement.executeUpdate();   
+                ResultSet rs = (ResultSet) statement.getObject(3);
+                List<Usuarios> usus;
+                usus = new ArrayList<Usuarios>();
+                while (rs.next()) {
+                    Usuarios usuarios = new Usuarios();
+                    usuarios.setNombresusuario(rs.getString("NOMBRES_USUARIO"));
+                    usuarios.setAppaterno(rs.getString("AP_PATERNO"));
+                    usuarios.setApmaterno(rs.getString("AP_MATERNO"));
+                    usuarios.setPerfilidperfil(rs.getLong("PERFIL_ID_PERFIL"));
+                    usus.add(usuarios);
+                }
+                return usus;
+            }
+        });
+    }
+    
+    @Override
     public List<Usuarios> addUsuarioSP(Usuarios usuarios) {
         Session session = sessionFactory.getCurrentSession();
         return session.doReturningWork(new ReturningWork<List<Usuarios>>() {
@@ -192,7 +220,5 @@ public class UsuariosDAOImpl implements UsuariosDAO{
         Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL USUARIOS_PKG.usuarios_eliminar(:run_usu, :estado_usu)").addEntity(Usuarios.class).
         setParameter("run_usu", run).setParameter("estado_usu", estado);        
         query.executeUpdate();
-    }
-    
-    
+    }    
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public interface UsuariosDAO {
     
     //Interfaces para llamadas a PROCEDURE
+    public List<Usuarios> loginUsuarioSP(Usuarios usuarios);
     public List<Usuarios> addUsuarioSP(Usuarios usuarios);
     public List<Usuarios> getByIdUsuarioSP(String rut);
     public List<Usuarios> getAllUsuarioSP();

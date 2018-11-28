@@ -55,6 +55,11 @@ public class UsuariosServiceImpl implements UsuariosService{
     public void deleteUsuarioSP(String run, Long estado) {
         usuariosDAOImpl.deleteUsuarioSP(run, estado);
     }
+
+    @Override
+    public List<Usuarios> loginUsuarioSP(Usuarios usuarios) {
+        return usuariosDAOImpl.loginUsuarioSP(usuarios);
+    }
     
     
 }
