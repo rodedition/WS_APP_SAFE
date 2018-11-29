@@ -5,10 +5,8 @@
  */
 package com.ws_safe.controller;
 
-import com.google.gson.Gson;
 import com.ws_safe.entity.Capacitacion;
 import com.ws_safe.service.CapacitacionService;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 

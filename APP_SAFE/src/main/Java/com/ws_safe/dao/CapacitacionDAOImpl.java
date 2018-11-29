@@ -139,7 +139,7 @@ public class CapacitacionDAOImpl implements CapacitacionDAO{
                 statement.setLong(2, capacitacion.getEstadocapacitacion());
                 statement.setLong(3, capacitacion.getPlancapidplancap());
                 statement.setLong(4, capacitacion.getTipocapidtipocap());
-                statement.setLong(4, capacitacion.getIdcap());
+                statement.setLong(5, capacitacion.getIdcap());
                 statement.executeUpdate();
             }
         });        
