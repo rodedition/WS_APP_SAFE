@@ -41,9 +41,9 @@ public class ClienteRest {
         return clienteServiceImpl.addClienteSP(cliente);
     }
     
-    @RequestMapping(value="/readOneCliente/{id}", method = RequestMethod.GET,produces = "application/json")
-    public @ResponseBody List<Cliente> readOneCliente (@PathVariable("id") String id){
-        return clienteServiceImpl.getByIdClienteSP(new Long (id));
+    @RequestMapping(value="/readOneCliente/{rut}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Cliente> readOneCliente (@PathVariable("rut") String rut){
+        return clienteServiceImpl.getByIdClienteSP(new String (rut));
     }
     
     @RequestMapping(value="/getAllCliente/", method = RequestMethod.GET,produces = "application/json")
@@ -64,9 +64,9 @@ public class ClienteRest {
         return jsonCliente;
     }
 
-    @RequestMapping(value="/deleteCliente/{id}/{estado}",method=RequestMethod.PUT,produces="application/json")
-    public ResponseEntity<Void> deleteClienteSP(@PathVariable("id") String id, @PathVariable("estado") String estado){
-        clienteServiceImpl.deleteClienteSP(new Long (id), new Long (estado));
+    @RequestMapping(value="/deleteCliente/{rut}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteClienteSP(@PathVariable("rut") String rut, @PathVariable("estado") String estado){
+        clienteServiceImpl.deleteClienteSP(new String (rut), new Long (estado));
         return new ResponseEntity<Void>(HttpStatus.OK);
     } 
     

@@ -16,8 +16,8 @@ public interface ClienteDAO {
     
     //Interfaces para llamadas a PROCEDURE
     public List<Cliente> addClienteSP(Cliente cliente);
-    public List<Cliente> getByIdClienteSP(Long id);
+    public List<Cliente> getByIdClienteSP(String rut);
     public List<Cliente> getAllClienteSP();
     public boolean updateClienteSP (Cliente cliente);
-    public void deleteClienteSP(Long id, Long estado);
+    public void deleteClienteSP(String rut, Long estado);
 }

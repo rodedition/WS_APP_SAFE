@@ -66,8 +66,8 @@ public class UsuariosRest {
         return jsonUsu;
     }
 
-    @RequestMapping(value="/deleteMedico/{rut}/{estado}",method=RequestMethod.PUT,produces="application/json")
-    public ResponseEntity<Void> deleteUsurioSP(@PathVariable("rut") String rut, @PathVariable("estado") String estado){
+    @RequestMapping(value="/deleteUsuario/{rut}/{estado}",method=RequestMethod.PUT,produces="application/json")
+    public ResponseEntity<Void> deleteUsurioSP(@PathVariable("rut") String rut, @PathVariable("estado") Long estado){
         usuariosServiceImpl.deleteUsuarioSP(new String (rut), new Long (estado));
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

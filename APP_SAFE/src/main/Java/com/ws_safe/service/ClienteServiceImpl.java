@@ -41,15 +41,15 @@ public class ClienteServiceImpl implements ClienteService{
         return clienteDAOImpl.getAllClienteSP();
     }
     
-    public List<Cliente> getByIdClienteSP(Long id) {
-        return clienteDAOImpl.getByIdClienteSP(id);
+    public List<Cliente> getByIdClienteSP(String rut) {
+        return clienteDAOImpl.getByIdClienteSP(rut);
     }
     
     public boolean updateClienteSP(Cliente cliente) {
         return clienteDAOImpl.updateClienteSP(cliente);
     }
 
-    public void deleteClienteSP(Long id, Long estado) {
-        clienteDAOImpl.deleteClienteSP(id, estado);
+    public void deleteClienteSP(String rut, Long estado) {
+        clienteDAOImpl.deleteClienteSP(rut, estado);
     }    
 }

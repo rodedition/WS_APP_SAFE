@@ -86,7 +86,7 @@ public class ClienteDAOImpl implements ClienteDAO{
     }  
     
     
-    public List<Cliente>getByIdClienteSP(Long id) {
+    public List<Cliente>getByIdClienteSP(String rut) {
         
         Session session = sessionFactory.getCurrentSession();
         return session.doReturningWork(new ReturningWork<List<Cliente>>() {
@@ -94,7 +94,7 @@ public class ClienteDAOImpl implements ClienteDAO{
             public List<Cliente> execute(Connection connection) throws SQLException {
                 String query = "{CALL CLIENTEPKG.Cliente_Consultar(?, ?)}";
                 CallableStatement callableStatement = connection.prepareCall(query);
-                callableStatement.setLong(1, id);
+                callableStatement.setString(1, rut);
                 callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
                 callableStatement.executeUpdate();
                 ResultSet rs = (ResultSet) callableStatement.getObject(2);
@@ -188,9 +188,9 @@ public class ClienteDAOImpl implements ClienteDAO{
         return flagsave;
     }
     
-    public void deleteClienteSP(Long id, Long estado) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_ELIMINAR(:id_cli, :est_cli)").addEntity(Cliente.class).
-        setParameter("id_cli", id).setParameter("est_cli", estado);        
+    public void deleteClienteSP(String rut, Long estado) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL CLIENTEPKG.CLIENTE_ELIMINAR(:rut_cli, :est_cli)").addEntity(Cliente.class).
+        setParameter("rut_cli", rut).setParameter("est_cli", estado);        
         query.executeUpdate();
     }
 
