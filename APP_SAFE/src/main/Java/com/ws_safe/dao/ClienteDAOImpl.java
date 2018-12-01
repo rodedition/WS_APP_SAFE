@@ -86,7 +86,7 @@ public class ClienteDAOImpl implements ClienteDAO{
     }  
     
     
-    public List<Cliente>getByIdClienteSP(String rut) {
+    public List<Cliente>getByRutClienteSP(Cliente cliente) {
         
         Session session = sessionFactory.getCurrentSession();
         return session.doReturningWork(new ReturningWork<List<Cliente>>() {
@@ -94,7 +94,7 @@ public class ClienteDAOImpl implements ClienteDAO{
             public List<Cliente> execute(Connection connection) throws SQLException {
                 String query = "{CALL CLIENTEPKG.Cliente_Consultar(?, ?)}";
                 CallableStatement callableStatement = connection.prepareCall(query);
-                callableStatement.setString(1, rut);
+                callableStatement.setString(1, cliente.getRutcliente());
                 callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
                 callableStatement.executeUpdate();
                 ResultSet rs = (ResultSet) callableStatement.getObject(2);
@@ -121,6 +121,42 @@ public class ClienteDAOImpl implements ClienteDAO{
         });
     }  
     
+    @Override
+    public List<Cliente> getByIdClienteSP(Long id) {
+        
+        Session session = sessionFactory.getCurrentSession();
+        return session.doReturningWork(new ReturningWork<List<Cliente>>() {
+            @Override
+            public List<Cliente> execute(Connection connection) throws SQLException {
+                String query = "{CALL CLIENTEPKG.Cliente_Consultar_id(?, ?)}";
+                CallableStatement callableStatement = connection.prepareCall(query);
+                callableStatement.setLong(1, id);
+                callableStatement.registerOutParameter(2, OracleTypes.CURSOR);
+                callableStatement.executeUpdate();
+                ResultSet rs = (ResultSet) callableStatement.getObject(2);
+                List<Cliente> clients;
+                clients = new ArrayList<Cliente>();
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setIdcliente(rs.getLong("ID_CLIENTE"));
+                    cliente.setRazonsocial(rs.getString("RAZON_SOCIAL"));
+                    cliente.setRutcliente(rs.getString("RUT_CLIENTE"));
+                    cliente.setGirocliente(rs.getString("GIRO_CLIENTE"));
+                    cliente.setDireccioncliente(rs.getString("DIRECCION_CLIENTE"));
+                    cliente.setTeloficina(rs.getString("TEL_OFICINA"));
+                    cliente.setNombrecontacto(rs.getString("NOMBRE_CONTACTO"));
+                    cliente.setFonocontacto(rs.getString("FONO_CONTACTO"));
+                    cliente.setMailcontacto(rs.getString("MAIL_CONTACTO"));
+                    cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
+                    cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
+                    cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
+                    clients.add(cliente);
+                }
+                return clients;
+            }
+        });
+    }
+        
     public List<Cliente>getAllClienteSP() {
         
         Session session = sessionFactory.getCurrentSession();
@@ -194,6 +230,5 @@ public class ClienteDAOImpl implements ClienteDAO{
         query.executeUpdate();
     }
 
-    
 }   
    

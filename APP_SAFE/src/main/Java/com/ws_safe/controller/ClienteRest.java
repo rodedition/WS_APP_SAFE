@@ -41,9 +41,14 @@ public class ClienteRest {
         return clienteServiceImpl.addClienteSP(cliente);
     }
     
-    @RequestMapping(value="/readOneCliente/{rut}", method = RequestMethod.GET,produces = "application/json")
-    public @ResponseBody List<Cliente> readOneCliente (@PathVariable("rut") String rut){
-        return clienteServiceImpl.getByIdClienteSP(new String (rut));
+    @RequestMapping(value="/readOneClienteByRut/", method = RequestMethod.POST,produces = "application/json")
+    public @ResponseBody List<Cliente> readOneClienteByRut (@RequestBody Cliente cliente){
+        return clienteServiceImpl.getByRutClienteSP(cliente);
+    }
+    
+    @RequestMapping(value="/readOneClienteById/{id}", method = RequestMethod.GET,produces = "application/json")
+    public @ResponseBody List<Cliente> readOneClienteById (@PathVariable("id") Long id){
+        return clienteServiceImpl.getByIdClienteSP(new Long (id));
     }
     
     @RequestMapping(value="/getAllCliente/", method = RequestMethod.GET,produces = "application/json")

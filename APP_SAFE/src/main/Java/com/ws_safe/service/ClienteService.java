@@ -16,7 +16,8 @@ public interface ClienteService {
     
     //Interfaces Llamadas a PROCEDURE
     public List<Cliente> addClienteSP(Cliente cliente);
-    public List<Cliente> getByIdClienteSP(String rut);
+    public List<Cliente> getByRutClienteSP(Cliente cliente);
+    public List<Cliente> getByIdClienteSP(Long id);
     public List<Cliente> getAllClienteSP();
     public boolean updateClienteSP (Cliente cliente);
     public void deleteClienteSP(String rut, Long estado);

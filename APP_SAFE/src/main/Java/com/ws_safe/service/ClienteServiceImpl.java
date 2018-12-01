@@ -41,8 +41,12 @@ public class ClienteServiceImpl implements ClienteService{
         return clienteDAOImpl.getAllClienteSP();
     }
     
-    public List<Cliente> getByIdClienteSP(String rut) {
-        return clienteDAOImpl.getByIdClienteSP(rut);
+    public List<Cliente> getByRutClienteSP(Cliente cliente) {
+        return clienteDAOImpl.getByRutClienteSP(cliente);
+    }
+    
+    public List<Cliente> getByIdClienteSP(Long id) {
+        return clienteDAOImpl.getByIdClienteSP(id);
     }
     
     public boolean updateClienteSP(Cliente cliente) {
