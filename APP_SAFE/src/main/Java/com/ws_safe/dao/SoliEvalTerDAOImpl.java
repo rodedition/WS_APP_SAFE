@@ -141,7 +141,7 @@ public class SoliEvalTerDAOImpl implements SoliEvalTerDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL SOLIEVALTER_PKG.soliEvalTer_eliminar(?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL SOLIEVALTER_PKG.soliEvalTer_modificar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setString(1, soliEvalTer.getFechacreacion());
                 statement.setString(2, soliEvalTer.getDireccionvisita());
