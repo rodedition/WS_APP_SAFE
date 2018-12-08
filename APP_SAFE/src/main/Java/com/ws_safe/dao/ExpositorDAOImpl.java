@@ -43,7 +43,7 @@ public class ExpositorDAOImpl implements ExpositorDAO{
         return session.doReturningWork(new ReturningWork<List<Expositor>>() {
               @Override
               public List<Expositor> execute(Connection connection) throws SQLException {
-                String query = "{CALL EXPOSITORPKG.expositor_agregar(?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL EXPOSITORPKG.expositor_agregar(?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, expositor.getIdexpositor());
                 statement.setString(2, expositor.getRunexpositor());
@@ -51,9 +51,10 @@ public class ExpositorDAOImpl implements ExpositorDAO{
                 statement.setString(4, expositor.getTelexpositor());
                 statement.setString(5, expositor.getMailexpositor());
                 statement.setLong(6, expositor.getEstadoexpositor());
-                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
+                statement.setString(7, expositor.getFechacreacion());
+                statement.registerOutParameter(8, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(7);
+                ResultSet rs = (ResultSet) statement.getObject(8);
                 List<Expositor> expos;
                 expos = new ArrayList<Expositor>();
                 while (rs.next()) {
@@ -64,6 +65,7 @@ public class ExpositorDAOImpl implements ExpositorDAO{
                     expositor.setTelexpositor(rs.getString("TEL_EXPOSITOR"));
                     expositor.setMailexpositor(rs.getString("MAIL_EXPOSITOR"));
                     expositor.setEstadoexpositor(rs.getLong("ESTADO_EXPOSITOR"));
+                    expositor.setFechacreacion(rs.getString("FECHACREACION"));
                     expos.add(expositor);
                 }
                 return expos;
@@ -93,6 +95,7 @@ public class ExpositorDAOImpl implements ExpositorDAO{
                     expositor.setTelexpositor(rs.getString("TEL_EXPOSITOR"));
                     expositor.setMailexpositor(rs.getString("MAIL_EXPOSITOR"));
                     expositor.setEstadoexpositor(rs.getLong("ESTADO_EXPOSITOR"));
+                    expositor.setFechacreacion(rs.getString("FECHACREACION"));
                     expos.add(expositor);
                 }
                 return expos;
@@ -122,6 +125,7 @@ public class ExpositorDAOImpl implements ExpositorDAO{
                     expositor.setTelexpositor(rs.getString("TEL_EXPOSITOR"));
                     expositor.setMailexpositor(rs.getString("MAIL_EXPOSITOR"));
                     expositor.setEstadoexpositor(rs.getLong("ESTADO_EXPOSITOR"));
+                    expositor.setFechacreacion(rs.getString("FECHACREACION"));
                     expos.add(expositor);
                 }
                 return expos;
@@ -136,14 +140,15 @@ public class ExpositorDAOImpl implements ExpositorDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL EXPOSITORPKG.expositor_modificar(?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL EXPOSITORPKG.expositor_modificar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setString(1, expositor.getRunexpositor());
                 statement.setString(2, expositor.getNombreexpositor());
                 statement.setString(3, expositor.getTelexpositor());
                 statement.setString(4, expositor.getMailexpositor());
                 statement.setLong(5, expositor.getEstadoexpositor());
-                statement.setLong(6, expositor.getIdexpositor());
+                statement.setString(6, expositor.getFechacreacion());
+                statement.setLong(7, expositor.getIdexpositor());
                 statement.executeUpdate();
             }
         });        

@@ -56,6 +56,9 @@ public class Usuarios implements Serializable{
     
     @Column(name="CLIENTE_ID_CLIENTE")
     private long clienteidcliente;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdusuario() {
         return idusuario;
@@ -161,8 +164,19 @@ public class Usuarios implements Serializable{
         this.clienteidcliente = clienteidcliente;
     }
 
+    public String getFechacreacion() {
+        return fechacreacion;
+    }
+
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
     @Override
     public String toString() {
-        return "Usuarios{" + "idusuario=" + idusuario + ", runusuario=" + runusuario + ", nombresusuario=" + nombresusuario + ", appaterno=" + appaterno + ", apmaterno=" + apmaterno + ", fnacimientousuario=" + fnacimientousuario + ", sexousuario=" + sexousuario + ", telusuario=" + telusuario + ", mailusuario=" + mailusuario + ", estadousuario=" + estadousuario + ", claveusuario=" + claveusuario + ", perfilidperfil=" + perfilidperfil + ", clienteidcliente=" + clienteidcliente + '}';
-    }   
+        return "Usuarios{" + "idusuario=" + idusuario + ", runusuario=" + runusuario + ", nombresusuario=" + nombresusuario + ", appaterno=" + appaterno + ", apmaterno=" + apmaterno + ", fnacimientousuario=" + fnacimientousuario + ", sexousuario=" + sexousuario + ", telusuario=" + telusuario + ", mailusuario=" + mailusuario + ", estadousuario=" + estadousuario + ", claveusuario=" + claveusuario + ", perfilidperfil=" + perfilidperfil + ", clienteidcliente=" + clienteidcliente + ", fechacreacion=" + fechacreacion + '}';
+    }
+    
+    
+
 }

@@ -23,6 +23,9 @@ public class List_Asis_Salud implements Serializable{
     
     @Column(name="SESION_SALUD_ID_SESION_SALUD")
     private Long sesionsaludidsesionsalud;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdlistsalud() {
         return idlistsalud;
@@ -48,10 +51,19 @@ public class List_Asis_Salud implements Serializable{
         this.sesionsaludidsesionsalud = sesionsaludidsesionsalud;
     }
 
-    @Override
-    public String toString() {
-        return "List_Asis_Salud{" + "idlistsalud=" + idlistsalud + ", estadoasistsalud=" + estadoasistsalud + ", sesionsaludidsesionsalud=" + sesionsaludidsesionsalud + '}';
+    public String getFechacreacion() {
+        return fechacreacion;
     }
 
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
+    @Override
+    public String toString() {
+        return "List_Asis_Salud{" + "idlistsalud=" + idlistsalud + ", estadoasistsalud=" + estadoasistsalud + ", sesionsaludidsesionsalud=" + sesionsaludidsesionsalud + ", fechacreacion=" + fechacreacion + '}';
+    }
     
+    
+
 }

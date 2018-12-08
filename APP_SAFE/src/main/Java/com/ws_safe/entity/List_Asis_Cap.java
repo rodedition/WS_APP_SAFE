@@ -23,6 +23,9 @@ public class List_Asis_Cap implements Serializable{
     
     @Column(name="SESION_CAP_ID_SESION_CAP")
     private Long sesioncapidsesioncap;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdlistacap() {
         return idlistacap;
@@ -48,10 +51,19 @@ public class List_Asis_Cap implements Serializable{
         this.sesioncapidsesioncap = sesioncapidsesioncap;
     }
 
-    @Override
-    public String toString() {
-        return "List_Asis_Cap{" + "idlistacap=" + idlistacap + ", estadoasistcap=" + estadoasistcap + ", sesioncapidsesioncap=" + sesioncapidsesioncap + '}';
+    public String getFechacreacion() {
+        return fechacreacion;
     }
 
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
+    @Override
+    public String toString() {
+        return "List_Asis_Cap{" + "idlistacap=" + idlistacap + ", estadoasistcap=" + estadoasistcap + ", sesioncapidsesioncap=" + sesioncapidsesioncap + ", fechacreacion=" + fechacreacion + '}';
+    }
     
+    
+
 }

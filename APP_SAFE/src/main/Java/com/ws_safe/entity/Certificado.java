@@ -26,6 +26,12 @@ public class Certificado implements Serializable{
     
     @Column(name="ESTADO")
     private long estadocert;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
+    
+    @Column(name="CLIENTE_ID_CLIENTE")
+    private long clienteidcliente;
 
     public long getIdcertificado() {
         return idcertificado;
@@ -59,10 +65,24 @@ public class Certificado implements Serializable{
         this.estadocert = estadocert;
     }
 
+    public String getFechacreacion() {
+        return fechacreacion;
+    }
+
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
+    public long getClienteidcliente() {
+        return clienteidcliente;
+    }
+
+    public void setClienteidcliente(long clienteidcliente) {
+        this.clienteidcliente = clienteidcliente;
+    }
+
     @Override
     public String toString() {
-        return "Certificado{" + "idcertificado=" + idcertificado + ", tipocertificado=" + tipocertificado + ", codcertificado=" + codcertificado + ", estadocert=" + estadocert + '}';
+        return "Certificado{" + "idcertificado=" + idcertificado + ", tipocertificado=" + tipocertificado + ", codcertificado=" + codcertificado + ", estadocert=" + estadocert + ", fechacreacion=" + fechacreacion + ", clienteidcliente=" + clienteidcliente + '}';
     }
-    
-              
 }

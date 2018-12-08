@@ -45,15 +45,17 @@ public class CertificadoDAOImpl implements CertificadoDAO{
         return session.doReturningWork(new ReturningWork<List<Certificado>>() {
               @Override
               public List<Certificado> execute(Connection connection) throws SQLException {
-                String query = "{CALL CertificadoPKG.cetificado_agregar(?, ?, ?, ?, ?)}";
+                String query = "{CALL CertificadoPKG.cetificado_agregar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, certificado.getIdcertificado());
                 statement.setString(2, certificado.getTipocertificado());
                 statement.setString(3, certificado.getCodcertificado());
                 statement.setLong(4, certificado.getEstadocert());
-                statement.registerOutParameter(5, OracleTypes.CURSOR);                                
+                statement.setString(5, certificado.getFechacreacion());
+                statement.setLong(6, certificado.getClienteidcliente());
+                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(5);
+                ResultSet rs = (ResultSet) statement.getObject(7);
                 List<Certificado> certifs;
                 certifs = new ArrayList<Certificado>();
                 while (rs.next()) {
@@ -62,6 +64,8 @@ public class CertificadoDAOImpl implements CertificadoDAO{
                     certificado.setTipocertificado(rs.getString("TIPO_CERTIFICADO"));
                     certificado.setCodcertificado(rs.getString("COD_CERTIFICADO"));
                     certificado.setEstadocert(rs.getLong("ESTADO"));
+                    certificado.setFechacreacion(rs.getString("FECHACREACION"));
+                    certificado.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
                     certifs.add(certificado);
                 }
                 return certifs;
@@ -89,7 +93,9 @@ public class CertificadoDAOImpl implements CertificadoDAO{
                     certificado.setIdcertificado(rs.getLong("ID_CERTIFICADO"));
                     certificado.setTipocertificado(rs.getString("TIPO_CERTIFICADO"));
                     certificado.setCodcertificado(rs.getString("COD_CERTIFICADO"));
-                    certificado.setEstadocert(rs.getLong("ESTADO"));
+                    certificado.setEstadocert(rs.getLong("ESTADO"));                    
+                    certificado.setFechacreacion(rs.getString("FECHACREACION"));
+                    certificado.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
                     certifs.add(certificado);
                 }
                 return certifs;
@@ -117,6 +123,8 @@ public class CertificadoDAOImpl implements CertificadoDAO{
                     certificado.setTipocertificado(rs.getString("TIPO_CERTIFICADO"));
                     certificado.setCodcertificado(rs.getString("COD_CERTIFICADO"));
                     certificado.setEstadocert(rs.getLong("ESTADO"));
+                    certificado.setFechacreacion(rs.getString("FECHACREACION"));
+                    certificado.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
                     certifs.add(certificado);
                 }
                 return certifs;
@@ -131,12 +139,14 @@ public class CertificadoDAOImpl implements CertificadoDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL CertificadoPKG.certificado_modificar(?, ?, ?, ?)}";
+                String query = "{CALL CertificadoPKG.certificado_modificar(?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setString(1, certificado.getTipocertificado());
                 statement.setString(2, certificado.getCodcertificado());
                 statement.setLong(3, certificado.getEstadocert());
-                statement.setLong(4, certificado.getIdcertificado());
+                statement.setString(4, certificado.getFechacreacion());
+                statement.setLong(5, certificado.getClienteidcliente());
+                statement.setLong(6, certificado.getIdcertificado());
                 statement.executeUpdate();
             }
         });        

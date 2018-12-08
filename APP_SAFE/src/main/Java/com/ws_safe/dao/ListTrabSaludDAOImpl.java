@@ -44,7 +44,7 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
         return session.doReturningWork(new ReturningWork<List<ListTrabSalud>>() {
               @Override
               public List<ListTrabSalud> execute(Connection connection) throws SQLException {
-                String query = "{CALL LISTTRABSALUD_PKG.listtrabsalud_agregar(?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL LISTTRABSALUD_PKG.listtrabsalud_agregar(?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, listTrabSalud.getIdlistrabsalud());
                 statement.setLong(2, listTrabSalud.getPresenteSalud());
@@ -52,9 +52,10 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
                 statement.setLong(4, listTrabSalud.getUsuarioidusuario());
                 statement.setLong(5, listTrabSalud.getLisasissaludidlistasalud());
                 statement.setLong(6, listTrabSalud.getCertificadoidcertificado());
-                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
+                statement.setString(7, listTrabSalud.getFechacreacion());
+                statement.registerOutParameter(8, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(7);
+                ResultSet rs = (ResultSet) statement.getObject(8);
                 List<ListTrabSalud> lists;
                 lists = new ArrayList<ListTrabSalud>();
                 while (rs.next()) {
@@ -65,6 +66,7 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
                     listTrabSalud.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
                     listTrabSalud.setLisasissaludidlistasalud(rs.getLong("LISTASISSALUD_ID_LIST_SALUD"));
                     listTrabSalud.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    listTrabSalud.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(listTrabSalud);
                 }
                 return lists;
@@ -94,6 +96,7 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
                     listTrabSalud.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
                     listTrabSalud.setLisasissaludidlistasalud(rs.getLong("LISTASISSALUD_ID_LIST_SALUD"));
                     listTrabSalud.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    listTrabSalud.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(listTrabSalud);
                 }
                 return lists;
@@ -123,6 +126,7 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
                     listTrabSalud.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
                     listTrabSalud.setLisasissaludidlistasalud(rs.getLong("LISTASISSALUD_ID_LIST_SALUD"));
                     listTrabSalud.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    listTrabSalud.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(listTrabSalud);
                 }
                 return lists;
@@ -137,7 +141,7 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL LISTTRABSALUD_PKG.listtrabsalud_modificar(?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL LISTTRABSALUD_PKG.listtrabsalud_modificar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setLong(1, listTrabSalud.getPresenteSalud());
                 statement.setLong(2, listTrabSalud.getEstadoSalud());
@@ -145,6 +149,7 @@ public class ListTrabSaludDAOImpl implements ListTrabSaludDAO{
                 statement.setLong(4, listTrabSalud.getLisasissaludidlistasalud());
                 statement.setLong(5, listTrabSalud.getCertificadoidcertificado());
                 statement.setLong(6, listTrabSalud.getIdlistrabsalud());
+                statement.setString(7, listTrabSalud.getFechacreacion());
                 statement.executeUpdate();
             }
         });        

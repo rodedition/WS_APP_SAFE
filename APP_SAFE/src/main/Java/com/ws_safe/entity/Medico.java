@@ -35,6 +35,9 @@ public class Medico implements Serializable{
     
     @Column(name="ESTADO_MEDICO")
     private long estadomedico;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdmedico() {
         return idmedico;
@@ -92,9 +95,19 @@ public class Medico implements Serializable{
         this.estadomedico = estadomedico;
     }
 
+    public String getFechacreacion() {
+        return fechacreacion;
+    }
+
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
     @Override
     public String toString() {
-        return "Medico{" + "idmedico=" + idmedico + ", runmedico=" + runmedico + ", nombremedico=" + nombremedico + ", universidadMed=" + universidadMed + ", mailmedico=" + mailmedico + ", telmedico=" + telmedico + ", estadomedico=" + estadomedico + '}';
-    }    
+        return "Medico{" + "idmedico=" + idmedico + ", runmedico=" + runmedico + ", nombremedico=" + nombremedico + ", universidadMed=" + universidadMed + ", mailmedico=" + mailmedico + ", telmedico=" + telmedico + ", estadomedico=" + estadomedico + ", fechacreacion=" + fechacreacion + '}';
+    }
     
+    
+
 }

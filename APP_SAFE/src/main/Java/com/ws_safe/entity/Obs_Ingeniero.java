@@ -32,6 +32,9 @@ public class Obs_Ingeniero implements Serializable{
     
     @Column(name="ESTADO")
     private long estadoObsIng;
+    
+    @Column(name="EVAL_TERR_ID_USUARIO")
+    private long evalterridusuario;
 
     public long getIdobsingeniero() {
         return idobsingeniero;
@@ -73,10 +76,19 @@ public class Obs_Ingeniero implements Serializable{
         this.estadoObsIng = estadoObsIng;
     }
 
-    @Override
-    public String toString() {
-        return "Obs_Ingeniero{" + "idobsingeniero=" + idobsingeniero + ", fechahoraobsing=" + fechahoraobsing + ", obsing=" + obsing + ", evalterridevalterr=" + evalterridevalterr + ", estadoObsIng=" + estadoObsIng + '}';
+    public long getEvalterridusuario() {
+        return evalterridusuario;
     }
 
+    public void setEvalterridusuario(long evalterridusuario) {
+        this.evalterridusuario = evalterridusuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Obs_Ingeniero{" + "idobsingeniero=" + idobsingeniero + ", fechahoraobsing=" + fechahoraobsing + ", obsing=" + obsing + ", evalterridevalterr=" + evalterridevalterr + ", estadoObsIng=" + estadoObsIng + ", evalterridusuario=" + evalterridusuario + '}';
+    }
     
+    
+
 }

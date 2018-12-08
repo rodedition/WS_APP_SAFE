@@ -44,27 +44,29 @@ public class List_Trab_CapDAOImpl implements List_Trab_CapDAO{
         return session.doReturningWork(new ReturningWork<List<List_Trab_Cap>>() {
               @Override
               public List<List_Trab_Cap> execute(Connection connection) throws SQLException {
-                String query = "{CALL List_Trab_Cap_PKG.list_trab_cap_agregar(?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL List_Trab_Cap_PKG.list_trab_cap_agregar(?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, list_Trab_Cap.getIdlistrabcap());
-                statement.setLong(2, list_Trab_Cap.getPresente());
-                statement.setLong(3, list_Trab_Cap.getEstado());
+                statement.setLong(2, list_Trab_Cap.getPresenteCap());
+                statement.setLong(3, list_Trab_Cap.getEstadoCap());
                 statement.setLong(4, list_Trab_Cap.getUsuarioidusuario());
                 statement.setLong(5, list_Trab_Cap.getLisasiscapidlistacap());
                 statement.setLong(6, list_Trab_Cap.getCertificadoidcertificado());
-                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
+                statement.setString(7, list_Trab_Cap.getFechacreacion());
+                statement.registerOutParameter(8, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(7);
+                ResultSet rs = (ResultSet) statement.getObject(8);
                 List<List_Trab_Cap> lists;
                 lists = new ArrayList<List_Trab_Cap>();
                 while (rs.next()) {
                     List_Trab_Cap listTrabCap = new List_Trab_Cap();
                     listTrabCap.setIdlistrabcap(rs.getLong("ID_LIS_TRAB_CAP"));
-                    listTrabCap.setPresente(rs.getLong("PRESENTE"));
-                    listTrabCap.setEstado(rs.getLong("ESTADO"));
+                    listTrabCap.setPresenteCap(rs.getLong("PRESENTE"));
+                    listTrabCap.setEstadoCap(rs.getLong("ESTADO"));
                     listTrabCap.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
                     listTrabCap.setLisasiscapidlistacap(rs.getLong("LIST_ASIS_CAP_ID_LISTA_CAP"));
                     listTrabCap.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    listTrabCap.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(listTrabCap);
                 }
                 return lists;
@@ -89,11 +91,12 @@ public class List_Trab_CapDAOImpl implements List_Trab_CapDAO{
                 while (rs.next()) {
                     List_Trab_Cap listTrabCap = new List_Trab_Cap();
                     listTrabCap.setIdlistrabcap(rs.getLong("ID_LIS_TRAB_CAP"));
-                    listTrabCap.setPresente(rs.getLong("PRESENTE"));
-                    listTrabCap.setEstado(rs.getLong("ESTADO"));
+                    listTrabCap.setPresenteCap(rs.getLong("PRESENTE"));
+                    listTrabCap.setEstadoCap(rs.getLong("ESTADO"));
                     listTrabCap.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
                     listTrabCap.setLisasiscapidlistacap(rs.getLong("LIST_ASIS_CAP_ID_LISTA_CAP"));
                     listTrabCap.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    listTrabCap.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(listTrabCap);
                 }
                 return lists;
@@ -118,11 +121,12 @@ public class List_Trab_CapDAOImpl implements List_Trab_CapDAO{
                 while (rs.next()) {
                     List_Trab_Cap listTrabCap = new List_Trab_Cap();
                     listTrabCap.setIdlistrabcap(rs.getLong("ID_LIS_TRAB_CAP"));
-                    listTrabCap.setPresente(rs.getLong("PRESENTE"));
-                    listTrabCap.setEstado(rs.getLong("ESTADO"));
+                    listTrabCap.setPresenteCap(rs.getLong("PRESENTE"));
+                    listTrabCap.setEstadoCap(rs.getLong("ESTADO"));
                     listTrabCap.setUsuarioidusuario(rs.getLong("USUARIOS_ID_USUARIO"));
                     listTrabCap.setLisasiscapidlistacap(rs.getLong("LIST_ASIS_CAP_ID_LISTA_CAP"));
                     listTrabCap.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    listTrabCap.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(listTrabCap);
                 }
                 return lists;
@@ -137,14 +141,15 @@ public class List_Trab_CapDAOImpl implements List_Trab_CapDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL List_Trab_Cap_PKG.list_trab_cap_modificar(?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL List_Trab_Cap_PKG.list_trab_cap_modificar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
-                statement.setLong(1, list_Trab_Cap.getPresente());
-                statement.setLong(2, list_Trab_Cap.getEstado());
+                statement.setLong(1, list_Trab_Cap.getPresenteCap());
+                statement.setLong(2, list_Trab_Cap.getEstadoCap());
                 statement.setLong(3, list_Trab_Cap.getUsuarioidusuario());
                 statement.setLong(4, list_Trab_Cap.getLisasiscapidlistacap());
                 statement.setLong(5, list_Trab_Cap.getCertificadoidcertificado());
-                statement.setLong(6, list_Trab_Cap.getIdlistrabcap());
+                statement.setString(6, list_Trab_Cap.getFechacreacion());
+                statement.setLong(7, list_Trab_Cap.getIdlistrabcap());
                 statement.executeUpdate();
             }
         });        

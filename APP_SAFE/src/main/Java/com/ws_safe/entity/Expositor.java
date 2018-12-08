@@ -32,6 +32,9 @@ public class Expositor implements Serializable{
     
     @Column(name="ESTADO_EXPOSITOR")
     private long estadoexpositor;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdexpositor() {
         return idexpositor;
@@ -81,10 +84,19 @@ public class Expositor implements Serializable{
         this.estadoexpositor = estadoexpositor;
     }
 
+    public String getFechacreacion() {
+        return fechacreacion;
+    }
+
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
     @Override
     public String toString() {
-        return "Expositor{" + "idexpositor=" + idexpositor + ", runexpositor=" + runexpositor + ", nombreexpositor=" + nombreexpositor + ", telexpositor=" + telexpositor + ", mailexpositor=" + mailexpositor + ", estadoexpositor=" + estadoexpositor + '}';
+        return "Expositor{" + "idexpositor=" + idexpositor + ", runexpositor=" + runexpositor + ", nombreexpositor=" + nombreexpositor + ", telexpositor=" + telexpositor + ", mailexpositor=" + mailexpositor + ", estadoexpositor=" + estadoexpositor + ", fechacreacion=" + fechacreacion + '}';
     }
     
     
+
 }

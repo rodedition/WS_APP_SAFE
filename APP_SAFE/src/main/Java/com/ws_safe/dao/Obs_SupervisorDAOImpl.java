@@ -43,16 +43,17 @@ public class Obs_SupervisorDAOImpl implements Obs_SupervisorDAO{
         return session.doReturningWork(new ReturningWork<List<Obs_Supervisor>>() {
               @Override
               public List<Obs_Supervisor> execute(Connection connection) throws SQLException {
-                String query = "{CALL OBS_SUPERVISOR_PKG.obs_supervisor_agregar(?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL OBS_SUPERVISOR_PKG.obs_supervisor_agregar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, obs_Supervisor.getIdobssupervisor());
                 statement.setString(2, obs_Supervisor.getFechahoraobssupervisor());
                 statement.setString(3, obs_Supervisor.getObssupervisor());
                 statement.setLong(4, obs_Supervisor.getEstadoObsSupervisor());
                 statement.setLong(5, obs_Supervisor.getEvalterridevalterr());
-                statement.registerOutParameter(6, OracleTypes.CURSOR);                                
+                statement.setLong(6, obs_Supervisor.getEvalterridusuario());
+                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(6);
+                ResultSet rs = (ResultSet) statement.getObject(7);
                 List<Obs_Supervisor> obs;
                 obs = new ArrayList<Obs_Supervisor>();
                 while (rs.next()) {
@@ -62,6 +63,7 @@ public class Obs_SupervisorDAOImpl implements Obs_SupervisorDAO{
                     obs_Supervisor.setObssupervisor(rs.getString("OBS_SUPERVISOR"));
                     obs_Supervisor.setEstadoObsSupervisor(rs.getLong("ESTADO"));
                     obs_Supervisor.setEvalterridevalterr(rs.getLong("EVAL_TERR_ID_EVAL_TERR"));
+                    obs_Supervisor.setEvalterridusuario(rs.getLong("EVAL_TERR_ID_USUARIO"));
                     obs.add(obs_Supervisor);
                 }
                 return obs;
@@ -90,6 +92,7 @@ public class Obs_SupervisorDAOImpl implements Obs_SupervisorDAO{
                     obs_Supervisor.setObssupervisor(rs.getString("OBS_SUPERVISOR"));
                     obs_Supervisor.setEstadoObsSupervisor(rs.getLong("ESTADO"));
                     obs_Supervisor.setEvalterridevalterr(rs.getLong("EVAL_TERR_ID_EVAL_TERR"));
+                    obs_Supervisor.setEvalterridusuario(rs.getLong("EVAL_TERR_ID_USUARIO"));
                     obs.add(obs_Supervisor);
                 }
                 return obs;
@@ -118,6 +121,7 @@ public class Obs_SupervisorDAOImpl implements Obs_SupervisorDAO{
                     obs_Supervisor.setObssupervisor(rs.getString("OBS_SUPERVISOR"));
                     obs_Supervisor.setEstadoObsSupervisor(rs.getLong("ESTADO"));
                     obs_Supervisor.setEvalterridevalterr(rs.getLong("EVAL_TERR_ID_EVAL_TERR"));
+                    obs_Supervisor.setEvalterridusuario(rs.getLong("EVAL_TERR_ID_USUARIO"));
                     obs.add(obs_Supervisor);
                 }
                 return obs;
@@ -132,13 +136,14 @@ public class Obs_SupervisorDAOImpl implements Obs_SupervisorDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL OBS_SUPERVISOR_PKG.obs_supervisor_modificar(?, ?, ?, ?, ?)}";
+                String query = "{CALL OBS_SUPERVISOR_PKG.obs_supervisor_modificar(?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setString(1, obs_Supervisor.getFechahoraobssupervisor());
                 statement.setString(2, obs_Supervisor.getObssupervisor());
                 statement.setLong(3, obs_Supervisor.getEstadoObsSupervisor());
                 statement.setLong(4, obs_Supervisor.getEvalterridevalterr());
-                statement.setLong(5, obs_Supervisor.getIdobssupervisor());
+                statement.setLong(5, obs_Supervisor.getEvalterridusuario());
+                statement.setLong(6, obs_Supervisor.getIdobssupervisor());
                 statement.executeUpdate();
             }
         });        

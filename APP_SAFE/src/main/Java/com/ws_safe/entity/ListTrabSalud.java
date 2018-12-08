@@ -32,6 +32,9 @@ public class ListTrabSalud implements Serializable{
     
     @Column(name="CERTIFICADO_ID_CERTIFICADO")
     private long certificadoidcertificado;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdlistrabsalud() {
         return idlistrabsalud;
@@ -81,10 +84,19 @@ public class ListTrabSalud implements Serializable{
         this.certificadoidcertificado = certificadoidcertificado;
     }
 
-    @Override
-    public String toString() {
-        return "ListTrabSalud{" + "idlistrabsalud=" + idlistrabsalud + ", presenteSalud=" + presenteSalud + ", estadoSalud=" + estadoSalud + ", usuarioidusuario=" + usuarioidusuario + ", lisasissaludidlistasalud=" + lisasissaludidlistasalud + ", certificadoidcertificado=" + certificadoidcertificado + '}';
+    public String getFechacreacion() {
+        return fechacreacion;
     }
 
-          
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
+    @Override
+    public String toString() {
+        return "ListTrabSalud{" + "idlistrabsalud=" + idlistrabsalud + ", presenteSalud=" + presenteSalud + ", estadoSalud=" + estadoSalud + ", usuarioidusuario=" + usuarioidusuario + ", lisasissaludidlistasalud=" + lisasissaludidlistasalud + ", certificadoidcertificado=" + certificadoidcertificado + ", fechacreacion=" + fechacreacion + '}';
+    }
+    
+    
+
 }

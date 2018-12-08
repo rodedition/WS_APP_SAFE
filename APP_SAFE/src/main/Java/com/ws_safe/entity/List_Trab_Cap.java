@@ -32,6 +32,9 @@ public class List_Trab_Cap implements Serializable{
     
     @Column(name="CERTIFICADO_ID_CERTIFICADO")
     private long certificadoidcertificado;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdlistrabcap() {
         return idlistrabcap;
@@ -41,20 +44,20 @@ public class List_Trab_Cap implements Serializable{
         this.idlistrabcap = idlistrabcap;
     }
 
-    public long getPresente() {
+    public long getPresenteCap() {
         return presenteCap;
     }
 
-    public void setPresente(long presente) {
-        this.presenteCap = presente;
+    public void setPresenteCap(long presenteCap) {
+        this.presenteCap = presenteCap;
     }
 
-    public long getEstado() {
+    public long getEstadoCap() {
         return estadoCap;
     }
 
-    public void setEstado(long estado) {
-        this.estadoCap = estado;
+    public void setEstadoCap(long estadoCap) {
+        this.estadoCap = estadoCap;
     }
 
     public long getUsuarioidusuario() {
@@ -81,12 +84,18 @@ public class List_Trab_Cap implements Serializable{
         this.certificadoidcertificado = certificadoidcertificado;
     }
 
+    public String getFechacreacion() {
+        return fechacreacion;
+    }
+
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
     @Override
     public String toString() {
-        return "List_Trab_Cap{" + "idlistrabcap=" + idlistrabcap + ", presente=" + presenteCap + ", estado=" + estadoCap + ", usuarioidusuario=" + usuarioidusuario + ", lisasiscapidlistacap=" + lisasiscapidlistacap + ", certificadoidcertificado=" + certificadoidcertificado + '}';
+        return "List_Trab_Cap{" + "idlistrabcap=" + idlistrabcap + ", presenteCap=" + presenteCap + ", estadoCap=" + estadoCap + ", usuarioidusuario=" + usuarioidusuario + ", lisasiscapidlistacap=" + lisasiscapidlistacap + ", certificadoidcertificado=" + certificadoidcertificado + ", fechacreacion=" + fechacreacion + '}';
     }
-    
-    
 
     
 }

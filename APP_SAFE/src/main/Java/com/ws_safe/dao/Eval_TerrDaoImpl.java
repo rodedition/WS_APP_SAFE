@@ -45,27 +45,33 @@ public class Eval_TerrDaoImpl implements Eval_TerrDao{
         return session.doReturningWork(new ReturningWork<List<Eval_Terr>>() {
               @Override
               public List<Eval_Terr> execute(Connection connection) throws SQLException {
-                String query = "{CALL Eval_TerrPKG.eval_terr_agregar(?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL Eval_TerrPKG.eval_terr_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, eval_Terr.getIdevalterr());
                 statement.setString(2, eval_Terr.getObsvisita());
-                statement.setLong(3, eval_Terr.getEstado());
-                statement.setLong(4, eval_Terr.getSolievalteridsolicitud());
-                statement.setLong(5, eval_Terr.getEstadoevalterridestado());
-                statement.setLong(6, eval_Terr.getCertificadoidcertificado());
-                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
+                statement.setString(3, eval_Terr.getFechavisita());
+                statement.setLong(4, eval_Terr.getEstado());
+                statement.setLong(5, eval_Terr.getSolievalteridsolicitud());
+                statement.setLong(6, eval_Terr.getEstadoevalterridestado());
+                statement.setLong(7, eval_Terr.getCertificadoidcertificado());
+                statement.setLong(8, eval_Terr.getUsuariosidusuarios());
+                statement.setString(9, eval_Terr.getFechacreacion());
+                statement.registerOutParameter(10, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(7);
+                ResultSet rs = (ResultSet) statement.getObject(10);
                 List<Eval_Terr> evals;
                 evals = new ArrayList<Eval_Terr>();
                 while (rs.next()) {
                     Eval_Terr eval_Terr = new Eval_Terr();
                     eval_Terr.setIdevalterr(rs.getLong("ID_EVAL_TERR"));
                     eval_Terr.setObsvisita(rs.getString("OBS_VISITA"));
+                    eval_Terr.setFechavisita(rs.getString("FECHAVISITA"));
                     eval_Terr.setEstado(rs.getLong("ESTADO"));
                     eval_Terr.setSolievalteridsolicitud(rs.getLong("SOLIEVALTER_ID_SOLICITUD"));
                     eval_Terr.setEstadoevalterridestado(rs.getLong("ESTADO_EVAL_TERR_ID_ESTADO"));
                     eval_Terr.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    eval_Terr.setUsuariosidusuarios(rs.getLong("USUARIOS_ID_USUARIO"));
+                    eval_Terr.setFechacreacion(rs.getString("FECHACREACION"));
                     evals.add(eval_Terr);
                 }
                 return evals;
@@ -92,10 +98,13 @@ public class Eval_TerrDaoImpl implements Eval_TerrDao{
                     Eval_Terr eval_Terr = new Eval_Terr();
                     eval_Terr.setIdevalterr(rs.getLong("ID_EVAL_TERR"));
                     eval_Terr.setObsvisita(rs.getString("OBS_VISITA"));
+                    eval_Terr.setFechavisita(rs.getString("FECHAVISITA"));
                     eval_Terr.setEstado(rs.getLong("ESTADO"));
                     eval_Terr.setSolievalteridsolicitud(rs.getLong("SOLIEVALTER_ID_SOLICITUD"));
                     eval_Terr.setEstadoevalterridestado(rs.getLong("ESTADO_EVAL_TERR_ID_ESTADO"));
                     eval_Terr.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    eval_Terr.setUsuariosidusuarios(rs.getLong("USUARIOS_ID_USUARIO"));
+                    eval_Terr.setFechacreacion(rs.getString("FECHACREACION"));
                     evals.add(eval_Terr);
                 }
                 return evals;
@@ -121,10 +130,13 @@ public class Eval_TerrDaoImpl implements Eval_TerrDao{
                     Eval_Terr eval_Terr = new Eval_Terr();
                     eval_Terr.setIdevalterr(rs.getLong("ID_EVAL_TERR"));
                     eval_Terr.setObsvisita(rs.getString("OBS_VISITA"));
+                    eval_Terr.setFechavisita(rs.getString("FECHAVISITA"));
                     eval_Terr.setEstado(rs.getLong("ESTADO"));
                     eval_Terr.setSolievalteridsolicitud(rs.getLong("SOLIEVALTER_ID_SOLICITUD"));
                     eval_Terr.setEstadoevalterridestado(rs.getLong("ESTADO_EVAL_TERR_ID_ESTADO"));
                     eval_Terr.setCertificadoidcertificado(rs.getLong("CERTIFICADO_ID_CERTIFICADO"));
+                    eval_Terr.setUsuariosidusuarios(rs.getLong("USUARIOS_ID_USUARIO"));
+                    eval_Terr.setFechacreacion(rs.getString("FECHACREACION"));
                     evals.add(eval_Terr);
                 }
                 return evals;
@@ -142,14 +154,17 @@ public class Eval_TerrDaoImpl implements Eval_TerrDao{
               @Override
               public void execute(Connection connection) throws SQLException {
                 //CallableStatement statement = null;
-                String query = "{CALL Eval_TerrPKG.eval_terr_modificar(?, ?, ?, ?, ?, ?)}";
-                CallableStatement statement = connection.prepareCall(query);                
-                statement.setLong(1, eval_Terr.getIdevalterr());
-                statement.setString(2, eval_Terr.getObsvisita());
+                String query = "{CALL Eval_TerrPKG.eval_terr_modificar(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+                CallableStatement statement = connection.prepareCall(query);  
+                statement.setString(1, eval_Terr.getObsvisita());
+                statement.setString(2, eval_Terr.getFechavisita());
                 statement.setLong(3, eval_Terr.getEstado());
                 statement.setLong(4, eval_Terr.getSolievalteridsolicitud());
                 statement.setLong(5, eval_Terr.getEstadoevalterridestado());
-                statement.setLong(6, eval_Terr.getCertificadoidcertificado());                               
+                statement.setLong(6, eval_Terr.getCertificadoidcertificado());
+                statement.setLong(7, eval_Terr.getUsuariosidusuarios());
+                statement.setString(8, eval_Terr.getFechacreacion());
+                statement.setLong(9, eval_Terr.getIdevalterr());                              
                 statement.executeUpdate(); 
             }
         });        

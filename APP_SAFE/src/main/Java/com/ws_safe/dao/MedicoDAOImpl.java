@@ -44,7 +44,7 @@ public class MedicoDAOImpl implements MedicoDAO{
         return session.doReturningWork(new ReturningWork<List<Medico>>() {
               @Override
               public List<Medico> execute(Connection connection) throws SQLException {
-                String query = "{CALL MEDICO_PKG.medico_agregar(?, ?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL MEDICO_PKG.medico_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, medico.getIdmedico());
                 statement.setString(2, medico.getRunmedico());
@@ -53,9 +53,10 @@ public class MedicoDAOImpl implements MedicoDAO{
                 statement.setString(5, medico.getMailmedico());
                 statement.setString(6, medico.getTelmedico());
                 statement.setLong(7, medico.getEstadomedico());
-                statement.registerOutParameter(8, OracleTypes.CURSOR);                                
+                statement.setString(8, medico.getFechacreacion());
+                statement.registerOutParameter(9, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(8);
+                ResultSet rs = (ResultSet) statement.getObject(9);
                 List<Medico> meds;
                 meds = new ArrayList<Medico>();
                 while (rs.next()) {
@@ -67,6 +68,7 @@ public class MedicoDAOImpl implements MedicoDAO{
                     medico.setMailmedico(rs.getString("MAIL_MEDICO"));
                     medico.setTelmedico(rs.getString("TEL_MEDICO"));
                     medico.setEstadomedico(rs.getLong("ESTADO_MEDICO"));
+                    medico.setFechacreacion(rs.getString("FECHACREACION"));
                     meds.add(medico);
                 }
                 return meds;
@@ -97,6 +99,7 @@ public class MedicoDAOImpl implements MedicoDAO{
                     medico.setMailmedico(rs.getString("MAIL_MEDICO"));
                     medico.setTelmedico(rs.getString("TEL_MEDICO"));
                     medico.setEstadomedico(rs.getLong("ESTADO_MEDICO"));
+                    medico.setFechacreacion(rs.getString("FECHACREACION"));
                     meds.add(medico);
                 }
                 return meds;
@@ -127,6 +130,7 @@ public class MedicoDAOImpl implements MedicoDAO{
                     medico.setMailmedico(rs.getString("MAIL_MEDICO"));
                     medico.setTelmedico(rs.getString("TEL_MEDICO"));
                     medico.setEstadomedico(rs.getLong("ESTADO_MEDICO"));
+                    medico.setFechacreacion(rs.getString("FECHACREACION"));
                     meds.add(medico);
                 }
                 return meds;
@@ -141,7 +145,7 @@ public class MedicoDAOImpl implements MedicoDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL MEDICO_PKG.medico_modificar(?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL MEDICO_PKG.medico_modificar(?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setString(1, medico.getRunmedico());
                 statement.setString(2, medico.getNombremedico());
@@ -149,7 +153,8 @@ public class MedicoDAOImpl implements MedicoDAO{
                 statement.setString(4, medico.getMailmedico());
                 statement.setString(5, medico.getTelmedico());
                 statement.setLong(6, medico.getEstadomedico());
-                statement.setLong(7, medico.getIdmedico());
+                statement.setString(7, medico.getFechacreacion());
+                statement.setLong(8, medico.getIdmedico());
                 statement.executeUpdate();
             }
         });        

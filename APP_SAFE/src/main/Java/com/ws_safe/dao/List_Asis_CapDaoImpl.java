@@ -43,14 +43,15 @@ public class List_Asis_CapDaoImpl implements List_Asis_CapDao{
         return session.doReturningWork(new ReturningWork<List<List_Asis_Cap>>() {
               @Override
               public List<List_Asis_Cap> execute(Connection connection) throws SQLException {
-                String query = "{CALL List_Asis_Cap_PKG.list_asis_cap_agregar(?, ?, ?, ?)}";
+                String query = "{CALL List_Asis_Cap_PKG.list_asis_cap_agregar(?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, list_Asis_Cap.getIdlistacap());
                 statement.setLong(2, list_Asis_Cap.getEstadoasistcap());
                 statement.setLong(3, list_Asis_Cap.getSesioncapidsesioncap());
-                statement.registerOutParameter(4, OracleTypes.CURSOR);                                
+                statement.setString(4, list_Asis_Cap.getFechacreacion());
+                statement.registerOutParameter(5, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(4);
+                ResultSet rs = (ResultSet) statement.getObject(5);
                 List<List_Asis_Cap> lists;
                 lists = new ArrayList<List_Asis_Cap>();
                 while (rs.next()) {
@@ -58,6 +59,7 @@ public class List_Asis_CapDaoImpl implements List_Asis_CapDao{
                     list_Asis_Cap.setIdlistacap(rs.getLong("ID_LISTA_CAP"));
                     list_Asis_Cap.setEstadoasistcap(rs.getLong("ESTADO_ASIST_CAP"));
                     list_Asis_Cap.setSesioncapidsesioncap(rs.getLong("SESION_CAP_ID_SESION_CAP"));
+                    list_Asis_Cap.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(list_Asis_Cap);
                 }
                 return lists;
@@ -84,6 +86,7 @@ public class List_Asis_CapDaoImpl implements List_Asis_CapDao{
                     list_Asis_Cap.setIdlistacap(rs.getLong("ID_LISTA_CAP"));
                     list_Asis_Cap.setEstadoasistcap(rs.getLong("ESTADO_ASIST_CAP"));
                     list_Asis_Cap.setSesioncapidsesioncap(rs.getLong("SESION_CAP_ID_SESION_CAP"));
+                    list_Asis_Cap.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(list_Asis_Cap);
                 }
                 return lists;
@@ -110,6 +113,7 @@ public class List_Asis_CapDaoImpl implements List_Asis_CapDao{
                     list_Asis_Cap.setIdlistacap(rs.getLong("ID_LISTA_CAP"));
                     list_Asis_Cap.setEstadoasistcap(rs.getLong("ESTADO_ASIST_CAP"));
                     list_Asis_Cap.setSesioncapidsesioncap(rs.getLong("SESION_CAP_ID_SESION_CAP"));
+                    list_Asis_Cap.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(list_Asis_Cap);
                 }
                 return lists;
@@ -124,11 +128,12 @@ public class List_Asis_CapDaoImpl implements List_Asis_CapDao{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL List_Asis_Cap_PKG.list_asis_cap_modificar(?, ?, ?)}";
+                String query = "{CALL List_Asis_Cap_PKG.list_asis_cap_modificar(?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setLong(1, list_Asis_Cap.getEstadoasistcap());
                 statement.setLong(2, list_Asis_Cap.getSesioncapidsesioncap());
-                statement.setLong(3, list_Asis_Cap.getIdlistacap());
+                statement.setString(3, list_Asis_Cap.getFechacreacion());
+                statement.setLong(4, list_Asis_Cap.getIdlistacap());
                 statement.executeUpdate();
             }
         });        

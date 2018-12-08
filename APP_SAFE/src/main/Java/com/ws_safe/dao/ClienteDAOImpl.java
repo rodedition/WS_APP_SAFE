@@ -45,7 +45,7 @@ public class ClienteDAOImpl implements ClienteDAO{
         return session.doReturningWork(new ReturningWork<List<Cliente>>() {
               @Override
               public List<Cliente> execute(Connection connection) throws SQLException {
-                String query = "{CALL CLIENTEPKG.Cliente_Agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL CLIENTEPKG.Cliente_Agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, cliente.getIdcliente());
                 statement.setString(2, cliente.getRazonsocial());
@@ -59,9 +59,10 @@ public class ClienteDAOImpl implements ClienteDAO{
                 statement.setString(10, cliente.getCargocontacto());
                 statement.setString(11, cliente.getObservacionescliente());
                 statement.setLong(12, cliente.getEstadocliente());
-                statement.registerOutParameter(13, OracleTypes.CURSOR);                                
+                statement.setString(13, cliente.getFechacreacion());
+                statement.registerOutParameter(14, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(13);
+                ResultSet rs = (ResultSet) statement.getObject(14);
                 List<Cliente> clients;
                 clients = new ArrayList<Cliente>();
                 while (rs.next()) {
@@ -78,6 +79,7 @@ public class ClienteDAOImpl implements ClienteDAO{
                     cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
                     cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
                     cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
+                    cliente.setFechacreacion(rs.getString("FECHACREACION"));
                     clients.add(cliente);
                 }
                 return clients;
@@ -114,6 +116,7 @@ public class ClienteDAOImpl implements ClienteDAO{
                     cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
                     cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
                     cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
+                    cliente.setFechacreacion(rs.getString("FECHACREACION"));
                     clients.add(cliente);
                 }
                 return clients;
@@ -150,6 +153,7 @@ public class ClienteDAOImpl implements ClienteDAO{
                     cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
                     cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
                     cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
+                    cliente.setFechacreacion(rs.getString("FECHACREACION"));
                     clients.add(cliente);
                 }
                 return clients;
@@ -185,6 +189,7 @@ public class ClienteDAOImpl implements ClienteDAO{
                     cliente.setCargocontacto(rs.getString("CARGO_CONTACTO"));
                     cliente.setObservacionescliente(rs.getString("OBSERVACIONES_CLIENTE"));
                     cliente.setEstadocliente(rs.getLong("ESTADO_CLIENTE"));
+                    cliente.setFechacreacion(rs.getString("FECHACREACION"));
                     clients.add(cliente);
                 }
                 return clients;
@@ -216,6 +221,7 @@ public class ClienteDAOImpl implements ClienteDAO{
                 statement.setString(10, cliente.getObservacionescliente());
                 statement.setLong(11, cliente.getEstadocliente());
                 statement.setLong(12, cliente.getIdcliente());
+                statement.setString(13, cliente.getFechacreacion());
                 statement.executeUpdate();
             }
         });        

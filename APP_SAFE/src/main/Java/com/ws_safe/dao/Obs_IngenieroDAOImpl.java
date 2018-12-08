@@ -44,16 +44,17 @@ public class Obs_IngenieroDAOImpl implements Obs_IngenieroDAO{
         return session.doReturningWork(new ReturningWork<List<Obs_Ingeniero>>() {
               @Override
               public List<Obs_Ingeniero> execute(Connection connection) throws SQLException {
-                String query = "{CALL OBS_INGENIERO_PKG.obs_ingeniero_agregar(?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL OBS_INGENIERO_PKG.obs_ingeniero_agregar(?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, obs_Ingeniero.getIdobsingeniero());
                 statement.setString(2, obs_Ingeniero.getFechahoraobsing());
                 statement.setString(3, obs_Ingeniero.getObsing());
                 statement.setLong(4, obs_Ingeniero.getEvalterridevalterr());
                 statement.setLong(5, obs_Ingeniero.getEstadoObsIng());
-                statement.registerOutParameter(6, OracleTypes.CURSOR);                                
+                statement.setLong(6, obs_Ingeniero.getEvalterridusuario());
+                statement.registerOutParameter(7, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(6);
+                ResultSet rs = (ResultSet) statement.getObject(7);
                 List<Obs_Ingeniero> obs;
                 obs = new ArrayList<Obs_Ingeniero>();
                 while (rs.next()) {
@@ -63,6 +64,7 @@ public class Obs_IngenieroDAOImpl implements Obs_IngenieroDAO{
                     obs_Ingeniero.setObsing(rs.getString("OBS_ING"));
                     obs_Ingeniero.setEvalterridevalterr(rs.getLong("EVAL_TERR_ID_EVAL_TERR"));
                     obs_Ingeniero.setEstadoObsIng(rs.getLong("ESTADO"));
+                    obs_Ingeniero.setEvalterridusuario(rs.getLong("EVAL_TERR_ID_USUARIO"));
                     obs.add(obs_Ingeniero);
                 }
                 return obs;
@@ -91,6 +93,7 @@ public class Obs_IngenieroDAOImpl implements Obs_IngenieroDAO{
                     obs_Ingeniero.setObsing(rs.getString("OBS_ING"));
                     obs_Ingeniero.setEvalterridevalterr(rs.getLong("EVAL_TERR_ID_EVAL_TERR"));
                     obs_Ingeniero.setEstadoObsIng(rs.getLong("ESTADO"));
+                    obs_Ingeniero.setEvalterridusuario(rs.getLong("EVAL_TERR_ID_USUARIO"));
                     obs.add(obs_Ingeniero);
                 }
                 return obs;
@@ -119,6 +122,7 @@ public class Obs_IngenieroDAOImpl implements Obs_IngenieroDAO{
                     obs_Ingeniero.setObsing(rs.getString("OBS_ING"));
                     obs_Ingeniero.setEvalterridevalterr(rs.getLong("EVAL_TERR_ID_EVAL_TERR"));
                     obs_Ingeniero.setEstadoObsIng(rs.getLong("ESTADO"));
+                    obs_Ingeniero.setEvalterridusuario(rs.getLong("EVAL_TERR_ID_USUARIO"));
                     obs.add(obs_Ingeniero);
                 }
                 return obs;
@@ -133,13 +137,14 @@ public class Obs_IngenieroDAOImpl implements Obs_IngenieroDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL OBS_INGENIERO_PKG.obs_ingeniero_modificar(?, ?, ?, ?, ?)}";
+                String query = "{CALL OBS_INGENIERO_PKG.obs_ingeniero_modificar(?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setString(1, obs_Ingeniero.getFechahoraobsing());
                 statement.setString(2, obs_Ingeniero.getObsing());
                 statement.setLong(3, obs_Ingeniero.getEvalterridevalterr());
                 statement.setLong(4, obs_Ingeniero.getEstadoObsIng());
-                statement.setLong(5, obs_Ingeniero.getIdobsingeniero());
+                statement.setLong(5, obs_Ingeniero.getEvalterridusuario());
+                statement.setLong(6, obs_Ingeniero.getIdobsingeniero());
                 statement.executeUpdate();
             }
         });        

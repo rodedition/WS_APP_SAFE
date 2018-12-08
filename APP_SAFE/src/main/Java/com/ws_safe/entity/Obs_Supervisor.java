@@ -32,6 +32,9 @@ public class Obs_Supervisor implements Serializable{
     
     @Column(name="EVAL_TERR_ID_EVAL_TERR")
     private long evalterridevalterr;
+    
+    @Column(name="EVAL_TERR_ID_USUARIO")
+    private long evalterridusuario;
 
     public long getIdobssupervisor() {
         return idobssupervisor;
@@ -73,9 +76,17 @@ public class Obs_Supervisor implements Serializable{
         this.evalterridevalterr = evalterridevalterr;
     }
 
+    public long getEvalterridusuario() {
+        return evalterridusuario;
+    }
+
+    public void setEvalterridusuario(long evalterridusuario) {
+        this.evalterridusuario = evalterridusuario;
+    }
+
     @Override
     public String toString() {
-        return "Obs_Supervisor{" + "idobssupervisor=" + idobssupervisor + ", fechahoraobssupervisor=" + fechahoraobssupervisor + ", obssupervisor=" + obssupervisor + ", estadoObsSupervisor=" + estadoObsSupervisor + ", evalterridevalterr=" + evalterridevalterr + '}';
+        return "Obs_Supervisor{" + "idobssupervisor=" + idobssupervisor + ", fechahoraobssupervisor=" + fechahoraobssupervisor + ", obssupervisor=" + obssupervisor + ", estadoObsSupervisor=" + estadoObsSupervisor + ", evalterridevalterr=" + evalterridevalterr + ", evalterridusuario=" + evalterridusuario + '}';
     }
 
     

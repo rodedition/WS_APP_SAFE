@@ -46,8 +46,8 @@ public class TestList_Trab_Cap {
             
             List_Trab_Cap cap = new List_Trab_Cap();
             cap.setIdlistrabcap(3);
-            cap.setPresente(1);
-            cap.setEstado(1);
+            cap.setPresenteCap(1);
+            cap.setEstadoCap(1);
             cap.setUsuarioidusuario(1);
             cap.setLisasiscapidlistacap(2);
             cap.setCertificadoidcertificado(0);

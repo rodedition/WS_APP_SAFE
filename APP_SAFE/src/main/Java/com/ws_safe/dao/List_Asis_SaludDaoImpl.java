@@ -43,14 +43,15 @@ public class List_Asis_SaludDaoImpl implements List_Asis_SaludDao{
         return session.doReturningWork(new ReturningWork<List<List_Asis_Salud>>() {
               @Override
               public List<List_Asis_Salud> execute(Connection connection) throws SQLException {
-                String query = "{CALL LISTASISSALUD_PKG.listasissalud_agregar(?, ?, ?, ?)}";
+                String query = "{CALL LISTASISSALUD_PKG.listasissalud_agregar(?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, list_Asis_Salud.getIdlistsalud());
                 statement.setLong(2, list_Asis_Salud.getEstadoasistsalud());
                 statement.setLong(3, list_Asis_Salud.getSesionsaludidsesionsalud());
-                statement.registerOutParameter(4, OracleTypes.CURSOR);                                
+                statement.setString(4, list_Asis_Salud.getFechacreacion());
+                statement.registerOutParameter(5, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(4);
+                ResultSet rs = (ResultSet) statement.getObject(5);
                 List<List_Asis_Salud> lists;
                 lists = new ArrayList<List_Asis_Salud>();
                 while (rs.next()) {
@@ -58,6 +59,7 @@ public class List_Asis_SaludDaoImpl implements List_Asis_SaludDao{
                     list_Asis_Salud.setIdlistsalud(rs.getLong("ID_LIST_SALUD"));
                     list_Asis_Salud.setEstadoasistsalud(rs.getLong("ESTADO_ASIST_SALUD"));
                     list_Asis_Salud.setSesionsaludidsesionsalud(rs.getLong("SESION_SALUD_ID_SESION_SALUD"));
+                    list_Asis_Salud.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(list_Asis_Salud);
                 }
                 return lists;
@@ -84,6 +86,7 @@ public class List_Asis_SaludDaoImpl implements List_Asis_SaludDao{
                     list_Asis_Salud.setIdlistsalud(rs.getLong("ID_LIST_SALUD"));
                     list_Asis_Salud.setEstadoasistsalud(rs.getLong("ESTADO_ASIST_SALUD"));
                     list_Asis_Salud.setSesionsaludidsesionsalud(rs.getLong("SESION_SALUD_ID_SESION_SALUD"));
+                    list_Asis_Salud.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(list_Asis_Salud);
                 }
                 return lists;
@@ -110,6 +113,7 @@ public class List_Asis_SaludDaoImpl implements List_Asis_SaludDao{
                     list_Asis_Salud.setIdlistsalud(rs.getLong("ID_LIST_SALUD"));
                     list_Asis_Salud.setEstadoasistsalud(rs.getLong("ESTADO_ASIST_SALUD"));
                     list_Asis_Salud.setSesionsaludidsesionsalud(rs.getLong("SESION_SALUD_ID_SESION_SALUD"));
+                    list_Asis_Salud.setFechacreacion(rs.getString("FECHACREACION"));
                     lists.add(list_Asis_Salud);
                 }
                 return lists;
@@ -124,10 +128,11 @@ public class List_Asis_SaludDaoImpl implements List_Asis_SaludDao{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL LISTASISSALUD_PKG.listasissalud_modificar(?, ?, ?)}";
+                String query = "{CALL LISTASISSALUD_PKG.listasissalud_modificar(?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                
                 statement.setLong(1, list_Asis_Salud.getEstadoasistsalud());
                 statement.setLong(2, list_Asis_Salud.getSesionsaludidsesionsalud());
+                statement.setString(4, list_Asis_Salud.getFechacreacion());
                 statement.setLong(3, list_Asis_Salud.getIdlistsalud());
                 statement.executeUpdate();
             }

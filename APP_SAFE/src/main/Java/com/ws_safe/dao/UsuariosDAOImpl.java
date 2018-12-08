@@ -64,8 +64,10 @@ public class UsuariosDAOImpl implements UsuariosDAO{
                     usuarios.setTelusuario(rs.getString("TEL_USUARIO"));
                     usuarios.setMailusuario(rs.getString("MAIL_USUARIO"));
                     usuarios.setEstadousuario(rs.getLong("ESTADO_USUARIO"));
+                    usuarios.setClaveusuario(rs.getString("CLAVE_USUARIO"));
                     usuarios.setPerfilidperfil(rs.getLong("PERFIL_ID_PERFIL"));
                     usuarios.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    usuarios.setFechacreacion(rs.getString("FECHACREACION"));
                     usus.add(usuarios);
                 }
                 return usus;
@@ -79,7 +81,7 @@ public class UsuariosDAOImpl implements UsuariosDAO{
         return session.doReturningWork(new ReturningWork<List<Usuarios>>() {
               @Override
               public List<Usuarios> execute(Connection connection) throws SQLException {
-                String query = "{CALL USUARIOS_PKG.usuarios_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL USUARIOS_PKG.usuarios_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);
                 statement.setLong(1, usuarios.getIdusuario());
                 statement.setString(2, usuarios.getRunusuario());
@@ -94,9 +96,10 @@ public class UsuariosDAOImpl implements UsuariosDAO{
                 statement.setString(11, usuarios.getClaveusuario());
                 statement.setLong(12, usuarios.getPerfilidperfil());
                 statement.setLong(13, usuarios.getClienteidcliente());
-                statement.registerOutParameter(14, OracleTypes.CURSOR);                                
+                statement.setString(14, usuarios.getFechacreacion());
+                statement.registerOutParameter(15, OracleTypes.CURSOR);                                
                 statement.executeUpdate();   
-                ResultSet rs = (ResultSet) statement.getObject(14);
+                ResultSet rs = (ResultSet) statement.getObject(15);
                 List<Usuarios> usus;
                 usus = new ArrayList<Usuarios>();
                 while (rs.next()) {
@@ -114,6 +117,7 @@ public class UsuariosDAOImpl implements UsuariosDAO{
                     usuarios.setClaveusuario(rs.getString("CLAVE_USUARIO"));
                     usuarios.setPerfilidperfil(rs.getLong("PERFIL_ID_PERFIL"));
                     usuarios.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    usuarios.setFechacreacion(rs.getString("FECHACREACION"));
                     usus.add(usuarios);
                 }
                 return usus;
@@ -150,6 +154,7 @@ public class UsuariosDAOImpl implements UsuariosDAO{
                     usuarios.setClaveusuario(rs.getString("CLAVE_USUARIO"));
                     usuarios.setPerfilidperfil(rs.getLong("PERFIL_ID_PERFIL"));
                     usuarios.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    usuarios.setFechacreacion(rs.getString("FECHACREACION"));
                     usus.add(usuarios);
                 }
                 return usus;
@@ -186,6 +191,7 @@ public class UsuariosDAOImpl implements UsuariosDAO{
                     usuarios.setClaveusuario(rs.getString("CLAVE_USUARIO"));
                     usuarios.setPerfilidperfil(rs.getLong("PERFIL_ID_PERFIL"));
                     usuarios.setClienteidcliente(rs.getLong("CLIENTE_ID_CLIENTE"));
+                    usuarios.setFechacreacion(rs.getString("FECHACREACION"));
                     usus.add(usuarios);
                 }
                 return usus;
@@ -200,7 +206,7 @@ public class UsuariosDAOImpl implements UsuariosDAO{
               session.doWork(new Work() {
               @Override
               public void execute(Connection connection) throws SQLException {
-                String query = "{CALL USUARIOS_PKG.usuarios_modificar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+                String query = "{CALL USUARIOS_PKG.usuarios_modificar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
                 CallableStatement statement = connection.prepareCall(query);                 
                 statement.setString(1, usuarios.getRunusuario());
                 statement.setString(2, usuarios.getNombresusuario());
@@ -214,7 +220,8 @@ public class UsuariosDAOImpl implements UsuariosDAO{
                 statement.setString(10, usuarios.getClaveusuario());
                 statement.setLong(11, usuarios.getPerfilidperfil());
                 statement.setLong(12, usuarios.getClienteidcliente());
-                statement.setLong(13, usuarios.getIdusuario());
+                statement.setString(13, usuarios.getFechacreacion());
+                statement.setLong(14, usuarios.getIdusuario());
                 statement.executeUpdate();
             }
         });        

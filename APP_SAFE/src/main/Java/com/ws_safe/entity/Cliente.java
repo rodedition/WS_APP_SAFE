@@ -49,6 +49,9 @@ public class Cliente implements Serializable{
     
     @Column(name="ESTADO_CLIENTE")
     private long estadocliente;
+    
+    @Column(name="FECHACREACION")
+    private String fechacreacion;
 
     public long getIdcliente() {
         return idcliente;
@@ -146,10 +149,17 @@ public class Cliente implements Serializable{
         this.estadocliente = estadocliente;
     }
 
+    public String getFechacreacion() {
+        return fechacreacion;
+    }
+
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" + "idcliente=" + idcliente + ", razonsocial=" + razonsocial + ", rutcliente=" + rutcliente + ", girocliente=" + girocliente + ", direccioncliente=" + direccioncliente + ", teloficina=" + teloficina + ", nombrecontacto=" + nombrecontacto + ", fonocontacto=" + fonocontacto + ", mailcontacto=" + mailcontacto + ", cargocontacto=" + cargocontacto + ", observacionescliente=" + observacionescliente + ", estadocliente=" + estadocliente + '}';
+        return "Cliente{" + "idcliente=" + idcliente + ", razonsocial=" + razonsocial + ", rutcliente=" + rutcliente + ", girocliente=" + girocliente + ", direccioncliente=" + direccioncliente + ", teloficina=" + teloficina + ", nombrecontacto=" + nombrecontacto + ", fonocontacto=" + fonocontacto + ", mailcontacto=" + mailcontacto + ", cargocontacto=" + cargocontacto + ", observacionescliente=" + observacionescliente + ", estadocliente=" + estadocliente + ", fechacreacion=" + fechacreacion + '}';
     }
     
-        
 }
