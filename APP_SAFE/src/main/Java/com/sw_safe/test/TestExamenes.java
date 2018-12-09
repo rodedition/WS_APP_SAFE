@@ -33,7 +33,7 @@ public class TestExamenes {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetExa = restTemplate.getForObject(endPoint+"/examenes/sw", String.class);
+            String resultGetExa = restTemplate.getForObject(endPoint+"/examenes/getAllExamenes/", String.class);
             Gson gson = new Gson();
             
             Examenes[] data = gson.fromJson(resultGetExa, Examenes[].class);
@@ -57,7 +57,7 @@ public class TestExamenes {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> exaResponse = restTemplate.exchange(endPoint+"/examenes/createExamen", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> exaResponse = restTemplate.exchange(endPoint+"/examenes/createExamenSP", HttpMethod.POST,entity,String.class);
             
             if(exaResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddExa = exaResponse.getBody();

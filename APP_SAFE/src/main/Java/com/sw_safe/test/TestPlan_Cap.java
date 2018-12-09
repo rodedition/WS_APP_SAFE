@@ -35,7 +35,7 @@ public class TestPlan_Cap {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetPla = restTemplate.getForObject(endPoint+"/planCapacitacion/sw", String.class);
+            String resultGetPla = restTemplate.getForObject(endPoint+"/planCapacitacion/getAllPlanCap/", String.class);
             Gson gson = new Gson();
             
             Plan_Cap[] data = gson.fromJson(resultGetPla, Plan_Cap[].class);
@@ -58,7 +58,7 @@ public class TestPlan_Cap {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> plaResponse = restTemplate.exchange(endPoint+"/planCapacitacion/createPlanCapacitacion", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> plaResponse = restTemplate.exchange(endPoint+"/planCapacitacion/createPlanCapSP", HttpMethod.POST,entity,String.class);
             if(plaResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddPla = plaResponse.getBody();
                 logger.info("1 : se agrego plan, 0 : resultado con error = "+ resultadoAddPla);

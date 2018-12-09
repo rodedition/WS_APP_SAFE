@@ -35,7 +35,7 @@ public class TestSesion_Cap {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetSes = restTemplate.getForObject(endPoint+"/sesionCap/sw", String.class);
+            String resultGetSes = restTemplate.getForObject(endPoint+"/sesionCap/getAllSesionCap/", String.class);
             Gson gson = new Gson();
             
             Sesion_Cap[] data = gson.fromJson(resultGetSes, Sesion_Cap[].class);
@@ -52,8 +52,8 @@ public class TestSesion_Cap {
             ses.setNombresesion("Artefactos");
             ses.setCupossesion(20);
             ses.setFechasesion("19-12-2018");
-            ses.setHorainiciocap("19-12-2018");
-            ses.setHoraterminocap("19-12-2018");
+            ses.setHorainiciocap("19-12-2018 10:00:00");
+            ses.setHoraterminocap("19-12-2018 12:00:00");
             ses.setDescripcionsesion("descripcion de artefactos explosivos");
             ses.setEstadosesioncap(1);
             ses.setCapacitacionidcap(1);
@@ -65,7 +65,7 @@ public class TestSesion_Cap {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> sesResponse = restTemplate.exchange(endPoint+"/sesionCap/createSesionCap", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> sesResponse = restTemplate.exchange(endPoint+"/sesionCap/createSesionCapSP", HttpMethod.POST,entity,String.class);
             
             if(sesResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddSes = sesResponse.getBody();

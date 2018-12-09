@@ -36,7 +36,7 @@ public class TestObs_Ingeniero {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetObs = restTemplate.getForObject(endPoint+"/obsIngeniero/sw", String.class);
+            String resultGetObs = restTemplate.getForObject(endPoint+"/obsIngeniero/getAllObsIng/", String.class);
             Gson gson = new Gson();
             
             Obs_Ingeniero[] data = gson.fromJson(resultGetObs, Obs_Ingeniero[].class);
@@ -52,7 +52,8 @@ public class TestObs_Ingeniero {
             obs.setFechahoraobsing("15-08-2018");
             obs.setObsing("Se aprueba visita en terreno");
             obs.setEvalterridevalterr(1);
-            obs.setEstadoObsIng(1);   
+            obs.setEstadoObsIng(1); 
+            obs.setEvalterridusuario(1);
             
             Gson request = new Gson();
             String datarequest = request.toJson(obs);
@@ -60,7 +61,7 @@ public class TestObs_Ingeniero {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> obsResponse = restTemplate.exchange(endPoint+"/obsIngeniero/createObsIngeniero", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> obsResponse = restTemplate.exchange(endPoint+"/obsIngeniero/createObsIngSP", HttpMethod.POST,entity,String.class);
             
             if(obsResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddObs = obsResponse.getBody();

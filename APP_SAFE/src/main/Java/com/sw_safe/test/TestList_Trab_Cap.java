@@ -33,7 +33,7 @@ public class TestList_Trab_Cap {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetLis = restTemplate.getForObject(endPoint+"/listaTrabajadoresCap/sw", String.class);
+            String resultGetLis = restTemplate.getForObject(endPoint+"/listaTrabajadoresCap/getAllListTrabCap/", String.class);
             Gson gson = new Gson();
             
             List_Trab_Cap[] data = gson.fromJson(resultGetLis, List_Trab_Cap[].class);
@@ -51,6 +51,7 @@ public class TestList_Trab_Cap {
             cap.setUsuarioidusuario(1);
             cap.setLisasiscapidlistacap(2);
             cap.setCertificadoidcertificado(0);
+            cap.setFechacreacion("09-12-2018");
             
             Gson request = new Gson();
             String datarequest = request.toJson(cap);
@@ -58,7 +59,7 @@ public class TestList_Trab_Cap {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> lisResponse = restTemplate.exchange(endPoint+"/listaTrabajadoresCap/createListaTrabajadoresCap", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> lisResponse = restTemplate.exchange(endPoint+"/listaTrabajadoresCap/createListTrabCapSP", HttpMethod.POST,entity,String.class);
             
             if(lisResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddLis = lisResponse.getBody();

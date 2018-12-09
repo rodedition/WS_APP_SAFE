@@ -33,7 +33,7 @@ public class TestUsuario {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetUsu = restTemplate.getForObject(endPoint+"/usuarios/sw", String.class);
+            String resultGetUsu = restTemplate.getForObject(endPoint+"/usuarios/getAllUsuarios/", String.class);
             Gson gson = new Gson();
             
             Usuarios[] data = gson.fromJson(resultGetUsu, Usuarios[].class);
@@ -58,6 +58,7 @@ public class TestUsuario {
             usu.setClaveusuario("123");
             usu.setPerfilidperfil(1);
             usu.setClienteidcliente(1);
+            usu.setFechacreacion("09-12-2018");
             
             Gson request = new Gson();
             String datarequest = request.toJson(usu);
@@ -65,7 +66,7 @@ public class TestUsuario {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> usuResponse = restTemplate.exchange(endPoint+"/usuarios/createUsuario", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> usuResponse = restTemplate.exchange(endPoint+"/usuarios/createUsuarioSP", HttpMethod.POST,entity,String.class);
             
             if(usuResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddMed = usuResponse.getBody();

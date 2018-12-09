@@ -33,7 +33,7 @@ public class TestListTrabSalud {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetLis = restTemplate.getForObject(endPoint+"/listaTrabajadoresSalud/sw", String.class);
+            String resultGetLis = restTemplate.getForObject(endPoint+"/listaTrabajadoresSalud/getAllListTrabSalud/", String.class);
             Gson gson = new Gson();
             
             ListTrabSalud[] data = gson.fromJson(resultGetLis, ListTrabSalud[].class);
@@ -51,6 +51,7 @@ public class TestListTrabSalud {
             lis.setUsuarioidusuario(1);
             lis.setLisasissaludidlistasalud(1);
             lis.setCertificadoidcertificado(1);
+            lis.setFechacreacion("09-12-2018");
             
             Gson request = new Gson();
             String datarequest = request.toJson(lis);
@@ -58,7 +59,7 @@ public class TestListTrabSalud {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> lisResponse = restTemplate.exchange(endPoint+"/listaTrabajadoresSalud/createListaTrabajadoresSalud", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> lisResponse = restTemplate.exchange(endPoint+"/listaTrabajadoresSalud/createListTrabSaludSP", HttpMethod.POST,entity,String.class);
             
             if(lisResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddLis = lisResponse.getBody();

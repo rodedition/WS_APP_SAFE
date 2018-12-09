@@ -33,7 +33,7 @@ public class TestCapacitacion {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetCap = restTemplate.getForObject(endPoint+"/capacitacion/sw", String.class);
+            String resultGetCap = restTemplate.getForObject(endPoint+"/capacitacion/getAllCapacitacion/", String.class);
             Gson gson = new Gson();
             
             Capacitacion[] data = gson.fromJson(resultGetCap, Capacitacion[].class);
@@ -57,7 +57,7 @@ public class TestCapacitacion {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> capResponse = restTemplate.exchange(endPoint+"/capacitacion/createCapacitacion", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> capResponse = restTemplate.exchange(endPoint+"/capacitacion/createCapacitacionSP", HttpMethod.POST,entity,String.class);
             
             if(capResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddCap = capResponse.getBody();

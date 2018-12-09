@@ -33,7 +33,7 @@ public class TestMedico {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetMed = restTemplate.getForObject(endPoint+"/medico/sw", String.class);
+            String resultGetMed = restTemplate.getForObject(endPoint+"/medico/getAllMedico/", String.class);
             Gson gson = new Gson();
             
             Medico[] data = gson.fromJson(resultGetMed, Medico[].class);
@@ -52,6 +52,7 @@ public class TestMedico {
             med.setMailmedico("a@a.cl");
             med.setTelmedico("995698741");
             med.setEstadomedico(1);
+            med.setFechacreacion("09-12-2018");
             
             Gson request = new Gson();
             String datarequest = request.toJson(med);
@@ -59,7 +60,7 @@ public class TestMedico {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> medResponse = restTemplate.exchange(endPoint+"/medico/createMedico", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> medResponse = restTemplate.exchange(endPoint+"/medico/createMedicoSP", HttpMethod.POST,entity,String.class);
             
             if(medResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddMed = medResponse.getBody();

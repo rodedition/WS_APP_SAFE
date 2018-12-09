@@ -33,7 +33,7 @@ public class TestCertificado {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetCer = restTemplate.getForObject(endPoint+"/certificado/sw", String.class);
+            String resultGetCer = restTemplate.getForObject(endPoint+"/certificado/getAllCertificado/", String.class);
             Gson gson = new Gson();
             
             Certificado[] data = gson.fromJson(resultGetCer, Certificado[].class);
@@ -48,7 +48,8 @@ public class TestCertificado {
             cer.setIdcertificado(10);
             cer.setTipocertificado("Capacitación");
             cer.setCodcertificado("123asd");
-            cer.setEstadocert(1);    
+            cer.setEstadocert(1);  
+            cer.setFechacreacion("09-12-2018");
             
             Gson request = new Gson();
             String datarequest = request.toJson(cer);
@@ -56,7 +57,7 @@ public class TestCertificado {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> cerResponse = restTemplate.exchange(endPoint+"/certificado/createCertificado", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> cerResponse = restTemplate.exchange(endPoint+"/certificado/createCertificadoSP", HttpMethod.POST,entity,String.class);
             
             if(cerResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddCer = cerResponse.getBody();

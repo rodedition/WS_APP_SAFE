@@ -33,7 +33,7 @@ public class TestExpositor {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetExp = restTemplate.getForObject(endPoint+"/expositor/sw", String.class);
+            String resultGetExp = restTemplate.getForObject(endPoint+"/expositor/getAllExpositor/", String.class);
             Gson gson = new Gson();
             
             Expositor[] data = gson.fromJson(resultGetExp, Expositor[].class);
@@ -51,6 +51,7 @@ public class TestExpositor {
             exp.setTelexpositor("+569 58476321");
             exp.setMailexpositor("a@a.cl");
             exp.setEstadoexpositor(1);
+            exp.setFechacreacion("09-12-2018");
             
             Gson request = new Gson();
             String datarequest = request.toJson(exp);
@@ -58,7 +59,7 @@ public class TestExpositor {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> expResponse = restTemplate.exchange(endPoint+"/expositor/createExpositor", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> expResponse = restTemplate.exchange(endPoint+"/expositor/createExpositorSP", HttpMethod.POST,entity,String.class);
             
             if(expResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddExp = expResponse.getBody();

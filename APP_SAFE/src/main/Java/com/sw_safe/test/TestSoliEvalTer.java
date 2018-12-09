@@ -35,7 +35,7 @@ public class TestSoliEvalTer {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetSol = restTemplate.getForObject(endPoint+"/SolicitudEvalTerreno/sw", String.class);
+            String resultGetSol = restTemplate.getForObject(endPoint+"/SolicitudEvalTerreno/getAllSoliEvalTer/", String.class);
             Gson gson = new Gson();
             
             SoliEvalTer[] data = gson.fromJson(resultGetSol, SoliEvalTer[].class);
@@ -61,7 +61,7 @@ public class TestSoliEvalTer {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> solResponse = restTemplate.exchange(endPoint+"/SolicitudEvalTerreno/createSoliEvalTer", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> solResponse = restTemplate.exchange(endPoint+"/SolicitudEvalTerreno/createSoliEvalTerSP", HttpMethod.POST,entity,String.class);
             
             if(solResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddSol = solResponse.getBody();

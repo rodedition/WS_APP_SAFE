@@ -35,7 +35,7 @@ public class TestObs_Supervisor {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetObs = restTemplate.getForObject(endPoint+"/obsSupervisor/sw", String.class);
+            String resultGetObs = restTemplate.getForObject(endPoint+"/obsSupervisor/getAllObsSup/", String.class);
             Gson gson = new Gson();
             
             Obs_Supervisor[] data = gson.fromJson(resultGetObs, Obs_Supervisor[].class);
@@ -52,6 +52,7 @@ public class TestObs_Supervisor {
             obs.setObssupervisor("Se aprueba visita en terreno");
             obs.setEstadoObsSupervisor(1);
             obs.setEvalterridevalterr(1);
+            obs.setEvalterridusuario(1);
             
             Gson request = new Gson();
             String datarequest = request.toJson(obs);
@@ -59,7 +60,7 @@ public class TestObs_Supervisor {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> obsResponse = restTemplate.exchange(endPoint+"/obsSupervisor/createObsSupervisor", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> obsResponse = restTemplate.exchange(endPoint+"/obsSupervisor/createObsSupSP", HttpMethod.POST,entity,String.class);
             
             if(obsResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddObs = obsResponse.getBody();

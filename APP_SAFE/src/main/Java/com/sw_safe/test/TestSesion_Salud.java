@@ -35,7 +35,7 @@ public class TestSesion_Salud {
             
             final String endPoint = "http://localhost:7101/app_safe";
             RestTemplate restTemplate = new RestTemplate();
-            String resultGetSes = restTemplate.getForObject(endPoint+"/sesionSalud/sw", String.class);
+            String resultGetSes = restTemplate.getForObject(endPoint+"/sesionSalud/getAllSesionSalud/", String.class);
             Gson gson = new Gson();
             
             Sesion_Salud[] data = gson.fromJson(resultGetSes, Sesion_Salud[].class);
@@ -52,8 +52,8 @@ public class TestSesion_Salud {
             ses.setNombresesionsalud("Vías respiratorias");
             ses.setCupossesion(15);
             ses.setFechasesion("13-12-2018");
-            ses.setHorainiciosalud("13-12-2018");
-            ses.setHoraterminosalud("13-12-2018");
+            ses.setHorainiciosalud("13-12-2018 09:00:00");
+            ses.setHoraterminosalud("13-12-2018 11:00:00");
             ses.setDescripcionsesionsalud("Vías circulatorias de los humanos");
             ses.setMedicoidmedico(1);
             ses.setExamenesidexamenes(1);
@@ -65,7 +65,7 @@ public class TestSesion_Salud {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(datarequest.toString(), headers);
-            ResponseEntity<String> sesResponse = restTemplate.exchange(endPoint+"/sesionSalud/createSesionSalud", HttpMethod.POST,entity,String.class);
+            ResponseEntity<String> sesResponse = restTemplate.exchange(endPoint+"/sesionSalud/createSesionSaludSP", HttpMethod.POST,entity,String.class);
             
             if(sesResponse.getStatusCode()==HttpStatus.OK){
                 String resultadoAddSes = sesResponse.getBody();
